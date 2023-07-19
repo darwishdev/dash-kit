@@ -1,9 +1,14 @@
 
 import type { App } from "vue"
-import AppLogo from '@/components/AppLogo.vue'
+import * as components from "./components"
 
+import PrimeVue from 'primevue/config'
 export default {
     install: (app: App) => {
-        app.component("AppLogo", AppLogo)
+        app.use(PrimeVue)
+
+        Object.keys(components).forEach((key: string) => {
+            app.component(key, components[key as keyof typeof components])
+        });
     }
 }
