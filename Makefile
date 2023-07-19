@@ -9,3 +9,6 @@ run:
 
 build:
 	rm -rf dist && npm run build
+
+svgo:
+	svgo ./src/assets/*.svg

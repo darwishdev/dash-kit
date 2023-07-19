@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import Logo from '@/assets/logo.svg'
+</script>
 <template>
-    <h2>logo</h2>
+    <router-link to="/" class="flex align-items-center logo-container">
+        <logo />
+        Logo
+    </router-link>
 </template>

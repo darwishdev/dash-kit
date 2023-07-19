@@ -23,6 +23,7 @@ export default defineConfig({
     },
     rollupOptions: {
       external: [
+        "happy-dom",
         "vue",
         "@bufbuild/connect-web",
         "@formkit/icons",

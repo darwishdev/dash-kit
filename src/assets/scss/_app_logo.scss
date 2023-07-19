@@ -1,0 +1,15 @@
+.logo-container {
+  cursor: pointer;
+  & svg {
+    & path {
+      transition: var(--transition);
+    }
+  }
+  &:hover {
+    & svg {
+      & path {
+        fill: var(--color-primary);
+      }
+    }
+  }
+}
