@@ -1,7 +1,8 @@
 
+
 <template>
   <div>
-    init
+    resturant
     <app-logo />
   </div>
 </template>

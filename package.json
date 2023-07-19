@@ -1,20 +1,58 @@
 {
   "name": "dash-kit",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
+  "module": "dist/DashKit.js",
+  "types": "dist/DashKit.d.ts",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "dashboard",
+    "vue",
+    "vite",
+    "formkit",
+    "primevue",
+    "npm",
+    "npm-package"
+  ],
+  "bugs": {
+    "url": "https://github.com/darwishdev/dash-kit/issues"
+  },
+  "homepage": "https://dashkit.exploremelon.com",
+  "author": "Darwishdev",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/darwishdev/dash-kit"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.3.4"
+    "@bufbuild/connect-web": "^0.10.0",
+    "@formkit/icons": "latest",
+    "@formkit/pro": "latest",
+    "@formkit/vue": "latest",
+    "@intlify/unplugin-vue-i18n": "^0.11.0",
+    "file-saver": "^2.0.5",
+    "formkit-builder": "^0.4.4",
+    "primeicons": "^6.0.1",
+    "primevue": "^3.29.2",
+    "vue": "^3.3.4",
+    "vue-i18n": "^9.2.2",
+    "vue-router": "^4.2.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.0",
+    "vite-plugin-dts": "^3.2.0",
+    "vite-svg-loader": "^4.0.0",
     "vue-tsc": "^1.8.3"
   }
 }
