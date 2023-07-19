@@ -16,10 +16,12 @@ export default defineConfig({
   build: {
     cssCodeSplit: false,
     lib: {
-      entry: ["./src/DashKit.ts"],
+      entry: ["./src/DashKit.ts", "./src/assets/scss/app.scss"],
       formats: ["es"],
       name: "FormkitBuilder",
-      fileName: "DashKit.js"
+      fileName: (_, entry) => {
+        return `${entry}.js`
+      }
     },
     rollupOptions: {
       external: [

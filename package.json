@@ -8,6 +8,10 @@
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": "./dist/DashKit.js",
+    "./style": "./dist/style.css"
+  },
   "keywords": [
     "dashboard",
     "vue",
