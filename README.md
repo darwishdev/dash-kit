@@ -1,7 +1,3 @@
-Certainly! Here's an example of a README file for your project:
-
----
-
 # Dash Kit
 
 [![npm version](https://img.shields.io/npm/v/dash-kit.svg)](https://www.npmjs.com/package/dash-kit)

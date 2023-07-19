@@ -44,6 +44,8 @@ export default defineConfig({
       output: {
         globals: {
           vue: 'Vue',
+          primevue: 'primevue',
+
         },
       },
     },

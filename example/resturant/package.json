@@ -9,7 +9,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.3.4"
+    "@formkit/icons": "latest",
+    "@formkit/pro": "latest",
+    "@formkit/vue": "latest",
+    "@intlify/unplugin-vue-i18n": "^0.11.0",
+    "file-saver": "^2.0.5",
+    "formkit-builder": "^0.4.4",
+    "happy-dom": "^6.0.4",
+    "primeicons": "^6.0.1",
+    "primevue": "^3.29.2",
+    "vue": "^3.3.4",
+    "vue-i18n": "^9.2.2",
+    "vue-router": "^4.2.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",

@@ -1,5 +1,6 @@
 <template>
     <h2>
-        dashboard
+        Dashboards
     </h2>
+    <app-menu />
 </template>

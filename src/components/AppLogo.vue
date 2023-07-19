@@ -4,6 +4,5 @@ import Logo from '@/assets/logo.svg'
 <template>
     <router-link to="/" class="flex align-items-center logo-container">
         <logo />
-        Logo
     </router-link>
 </template>

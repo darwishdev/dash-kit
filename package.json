@@ -37,8 +37,7 @@
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
-  "dependencies": {
-    "@bufbuild/connect-web": "^0.10.0",
+  "peerDependencies": {
     "@formkit/icons": "latest",
     "@formkit/pro": "latest",
     "@formkit/vue": "latest",
