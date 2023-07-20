@@ -1,3 +1,19 @@
 .p-breadcrumb-list .p-menuitem-link.router-link-active {
   background-color: transparent !important;
 }
+
+.p-sidebar {
+  background: var(--color-background) !important;
+  border: none;
+  width: 17rem;
+  border-start-end-radius: 30px;
+  border-end-end-radius: 30px;
+  & .p-sidebar-header {
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 0.75rem 1.25rem !important;
+    & button {
+      display: none;
+    }
+  }
+}
