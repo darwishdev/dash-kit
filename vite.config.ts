@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 import vue from '@vitejs/plugin-vue'
+import { resolve, dirname } from 'node:path'
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import svgLoader from 'vite-svg-loader'
 import dts from 'vite-plugin-dts';
 // https://vitejs.dev/config/
@@ -45,6 +47,7 @@ export default defineConfig({
         globals: {
           vue: 'Vue',
           primevue: 'primevue',
+          i18n: 'i18n',
 
         },
       },

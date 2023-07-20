@@ -1,6 +1,5 @@
 <template>
     <h2>
-        Dashboards
+        {{ $t('dashboard') }}
     </h2>
-    <app-menu />
 </template>
