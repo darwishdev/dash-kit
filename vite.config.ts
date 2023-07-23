@@ -1,14 +1,12 @@
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 import vue from '@vitejs/plugin-vue'
-import { resolve, dirname } from 'node:path'
-import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import svgLoader from 'vite-svg-loader'
 import dts from 'vite-plugin-dts';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), svgLoader(),
-  dts({ include: ["src/DashKit.ts"] }),
+  dts({ include: ["src/DashKit.ts", "src/components/base.ts", "src/views/views.ts", "src/views/LoginView.vue", "src/views/ProfileView.vue", "src/forms/forms.ts", "src/types/types.ts"] }),
   ],
   resolve: {
     alias: {
@@ -18,10 +16,20 @@ export default defineConfig({
   build: {
     cssCodeSplit: false,
     lib: {
-      entry: ["./src/DashKit.ts", "./src/assets/scss/app.scss"],
+      entry: ["./src/DashKit.ts", "src/components/base.ts", "src/views/views.ts", "src/forms/forms.ts", "./src/assets/scss/app.scss"],
       formats: ["es"],
-      name: "FormkitBuilder",
+      name: "DashKit",
       fileName: (_, entry) => {
+        console.log(entry)
+        if (entry == 'base') {
+          return `components/base.js`
+        }
+        if (entry == 'froms') {
+          return `froms/froms.js`
+        }
+        if (entry == 'views') {
+          return `views/views.js`
+        }
         return `${entry}.js`
       }
     },

@@ -3,10 +3,9 @@ import App from '@/App.vue'
 import DashKit from '@/DashKit'
 import '@/assets/scss/app.scss'
 import router from './router'
-
-import formKitConfig from './formkit.config'
+import dashkitConfig from './dashkit.config'
 
 const app = createApp(App)
-app.use(DashKit, { formKitConfig })
+app.use(DashKit, dashkitConfig)
     .use(router)
 app.mount('#app')

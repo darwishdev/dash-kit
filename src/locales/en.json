@@ -1,5 +1,13 @@
 {
     "dashboard": "dashboard",
+    "pass_loginApiCall": "please provice loginApiCall to be able to use login functionality from dash-kit",
     "logout": "logout",
+    "user_name_invalid": "username is not found",
+    "submit": "Submit",
+    "copyrighs": "All copyrighs reserved to Melon",
+    "userNameLabel": "Username",
+    "userNamePlaceholder": "Enter your email or phone",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter you password",
     "profile": "profile"
 }

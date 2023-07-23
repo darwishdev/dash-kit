@@ -5,7 +5,9 @@
   --menu-width-opened: 19rem;
   --menu-width-closed: 6.571em;
   --menu-border-color: rgba(22, 22, 22, 0.85);
-  --effect-image: url("@/assets/effect-ondark.png");
+  --effect-image: url("@/assets/effect.png");
+  --login-image: url("@/assets/login-bg.webp");
+
   --color-input-border: 1px solid transparent;
   --color-input: rgba(255, 255, 255, 0.05);
   --color-card: rgba(255, 255, 255, 0.05);
@@ -16,4 +18,8 @@
   --color-white: #fff;
   --color-text: #868c9b;
   --color-deleted: #8b8a8b;
+  --color-dialog: #252636;
+  --color-success: #0c7040;
+  --color-warning: #fc8621;
+  --color-error: #c72c41;
 }

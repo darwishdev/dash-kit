@@ -10,11 +10,14 @@ import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import Toast from 'primevue/toast';
 import DynamicDialog from 'primevue/dynamicdialog';
+// import {} from "@/components"
+import { AppMenu } from "@/components/base"
 
 // import i18n from '@/plugins/i18n'
 export default defineComponent({
     components: {
         Sidebar,
+        AppMenu,
         AppNav,
         Menu,
         Toolbar,

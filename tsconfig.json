@@ -4,6 +4,7 @@
     "useDefineForClassFields": true,
     "module": "ESNext",
     "noImplicitAny": false,
+    "allowJs": true,
     "lib": [
       "ES2020",
       "DOM",

@@ -1,6 +1,7 @@
+// @ts-ignore
 import type {
     FileUploadRequest, FileUploadResponse, FileRemoveRequest, PermissionsListResponse
-} from '@/types'
+} from '@/types/types'
 import permissions from '@/api/permissions'
 
 import type {
@@ -29,42 +30,20 @@ export const userCreateResponse: UserCreateResponse = {
 };
 
 
-
-const loginRequest: LoginRequest = {
-    userName: 'ahmed@mln.com',
-    userPassword: '12345678',
-}
 const loginResponse: LoginResponse = {
     user: {
         userName: 'ahmeddarwish',
         userPhone: '01022052546',
         userEmail: 'ahmed@mln.com',
     },
-    userPermissions: [
-        'dashboardView',
-    ],
-    tokens: {
+    userPermissions: "e0Rhc2hib2FyZFZpZXcsTWVudUZpbmQsT3JkZXJDcmVhdGUsUm9sZUNyZWF0ZSxSb2xlRGVsZXRlUmVzdG9yZSxSb2xlRmluZCxSb2xlc0xpc3QsUm9sZVVwZGF0ZSxVc2VyQ3JlYXRlLFVzZXJEZWxldGVSZXN0b3JlLFVzZXJGaW5kLFVzZXJSb2xlc1Blcm1pc3Npb25zVXBkYXRlLFVzZXJzTGlzdCxVc2VyVXBkYXRlfQ==",
+    loginInfo: {
         access_token: "asdkjfyhkjdfgakfgsakfgasjkghasdfkjg",
         refresh_token: "asdl'asiedyrf9pw8e6r8q7we6q5876we547",
     },
-    sideBar: {
-        items: [
-            { key: '0', label: 'Dashboard', icon: 'pi pi-fw pi-chart-bar', to: { name: 'dashboard_view' } },
-            {
-                key: '0',
-                label: 'users',
-                icon: 'pi pi-fw pi-user',
-                items: [
-                    {
-                        key: '0_0',
-                        label: 'Roles List',
-                        icon: 'pi pi-fw pi-list',
-                        to: { name: 'roles_list' }
-                    },
-                ]
-            },
-        ]
-    }
+
+    sideBar: "W3sia2V5IjoiMCIsImxhYmVsIjoiZGFzaGJvYXJkIiwiaWNvbiI6eyJTdHJpbmciOiJwaSBwaS1mdyBwaS1jaGFydC1iYXIiLCJWYWxpZCI6dHJ1ZX0sInRvIjp7IlN0cmluZyI6ImRhc2hib2FyZF92aWV3IiwiVmFsaWQiOnRydWV9LCJpdGVtcyI6Int9In0seyJrZXkiOiIxIiwibGFiZWwiOiJ1c2VycyIsImljb24iOnsiU3RyaW5nIjoicGkgcGktZncgcGktdXNlciIsIlZhbGlkIjp0cnVlfSwidG8iOnsiU3RyaW5nIjoiIiwiVmFsaWQiOmZhbHNlfSwiaXRlbXMiOiJbe1widG9cIjogXCJyb2xlc19saXN0XCIsIFwia2V5XCI6IFwiMV8wXCIsIFwiaWNvblwiOiBcInBpIHBpLWZ3IHBpLWxpc3RcIiwgXCJsYWJlbFwiOiBcInJvbGVzX2xpc3RcIn0sIHtcInRvXCI6IFwidXNlcnNfbGlzdFwiLCBcImtleVwiOiBcIjFfMVwiLCBcImljb25cIjogXCJwaSBwaS1mdyBwaS1saXN0XCIsIFwibGFiZWxcIjogXCJ1c2Vyc19saXN0XCJ9XSJ9XQ=="
+
 }
 export const userUpdateRequest: UserUpdateRequest = {
     userId: 1,
@@ -202,52 +181,53 @@ export const fileUploadResponse: FileUploadResponse = {
 }
 
 const apiClient: ApiClient = {
-    fileUpload: async (req: FileUploadRequest): Promise<FileUploadResponse> => {
+    fileUpload: async (_req: FileUploadRequest): Promise<FileUploadResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         return fileUploadResponse;
     },
-    fileRemove: async (req: FileRemoveRequest): Promise<FileUploadResponse> => {
+    fileRemove: async (_req: FileRemoveRequest): Promise<FileUploadResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         return {} as FileUploadResponse
     },
-    login: async (req: LoginRequest): Promise<LoginResponse> => {
+    login: async (_req: LoginRequest): Promise<LoginResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
+
         return loginResponse;
     },
     permissionsList: async (): Promise<PermissionsListResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         return permissions;
     },
-    userCreate: async (req: UserCreateRequest): Promise<UserCreateResponse> => {
+    userCreate: async (_req: UserCreateRequest): Promise<UserCreateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         return userCreateResponse;
     },
-    userCreateWithErr: async (req: UserCreateRequest): Promise<UserCreateResponse> => {
+    userCreateWithErr: async (_req: UserCreateRequest): Promise<UserCreateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         throw new Error("already_exists unique_constraint_users_user_name_key")
     },
-    userCreateWithGlobalErr: async (req: UserCreateRequest): Promise<UserCreateResponse> => {
+    userCreateWithGlobalErr: async (_req: UserCreateRequest): Promise<UserCreateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         throw new Error("internal internalServerError")
     },
-    userUpdate: async (req: UserUpdateRequest): Promise<UserUpdateResponse> => {
+    userUpdate: async (_req: UserUpdateRequest): Promise<UserUpdateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         return userUpdateResponse;
     },
-    userUpdateWithErr: async (req: UserUpdateRequest): Promise<UserUpdateResponse> => {
+    userUpdateWithErr: async (_req: UserUpdateRequest): Promise<UserUpdateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         throw new Error("already_exists unique_constraint_users_user_name_key")
     },
-    userUpdateWithGlobalErr: async (req: UserUpdateRequest): Promise<UserUpdateResponse> => {
+    userUpdateWithGlobalErr: async (_req: UserUpdateRequest): Promise<UserUpdateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         throw new Error("internal internalServerError")
     },
 
-    userFind: async (req: UserFindRequest): Promise<UserFindResponse> => {
+    userFind: async (_req: UserFindRequest): Promise<UserFindResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         return userFindResponse;
     },
-    userFindWithErr: async (req: UserFindRequest): Promise<UserFindResponse> => {
+    userFindWithErr: async (_req: UserFindRequest): Promise<UserFindResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         throw new Error("error finding the user")
     },
@@ -260,45 +240,44 @@ const apiClient: ApiClient = {
 
         throw new Error('Failed to fetch roles list');
     },
-    roleDeleteRestore: async (req: RoleDeleteRestoreRequest): Promise<void> => {
-        console.log(`${req.roleId} deleted`)
+    roleDeleteRestore: async (_req: RoleDeleteRestoreRequest): Promise<void> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
     },
-    roleCreate: async (req: RoleCreateRequest): Promise<RoleCreateResponse> => {
+    roleCreate: async (_req: RoleCreateRequest): Promise<RoleCreateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         return roleCreateResponse;
     },
-    roleBulkCreate: async (req: RoleBulkCreateRequest): Promise<RoleBulkCreateResponse> => {
+    roleBulkCreate: async (_req: RoleBulkCreateRequest): Promise<RoleBulkCreateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 3000));
         return roleBulkCreateResponse;
     },
 
-    roleCreateWithErr: async (req: RoleCreateRequest): Promise<RoleCreateResponse> => {
+    roleCreateWithErr: async (_req: RoleCreateRequest): Promise<RoleCreateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         throw new Error("already_exists unique_constraint_roles_role_name_key")
     },
-    roleCreateWithGlobalErr: async (req: RoleCreateRequest): Promise<RoleCreateResponse> => {
+    roleCreateWithGlobalErr: async (_req: RoleCreateRequest): Promise<RoleCreateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         throw new Error("internal internalServerError")
     },
-    roleUpdate: async (req: RoleUpdateRequest): Promise<RoleUpdateResponse> => {
+    roleUpdate: async (_req: RoleUpdateRequest): Promise<RoleUpdateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         return roleUpdateResponse;
     },
-    roleUpdateWithErr: async (req: RoleUpdateRequest): Promise<RoleUpdateResponse> => {
+    roleUpdateWithErr: async (_req: RoleUpdateRequest): Promise<RoleUpdateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         throw new Error("already_exists unique_constraint_roles_role_name_key")
     },
-    roleUpdateWithGlobalErr: async (req: RoleUpdateRequest): Promise<RoleUpdateResponse> => {
+    roleUpdateWithGlobalErr: async (_req: RoleUpdateRequest): Promise<RoleUpdateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         throw new Error("internal internalServerError")
     },
-    roleFind: async (req: RoleFindRequest): Promise<RoleFindResponse> => {
+    roleFind: async (_req: RoleFindRequest): Promise<RoleFindResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         return roleFindResponse;
     },
-    roleFindWithErr: async (req: RoleFindRequest): Promise<RoleFindResponse> => {
+    roleFindWithErr: async (_req: RoleFindRequest): Promise<RoleFindResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         throw new Error("error finding the role")
     }

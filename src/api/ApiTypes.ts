@@ -1,6 +1,6 @@
 import type {
     FileUploadRequest, FileUploadResponse, FileRemoveRequest, FileRemoveRespone
-} from '@/types'
+} from '@/types/types'
 export interface Permission {
     permission_id: number
     permission_name: string
@@ -51,14 +51,12 @@ export interface LoginResponse {
         userPhone: string
         userEmail: string
     },
-    userPermissions: string[]
-    tokens: {
+    loginInfo: {
         access_token: string
         refresh_token: string
     },
-    sideBar: {
-        items: any[]
-    }
+    permissions: string
+    sideBar: string
 }
 
 export interface UserUpdateRequest {

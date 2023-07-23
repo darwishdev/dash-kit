@@ -8,7 +8,7 @@ import PrimeVue from 'primevue/config'
 import { plugin, defaultConfig } from '@formkit/vue'
 import getWrappedConfig, { getDefaultConfig } from '@/formkit.custom.config'
 import ToastService from 'primevue/toastservice';
-import { DashKitConfig } from "./types"
+import { DashKitConfig } from "./types/types"
 import type { DefaultConfigOptions } from '@formkit/vue'
 
 export default {
@@ -26,6 +26,11 @@ export default {
             .use(ToastService)
             .use(plugin, defaultConfig(formKitConfig))
         FormFactory.InitTranslation(i18n)
+
+
+        if (config.loginApiCall) {
+            app.provide('loginApiCall', config.loginApiCall)
+        }
         app.provide('i18n', i18n)
         Object.keys(components).forEach((key: string) => {
             app.component(key, components[key as keyof typeof components])

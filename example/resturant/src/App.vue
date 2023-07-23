@@ -1,9 +1,11 @@
 
+<script setup  lang="ts">
+// import { AppLogo } from 'dash-kit/base'
+
+</script>
 
 <template>
   <div>
-    <h2>resturant</h2>
-    <app-logo />
-    <app-menu />
+    <router-view />
   </div>
 </template>

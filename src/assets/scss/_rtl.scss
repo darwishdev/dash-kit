@@ -3,7 +3,13 @@ body.rtl {
   --font-family: "Cairo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-
+  .layout-wrapper {
+    background-position-x: 0;
+  }
+  & .login-wrapper footer {
+    left: auto;
+    right: 750px;
+  }
   & aside.desktop-menu {
     left: auto !important;
     right: 0 !important;

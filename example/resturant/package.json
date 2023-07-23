@@ -5,10 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "update": "npm update @buf/ahmeddarwish_mln-api.bufbuild_connect-es",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@buf/ahmeddarwish_mln-api.bufbuild_connect-es": "^0.9.1-20230614130044-6bc315fba26d.1",
+    "@bufbuild/connect-web": "^0.10.0",
     "@formkit/icons": "latest",
     "@formkit/pro": "latest",
     "@formkit/vue": "latest",

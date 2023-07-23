@@ -1,3 +1,4 @@
+import { LoginRequest, LoginResponse } from '@/api/ApiTypes';
 import { FormKitSchemaNode } from '@formkit/core'
 import type { ErrorMessages } from "@formkit/core";
 import type { DefaultConfigOptions } from '@formkit/vue'
@@ -6,6 +7,7 @@ import type { DefaultConfigOptions } from '@formkit/vue'
 export interface DashKitConfig {
     formKitConfig?: DefaultConfigOptions
     uploadHandler?: UploadHandler
+    loginApiCall?: (req: LoginRequest) => Promise<LoginResponse>
 }
 export interface ToastHandler {
     hideToast?: boolean;

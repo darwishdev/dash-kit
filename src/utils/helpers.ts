@@ -1,4 +1,4 @@
-import type { ErrorHandler, ToastHandler } from "@/types"
+import type { ErrorHandler, ToastHandler } from "@/types/types"
 import type { FormKitNode } from "@formkit/core"
 import { ToastServiceMethods } from 'primevue/toastservice'
 export const handleSuccessToast = (handler: ToastHandler | undefined, toast: ToastServiceMethods, t: Function, title: string): void => {
@@ -15,14 +15,44 @@ export const handleSuccessToast = (handler: ToastHandler | undefined, toast: Toa
 
 
 
-export const handleError = (error: any, node: FormKitNode, toast: ToastServiceMethods, errorHandler: ErrorHandler, t: Function): void => {
-    const messages = error.message.split
-    const message: string = messages.length == 2 ? messages[1] : error.message
-    if (message == 'internalServerError') {
-        toast.add({ severity: 'error', summary: t('internalServerErrorTitle'), detail: t('internalServerErrorMessage'), life: 3000 });
-    } else {
-        node.setErrors(errorHandler.globalErrors, errorHandler.fielErrors)
+export const handleError = (error: any, _node: FormKitNode, _toast: ToastServiceMethods, _errorHandler: ErrorHandler, _t: Function): void => {
+    if (error == null) {
+        return
     }
+    // let parsedError: any = null
+    // console.log(toast)
+
+    // try {
+    //     parsedError = JSON.parse(error.message)
+    // } catch (err) {
+    //     if (!errorHandler.globalErrors && !errorHandler.fielErrors) {
+    //         parsedError = { globalErrors: "failed" }
+    //         node.setErrors(t(parsedError.globalErrors!))
+    //         return
+    //     }
+    //     if (errorHandler.globalErrors) {
+    //         const globalErrors = errorHandler.globalErrors as Record<string, string | string[]>
+    //         const messages = error.message.split(' ')
+    //         const message: string = messages.length == 2 ? messages[1] : error.message
+    //         console.log("message", globalErrors[message])
+
+    //         if (globalErrors[message]) {
+    //             parsedError = { globalErrors: globalErrors[message] }
+    //         }
+    //         node.setErrors(t(parsedError.globalErrors!))
+    //         return
+
+    //     }
+
+    // }
+
+    // const messages = error.message.split
+    // const message: string = messages.length == 2 ? messages[1] : error.message
+    // if (message == 'internalServerError') {
+    //     toast.add({ severity: 'error', summary: t('internalServerErrorTitle'), detail: t('internalServerErrorMessage'), life: 3000 });
+    // } else {
+    //     node.setErrors(t(parsedError.globalErrors!), parsedError.fielErrors)
+    // }
 }
 
 

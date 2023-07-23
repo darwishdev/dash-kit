@@ -8,18 +8,21 @@ import { useRouter } from 'vue-router'
 import type { MenuItem } from 'primevue/menuitem'
 import type { Ref } from 'vue'
 import { useI18n } from 'vue-i18n';
+// import { AppLogo } from "@/components"
+import { AppMenu } from "@/components/base"
 
 // import i18n from '@/plugins/i18n'
 export default defineComponent({
     components: {
         Menu,
+        AppMenu,
         Toolbar,
         Avatar,
         Breadcrumb
     },
     beforeCreate() {
         if (localStorage.getItem('isRtl') == 'true') {
-            this.toggleRtl()
+            this.isRtl = true
         }
     },
     setup(_, { emit }) {
@@ -28,7 +31,6 @@ export default defineComponent({
         const breadCrumbs: Ref<MenuItem[]> = currentRoute.value.meta.breadCrumbs as Ref<MenuItem[]>
         const isRtl = ref(false)
         const profileMenu = ref();
-        const isSideBarVisible = ref(false)
 
         const breadCrumbHome = {
             icon: 'pi pi-home',
@@ -51,7 +53,7 @@ export default defineComponent({
             localStorage.removeItem('permissions')
             push({ name: 'login' })
         }
-        return { breadCrumbs, breadCrumbHome, logout, toggleRtl, toggleProfileMenu, currentRoute, isSideBarVisible, isRtl, toggleMobileSidebar, profileMenu }
+        return { breadCrumbs, breadCrumbHome, logout, toggleRtl, toggleProfileMenu, currentRoute, isRtl, toggleMobileSidebar, profileMenu }
     },
 
 })

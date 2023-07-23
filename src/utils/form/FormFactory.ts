@@ -1,4 +1,4 @@
-import { FormOptions, FormSeciton } from '@/types';
+import { FormOptions, FormSeciton } from '@/types/types';
 import { FormKitSchemaNode } from '@formkit/core'
 import type { I18n } from 'vue-i18n/dist/vue-i18n.js';
 
@@ -15,7 +15,7 @@ export class FormFactory {
     t = null as any
     SubmitBtn = {
         $formkit: 'submit',
-        outerClass: "m-0 w-full",
+        outerClass: "mt-4 w-full",
         label: "submit",
     }
     private constructor() {
@@ -24,13 +24,13 @@ export class FormFactory {
 
     InitTranslation(i18n: I18n): void {
         this.t = i18n.global.t
-        this.SubmitBtn.label = this.t(this.SubmitBtn.label)
+        // this.SubmitBtn.label = this.t(this.SubmitBtn.label)
     }
     withFlex(flexChildren: FormKitSchemaNode[], justify: string = ''): FormKitSchemaNode {
         return {
             $el: 'div',
             attrs: {
-                class: `flex  justify-content-${justify} align-items-center`
+                class: `flex justify-content-${justify} align-items-center`
             },
             children: flexChildren
 
@@ -60,9 +60,9 @@ export class FormFactory {
         return {
             $el: 'h1',
             attrs: {
-                class: 'mx-2'
+                class: 'mx-2 title'
             },
-            children: title
+            children: this.t(title)
         }
     }
     SectionFirstKey(section: FormSeciton): string {
@@ -86,8 +86,9 @@ export class FormFactory {
             'WithSubmitWithBulk': [this.SubmitBtn, this.BulkCreateSwitch()]
         }
         const key = `${options.showHeaderSubmit ? 'WithSubmit' : ''}${options.allowBulkCreate ? 'WithBulk' : ''}`
-
-        console.log(key)
+        if (!map[key]) {
+            return []
+        }
         return map[key]
     }
     Header(options: FormOptions, withHeader: boolean): FormKitSchemaNode[] {

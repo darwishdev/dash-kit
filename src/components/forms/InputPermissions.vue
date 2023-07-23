@@ -24,7 +24,6 @@ onBeforeMount(() => {
         modelValue = props.context._value
         props.context.node.input(modelValue)
     }
-    console.log(typeof props.context.permissions)
 })
 /**
  * Handle input, advancing or retreating focus.
@@ -33,7 +32,6 @@ function handleInput(value) {
     if (value > 0) {
         modelValue.push(value)
         props.context.node.input(modelValue)
-        console.log(modelValue)
         return
     }
 
@@ -43,11 +41,9 @@ function handleInput(value) {
 
     }
     props.context.node.input(modelValue)
-    console.log(modelValue)
 }
 function toggleSelectAllGroup(value, permissions) {
     permissions.forEach(perm => {
-        console.log(perm.permission_id)
         checkedModel.value[perm.permission_id] = value ? perm.permission_id : perm.permission_id * -1
         if (value) {
             const index = modelValue.indexOf(perm.permission_id);

@@ -3,14 +3,21 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
-  "module": "dist/DashKit.js",
-  "types": "dist/DashKit.d.ts",
+  "module": "dist/DashKit.d.ts",
+  "types": "dist/components/base.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": "./dist/DashKit.js",
-    "./style": "./dist/style.css"
+    "./types": "./dist/types/types.d.ts",
+    "./style": "./dist/style.css",
+    "./views": "./dist/views/views.js",
+    "./views.d.ts": "./dist/views/views.d.ts",
+    "./base": "./dist/components/base.js",
+    "./base.d.ts": "./dist/components/base.d.ts",
+    "./forms": "./dist/forms/forms.js",
+    "./forms.d.ts": "./dist/forms/forms.d.ts"
   },
   "keywords": [
     "dashboard",
