@@ -19,7 +19,7 @@ const submitHandler: SubmitHandler<LoginRequest, LoginRequest, LoginResponse> = 
     submitCallBack: (res: LoginResponse) => {
         localStorage.setItem('token', res.loginInfo.access_token)
         localStorage.setItem('permissions', res.permissions)
-        localStorage.setItem('sideBar', res.sideBar)
+        localStorage.setItem('sideBar', res.sidebar)
     },
     errorHandler,
     redirectRoute,

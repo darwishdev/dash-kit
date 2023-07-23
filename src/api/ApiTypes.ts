@@ -55,8 +55,8 @@ export interface LoginResponse {
         access_token: string
         refresh_token: string
     },
-    permissions: string
-    sideBar: string
+    permissions: string;
+    sidebar: string;
 }
 
 export interface UserUpdateRequest {
