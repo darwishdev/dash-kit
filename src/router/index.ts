@@ -3,6 +3,7 @@ import AppLayout from '@/components/AppLayout.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import LoginView from '@/views/LoginView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import RolesListView from '@/views/RolesListView.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,6 +14,7 @@ const router = createRouter({
             children: [
                 {
                     path: '/dashboard',
+                    meta: { permissions: ['dashboardView'] },
                     name: 'dashboard_view',
                     component: DashboardView
                 },
@@ -20,8 +22,12 @@ const router = createRouter({
                     path: '/profile',
                     name: 'profile_view',
                     meta: { breadCrumbs: [{ label: "profile" }] },
-
                     component: ProfileView
+                },
+                {
+                    path: '/roles',
+                    name: 'roles_list',
+                    component: RolesListView
                 },
             ]
         },
