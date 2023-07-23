@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 // import  from '@vue/vue3-jest'
-import AppNav from "./AppNav.vue";
+import AppNav from "@/components/AppNav.vue";
 import { expect, describe, it, vi } from "vitest";
 import DashKit from '@/DashKit'
 import router from '@/router'

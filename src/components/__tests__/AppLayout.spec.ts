@@ -1,6 +1,6 @@
 // __tests__/LayoutWrapper.spec.ts
 import { mount } from '@vue/test-utils';
-import AppLayout from './AppLayout.vue';
+import AppLayout from '@/components/AppLayout.vue';
 import { expect, describe, it, vi } from 'vitest';
 import DashKit from '@/DashKit';
 import router from '@/router';
