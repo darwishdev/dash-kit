@@ -41,7 +41,6 @@ export default defineComponent({
                 req = handler.mapFunction(req)
             }
 
-            console.log('heloo')
             await new Promise((resolve) => {
                 handler.submit(req)
                     .then(async (res: any) => {
@@ -58,9 +57,6 @@ export default defineComponent({
                         node.input({ stayOnSamePageAfterSuccess: true });
                         resolve(null)
                     }).catch((error: any) => {
-                        console.log("errr", error)
-                        console.log("errr2", error.message)
-                        console.log("errr3", error.code)
                         handleError(error, node, toast, handler.errorHandler, t)
                         resolve(null)
                     })

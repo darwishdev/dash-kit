@@ -19,7 +19,8 @@ export const handleError = (error: any, _node: FormKitNode, _toast: ToastService
     if (error == null) {
         return
     }
-    const messages = error.message.split
+    // _node.setErrors(['failed'])
+    const messages = error.message.split(' ')
     const message: string = messages.length == 2 ? messages[1] : error.message
     if (message == 'internalServerError') {
         _toast.add({ severity: 'error', summary: _t('internalServerErrorTitle'), detail: _t('internalServerErrorMessage'), life: 3000 });
