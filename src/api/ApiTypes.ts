@@ -52,8 +52,8 @@ export interface LoginResponse {
         userEmail: string
     },
     loginInfo: {
-        access_token: string
-        refresh_token: string
+        accessToken: string
+        refreshToken: string
     },
     permissions: string;
     sidebar: string;

@@ -5,9 +5,18 @@ import type { FormSeciton, ToastHandler, ErrorHandler } from '@/types/types'
 const { t } = i18n.global
 const errorHandler: ErrorHandler = {
     globalErrors: {
-        "wrong_password": 'wrong_password',
-        "pass_loginApiCall": 'pass_loginApiCall',
-        "user_name_invalid": 'user_name_invalid',
+        "pass_loginApiCall": t('pass_loginApiCall'),
+    },
+    fieldErrors: {
+        'user_not_found': {
+            userName: t("user_not_found")
+        },
+        'user_name_invalid': {
+            userName: t("user_name_invalid")
+        },
+        'incorrect_password': {
+            userPassword: t("incorrect_password")
+        }
     }
 }
 const redirectRoute: string = 'dashboard_view'

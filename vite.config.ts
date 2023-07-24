@@ -6,7 +6,7 @@ import dts from 'vite-plugin-dts';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), svgLoader(),
-  dts({ include: ["src/DashKit.ts", "src/components/base.ts", "src/views/views.ts", "src/views/LoginView.vue", "src/views/ProfileView.vue", "src/forms/forms.ts", "src/types/types.ts"] }),
+  dts({ include: ["src/DashKit.ts", "src/components/base.ts", "src/views/views.ts", "src/views/LoginView.vue", "src/views/ProfileView.vue", "src/forms/forms.ts", "src/types/types.ts", "src/utils/helpers.ts"] }),
   ],
   resolve: {
     alias: {
@@ -16,11 +16,10 @@ export default defineConfig({
   build: {
     cssCodeSplit: false,
     lib: {
-      entry: ["./src/DashKit.ts", "src/components/base.ts", "src/views/views.ts", "src/forms/forms.ts", "./src/assets/scss/app.scss"],
+      entry: ["./src/DashKit.ts", "src/components/base.ts", "src/views/views.ts", "src/forms/forms.ts", "src/utils/helpers.ts", "./src/assets/scss/app.scss"],
       formats: ["es"],
       name: "DashKit",
       fileName: (_, entry) => {
-        console.log(entry)
         if (entry == 'base') {
           return `components/base.js`
         }
@@ -29,6 +28,9 @@ export default defineConfig({
         }
         if (entry == 'views') {
           return `views/views.js`
+        }
+        if (entry == 'helpers') {
+          return `utils/helpers.js`
         }
         return `${entry}.js`
       }

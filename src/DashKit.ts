@@ -2,6 +2,7 @@
 import type { App } from "vue"
 import * as components from "./components"
 import * as formComponents from "./components/forms"
+import Button from 'primevue/button';
 import FormFactory from "@/utils/form/FormFactory"
 import i18n from '@/plugins/i18n'
 import PrimeVue from 'primevue/config'
@@ -32,6 +33,7 @@ export default {
             app.provide('loginApiCall', config.loginApiCall)
         }
         app.provide('i18n', i18n)
+        app.component('Button', Button)
         Object.keys(components).forEach((key: string) => {
             app.component(key, components[key as keyof typeof components])
         });

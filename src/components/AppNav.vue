@@ -51,6 +51,7 @@ export default defineComponent({
         const logout = () => {
             localStorage.removeItem('token')
             localStorage.removeItem('permissions')
+            localStorage.removeItem('sidebar')
             push({ name: 'login' })
         }
         return { breadCrumbs, breadCrumbHome, logout, toggleRtl, toggleProfileMenu, currentRoute, isRtl, toggleMobileSidebar, profileMenu }

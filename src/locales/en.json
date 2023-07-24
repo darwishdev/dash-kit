@@ -1,9 +1,10 @@
 {
     "dashboard": "dashboard",
-    "wrong_password": "this password is incorrect",
+    "incorrect_password": "this password is incorrect",
     "pass_loginApiCall": "please provice loginApiCall to be able to use login functionality from dash-kit",
     "logout": "logout",
-    "user_name_invalid": "username is not found",
+    "user_name_invalid": "Please enter a valid username",
+    "user_not_found": "This user dosn't have account",
     "submit": "Submit",
     "copyrighs": "All copyrighs reserved to Melon",
     "userNameLabel": "Username",

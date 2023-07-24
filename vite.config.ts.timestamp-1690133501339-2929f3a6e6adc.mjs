@@ -23,7 +23,6 @@ var vite_config_default = defineConfig({
       formats: ["es"],
       name: "DashKit",
       fileName: (_, entry) => {
-        console.log(entry);
         if (entry == "base") {
           return `components/base.js`;
         }

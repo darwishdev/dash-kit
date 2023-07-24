@@ -37,7 +37,7 @@ export interface PermissionsListResponse {
 }
 export type ErrorHandler = {
     globalErrors?: ErrorMessages
-    fielErrors?: ErrorMessages
+    fieldErrors?: Record<string, ErrorMessages>
 }
 export interface SubmitHandler<Request, TargetRequest, Response> {
     submit: (req: TargetRequest) => Promise<Response>;
