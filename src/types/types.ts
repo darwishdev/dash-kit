@@ -2,11 +2,12 @@ import { LoginRequest, LoginResponse } from '@/api/ApiTypes'
 import { FormKitSchemaNode } from '@formkit/core'
 import type { ErrorMessages } from "@formkit/core"
 import type { DefaultConfigOptions } from '@formkit/vue'
-
+import { LocaleMessageObject } from 'vue-i18n/dist/vue-i18n.js'
 export interface DashKitConfig {
     formKitConfig?: DefaultConfigOptions
     uploadHandler?: UploadHandler
     loginHandler?: LoginHandler
+    translations: LocaleMessageObject
 }
 export interface ToastHandler {
     hideToast?: boolean
@@ -63,14 +64,16 @@ export type FileUploadRequest = {
 export type FileUploadResponse = {
     fileName: string
 }
+
+
 export type FileRemoveRequest = {
     fileName: string
 }
-export type FileRemoveRespone = {}
+export type FileRemoveResponse = {}
 
 export type UploadHandler = {
     fileUpload: (reuest: FileUploadRequest) => Promise<FileUploadResponse>
-    fileRemove: (reuest: FileRemoveRequest) => Promise<void>
+    fileRemove: (reuest: FileRemoveRequest) => Promise<FileRemoveResponse>
     baseImageUrl: string
 }
 

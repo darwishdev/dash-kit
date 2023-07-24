@@ -1,8 +1,6 @@
-import i18n from "@/plugins/i18n"
+
 import type { FormSeciton, ToastHandler } from '@/types/types'
 
-
-const { t } = i18n.global
 
 const sections: FormSeciton[] = [
     {
@@ -11,8 +9,8 @@ const sections: FormSeciton[] = [
                 $formkit: 'text',
                 outerClass: "col-12",
                 name: 'userName',
-                label: t('userNameLabel'),
-                placeholder: t('userNamePlaceholder'),
+                label: 'userNameLabel',
+                placeholder: 'userNamePlaceholder',
                 validation: 'required|length:3',
 
             },
@@ -20,8 +18,8 @@ const sections: FormSeciton[] = [
                 $formkit: 'password',
                 outerClass: "col-12",
                 name: 'userPassword',
-                label: t('passwordLabel'),
-                placeholder: t('passwordPlaceholder'),
+                label: 'passwordLabel',
+                placeholder: 'passwordPlaceholder',
                 validation: 'required|length:6',
 
             },

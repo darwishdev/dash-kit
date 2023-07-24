@@ -13,7 +13,9 @@ export const handleSuccessToast = (handler: ToastHandler | undefined, toast: Toa
         toast.add({ severity: 'success', summary: t(defaultTitle), detail: t(defaultMessage), life: 3000 });
     }
 }
-
+export const objFirstKey = (obj: Object) => {
+    return Object.keys(obj)[0]
+}
 
 
 export const handleError = (error: any, _node: FormKitNode, _toast: ToastServiceMethods, _errorHandler: ErrorHandler, _t: Function): void => {
@@ -34,7 +36,10 @@ export const handleError = (error: any, _node: FormKitNode, _toast: ToastService
             return
         }
         if (_errorHandler.fieldErrors && _errorHandler.fieldErrors[message]) {
-            _node.setErrors([], _errorHandler.fieldErrors![message])
+            const err = _errorHandler.fieldErrors[message]
+            const key = objFirstKey(err)
+            err[key] = _t(err[key])
+            _node.setErrors([], err)
             return
         }
 

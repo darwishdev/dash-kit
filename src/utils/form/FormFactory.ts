@@ -117,7 +117,15 @@ export class FormFactory {
     CreateSectionOutput(section: FormSeciton, withBackground: boolean): FormKitSchemaNode {
         const title = this.SectionFirstKey(section)
         const formTitle = this.Title(title)
-        const inputs = section[title]
+        const inputs = section[title].map((input: any) => {
+            if (input.label) {
+                input.label = this.t(input.label)
+            }
+            if (input.placeholder) {
+                input.placeholder = this.t(input.placeholder)
+            }
+            return input
+        })
         const formSeciotn: FormKitSchemaNode = this.WithBackground([formTitle, this.WithGrid(inputs)], withBackground)
         return formSeciotn
     }

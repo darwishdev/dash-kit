@@ -191,7 +191,7 @@ const apiClient: ApiClient = {
     },
     login: async (_req: LoginRequest): Promise<LoginResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-
+        throw new Error("incorrect_password")
         return loginResponse;
     },
     permissionsList: async (): Promise<PermissionsListResponse> => {

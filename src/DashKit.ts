@@ -4,7 +4,7 @@ import * as components from "./components"
 import * as formComponents from "./components/forms"
 import Button from 'primevue/button';
 import FormFactory from "@/utils/form/FormFactory"
-import i18n from '@/plugins/i18n'
+import initI18n from '@/plugins/i18n'
 import PrimeVue from 'primevue/config'
 import { plugin, defaultConfig } from '@formkit/vue'
 import getWrappedConfig, { getDefaultConfig } from '@/formkit.custom.config'
@@ -13,7 +13,6 @@ import { DashKitConfig } from "./types/types"
 import type { DefaultConfigOptions } from '@formkit/vue'
 
 export default {
-
     install: (app: App, config: DashKitConfig) => {
         const activateFileUpload = config && typeof config.uploadHandler != 'undefined'
         let formKitConfig: DefaultConfigOptions
@@ -22,6 +21,7 @@ export default {
         } else {
             formKitConfig = getWrappedConfig(getDefaultConfig(), { activateFileUpload })
         }
+        const i18n = initI18n(config.translations)
         app.use(PrimeVue)
             .use(i18n)
             .use(ToastService)
