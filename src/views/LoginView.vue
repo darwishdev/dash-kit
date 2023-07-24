@@ -1,31 +1,44 @@
-<script setup lang="ts">
-import type { LoginRequest, LoginResponse } from '@/api/ApiTypes';
+<script lang="ts">
 import loginForm from '@/forms/LoginForm'
-import { FormOptions, SubmitHandler } from '@/types/types';
-import { inject } from 'vue';
+import { defineComponent, inject } from 'vue';
+import type { LoginRequest, LoginResponse } from '@/api/ApiTypes';
+import { FormOptions, LoginHandler, SubmitHandler } from '@/types/types';
 
-const loginApiCall = inject('loginApiCall') as (req: LoginRequest) => Promise<LoginResponse>
-const { errorHandler, redirectRoute, sections, toastHandler } = loginForm
-const options: FormOptions = {
-    id: "login-form",
-    title: "",
-    withBackground: false
-}
-const submitHandler: SubmitHandler<LoginRequest, LoginRequest, LoginResponse> = {
-    submit: loginApiCall,
-    submitCallBack: (res: LoginResponse) => {
-        localStorage.setItem('token', res.loginInfo.accessToken)
-        localStorage.setItem('permissions', res.permissions)
-        localStorage.setItem('sideBar', res.sidebar)
+
+
+export default defineComponent({
+    beforeCreate() {
+
     },
-    errorHandler,
-    redirectRoute,
-}
+    setup() {
+        const loginHandler = inject('loginHandler') as LoginHandler
+        if (typeof loginHandler == 'undefined') {
+            return { isHandlerPassed: false }
+        }
+        const { sections, toastHandler } = loginForm
+        const options: FormOptions = {
+            id: "login-form",
+            title: "",
+            withBackground: false
+        }
+
+        const submitHandler: SubmitHandler<LoginRequest, LoginRequest, LoginResponse> = {
+            submit: loginHandler.submit,
+            errorHandler: loginHandler.errorHandler,
+            redirectRoute: loginHandler.redirectRoute,
+            submitCallBack: (res: LoginResponse) => {
+                localStorage.setItem('token', res.loginInfo.accessToken)
+                localStorage.setItem('permissions', res.permissions)
+                localStorage.setItem('sideBar', res.sidebar)
+            },
+        }
+        return { isHandlerPassed: true, options, sections, toastHandler, submitHandler }
+    }
+})
 </script>
 
 <template>
-    <div class="login-wrapper">
-        <!-- {{ loginApiCall }} -->
+    <div class="login-wrapper" v-if="isHandlerPassed">
         <div class="left-img"></div>
         <div class="login-content">
             <div class="login-form">
@@ -38,6 +51,12 @@ const submitHandler: SubmitHandler<LoginRequest, LoginRequest, LoginResponse> = 
             <app-logo disabled iconOnly />
             <span>{{ $t('copyrighs') }}</span>
         </footer>
+    </div>
+    <div v-else>
+        <h2 class="text-3xl text-center mb-4"> please add loginHandler to your dash-kit config to be able to use login
+            functionality
+        </h2>
+
     </div>
 </template>
 

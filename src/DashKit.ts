@@ -29,8 +29,8 @@ export default {
         FormFactory.InitTranslation(i18n)
 
 
-        if (config.loginApiCall) {
-            app.provide('loginApiCall', config.loginApiCall)
+        if (config.loginHandler) {
+            app.provide('loginHandler', config.loginHandler)
         }
         app.provide('i18n', i18n)
         app.component('Button', Button)

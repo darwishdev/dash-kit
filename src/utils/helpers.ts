@@ -20,12 +20,8 @@ export const handleError = (error: any, _node: FormKitNode, _toast: ToastService
     if (error == null) {
         return
     }
-    // _node.setErrors(['failed'])
     const messages = error.message.split(' ')
     const message: string = messages.length == 2 ? messages[1] : error.message
-
-
-    console.log('message', message)
     if (message == 'internalServerError') {
         _toast.add({ severity: 'error', summary: _t('internalServerErrorTitle'), detail: _t('internalServerErrorMessage'), life: 3000 });
     } else {
@@ -35,11 +31,15 @@ export const handleError = (error: any, _node: FormKitNode, _toast: ToastService
         }
         if (_errorHandler.globalErrors && _errorHandler.globalErrors[message]) {
             _node.setErrors((_errorHandler.globalErrors![message]))
+            return
         }
-
         if (_errorHandler.fieldErrors && _errorHandler.fieldErrors[message]) {
             _node.setErrors([], _errorHandler.fieldErrors![message])
+            return
         }
+
+        _node.setErrors([_t('unknown_error')])
+
     }
 }
 

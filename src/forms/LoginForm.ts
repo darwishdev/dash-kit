@@ -1,28 +1,11 @@
 import i18n from "@/plugins/i18n"
-import type { FormSeciton, ToastHandler, ErrorHandler } from '@/types/types'
+import type { FormSeciton, ToastHandler } from '@/types/types'
 
 
 const { t } = i18n.global
-const errorHandler: ErrorHandler = {
-    globalErrors: {
-        "pass_loginApiCall": t('pass_loginApiCall'),
-    },
-    fieldErrors: {
-        'user_not_found': {
-            userName: t("user_not_found")
-        },
-        'user_name_invalid': {
-            userName: t("user_name_invalid")
-        },
-        'incorrect_password': {
-            userPassword: t("incorrect_password")
-        }
-    }
-}
-const redirectRoute: string = 'dashboard_view'
+
 const sections: FormSeciton[] = [
     {
-
         login: [
             {
                 $formkit: 'text',
@@ -43,7 +26,6 @@ const sections: FormSeciton[] = [
 
             },
         ],
-
     },
 ]
 
@@ -53,8 +35,6 @@ const toastHandler: ToastHandler = {
 
 
 export default {
-    errorHandler,
-    redirectRoute,
     sections,
     toastHandler
 }
