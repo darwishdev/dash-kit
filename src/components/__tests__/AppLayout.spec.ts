@@ -4,11 +4,12 @@ import AppLayout from '@/components/AppLayout.vue';
 import { expect, describe, it } from 'vitest';
 import DashKit from '@/DashKit';
 import router from '@/router';
+import dashkitConfig from '@/dashkit.config'
 
 const factory = () => {
     return mount(AppLayout, {
         global: {
-            plugins: [DashKit, router],
+            plugins: [[DashKit, dashkitConfig], router],
         },
     });
 };

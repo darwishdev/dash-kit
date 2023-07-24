@@ -19,6 +19,19 @@ export const handleError = (error: any, _node: FormKitNode, _toast: ToastService
     if (error == null) {
         return
     }
+    const messages = error.message.split
+    const message: string = messages.length == 2 ? messages[1] : error.message
+    if (message == 'internalServerError') {
+        _toast.add({ severity: 'error', summary: _t('internalServerErrorTitle'), detail: _t('internalServerErrorMessage'), life: 3000 });
+    } else {
+        if (!_errorHandler.globalErrors && !_errorHandler.fielErrors) {
+            _node.setErrors(['failed'])
+            return
+        }
+        if (_errorHandler.globalErrors && _errorHandler.globalErrors[message]) {
+            _node.setErrors(_t(_errorHandler.globalErrors![message]))
+        }
+    }
     // let parsedError: any = null
     // console.log(toast)
 

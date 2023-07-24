@@ -4,6 +4,7 @@ import AppNav from "@/components/AppNav.vue";
 import { expect, describe, it, vi, afterEach, beforeEach } from "vitest";
 import DashKit from '@/DashKit'
 import router from '@/router'
+import dashkitConfig from '@/dashkit.config'
 
 
 
@@ -13,7 +14,7 @@ describe('AppNav tests ', () => {
     beforeEach(() => {
         wrapper = mount(AppNav, {
             global: {
-                plugins: [DashKit, router],
+                plugins: [[DashKit, dashkitConfig], router],
             }
         })
     })
