@@ -15,7 +15,13 @@ export interface ToastHandler {
     message?: String
 }
 
-
+export interface DeleteRestoreHandler<Req> {
+    deleteRestore: (req: Req) => Promise<void>
+    callBack?: () => any;
+    indentifierPropertyName?: string;
+    errorHandler?: Record<string, string>
+    toastHandler?: ToastHandler
+}
 
 export interface Permission {
     permission_id: number

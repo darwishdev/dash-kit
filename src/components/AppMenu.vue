@@ -43,7 +43,6 @@ export default defineComponent({
             m.label = t((m.label as string).toLowerCase())
             return m
         })
-        console.log("sidebar rended")
         return { translatedModel }
 
     }

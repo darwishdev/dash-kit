@@ -12,3 +12,7 @@ build:
 
 svgo:
 	svgo ./src/assets/*.svg
+
+
+init: 
+	make build && make link

@@ -17,6 +17,7 @@ import { AppMenu } from "@/components/base"
 export default defineComponent({
     components: {
         Sidebar,
+        DynamicDialog,
         AppMenu,
         AppNav,
         Menu,

@@ -74,7 +74,7 @@ export const SnakeToPascal = (str: string): string => {
 }
 export const Can = (functionName: string): boolean => {
     const permissions = atob(localStorage.getItem('permissions') as string)
-    return permissions.includes(functionName) || functionName == 'dashboardView'
+    return permissions.includes(functionName) || functionName == 'DashboardView'
 }
 export const authMiddleware = (to: RouteLocationNormalized, _: RouteLocationNormalized, next: NavigationGuardNext) => {
     if (to.name != 'login') {

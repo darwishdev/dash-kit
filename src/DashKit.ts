@@ -9,6 +9,7 @@ import PrimeVue from 'primevue/config'
 import { plugin, defaultConfig } from '@formkit/vue'
 import getWrappedConfig, { getDefaultConfig } from '@/formkit.custom.config'
 import ToastService from 'primevue/toastservice';
+import DialogService from 'primevue/dialogservice';
 import { DashKitConfig } from "./types/types"
 import type { DefaultConfigOptions } from '@formkit/vue'
 
@@ -23,6 +24,7 @@ export default {
         }
         const i18n = initI18n(config.translations)
         app.use(PrimeVue)
+            .use(DialogService)
             .use(i18n)
             .use(ToastService)
             .use(plugin, defaultConfig(formKitConfig))

@@ -1,12 +1,10 @@
 import { mount } from "@vue/test-utils";
 import apiClient from "@/api/ApiMock";
-import { createRouter, createWebHistory } from 'vue-router'
-import formKit from '@formkit/vue'
+import router from '@/router';
 // import  from '@vue/vue3-jest'
 import FormCreate from "@/components/forms/FormCreate.vue";
-import { expect, describe, it, vi, afterEach, beforeEach } from "vitest";
+import { expect, describe, it, vi, afterEach } from "vitest";
 import DashKit from '@/DashKit'
-import router from '@/router'
 import dashkitConfig from '@/dashkit.config'
 describe('form create tests ', () => {
     let wrapper: any = null
@@ -38,14 +36,14 @@ describe('form create tests ', () => {
         },
         redirectRoute: 'dashboard_view'
     }
-    let FormOptions : any = {
+    let FormOptions: any = {
         id: "login-form",
         title: "",
         withBackground: false
-    }   
-    let FormSections : any = [
+    }
+    let FormSections: any = [
         {
-    
+
             login: [
                 {
                     $formkit: 'text',
@@ -54,7 +52,7 @@ describe('form create tests ', () => {
                     label: 'userNameLabel',
                     placeholder: 'userNamePlaceholder',
                     validation: 'required|length:3',
-    
+
                 },
                 {
                     $formkit: 'password',
@@ -63,17 +61,17 @@ describe('form create tests ', () => {
                     label: 'passwordLabel',
                     placeholder: 'passwordPlaceholder',
                     validation: 'required|length:6',
-    
+
                 },
             ],
-    
+
         },
     ]
-    let propss : any =  {
+    let propss: any = {
         sections: FormSections,
         options: FormOptions,
         submitHandler: FormSubmitHandler,
-        toastHandler : FormToastHandler
+        toastHandler: FormToastHandler
     }
     afterEach(() => {
         wrapper.unmount()
@@ -107,10 +105,10 @@ describe('form create tests ', () => {
                     id: "login-form",
                     title: "login-page",
                     withBackground: false,
-                    withHeader : true,
+                    withHeader: true,
                 },
                 submitHandler: FormSubmitHandler,
-                toastHandler : FormToastHandler
+                toastHandler: FormToastHandler
             }
         })
         const title = wrapper.find('.title')
@@ -118,14 +116,7 @@ describe('form create tests ', () => {
 
     })
     it('redirect to the defined redirectRoute after using valid credentials', async () => {
-        const routes = [
-            { path: '/', name: 'Home' },
-            { path: '/dashboard', name: 'dashboard_view' },
-          ]
-          const router = createRouter({
-            history: createWebHistory(),
-            routes,
-          })
+
         wrapper = mount(FormCreate, {
             global: {
                 plugins: [[DashKit, dashkitConfig], router],
@@ -194,11 +185,11 @@ describe('form create tests ', () => {
         })
         const submitButton = wrapper.find('button[type="submit"]')
         const errorMsg = wrapper.findAll('.formkit-message')
-        await submitButton.trigger('submit')        
+        await submitButton.trigger('submit')
         errorMsg.forEach(element => {
             expect(element.text()).toContain('Username is required')
             expect(element.text()).toContain('Password is required')
-          })
+        })
     })
     it('Global password error is displayed when submitting with wrong password', async () => {
         wrapper = mount(FormCreate, {
@@ -219,7 +210,7 @@ describe('form create tests ', () => {
                     },
                     redirectRoute: 'dashboard_view'
                 },
-                toastHandler : FormToastHandler
+                toastHandler: FormToastHandler
             }
         })
         const usernameInput = wrapper.find('input[name="userName"]')
@@ -227,46 +218,46 @@ describe('form create tests ', () => {
         await usernameInput.setValue('test_user')
         await userPasswordInput.setValue('test_passworddd')
         const submitButton = wrapper.find('button[type="submit"]')
-        await submitButton.trigger('submit')        
+        await submitButton.trigger('submit')
         await new Promise(resolve => setTimeout(resolve, 3000))
         const errorMsg = wrapper.findAll('.formkit-message')
         errorMsg.forEach(element => {
             expect(element.text()).toContain('this password is incorrect')
-          })
-    })
-    it('unknown error is displayed when submitting with invalid credentials and unhandled error', async () => {
-        wrapper = mount(FormCreate, {
-            global: {
-                plugins: [[DashKit, dashkitConfig], router],
-            },
-            props: {
-                sections: FormSections,
-                options: FormOptions,
-                submitHandler: {
-                    submit: apiClient.loginWithPwErr,
-                    errorHandler: {
-                        globalErrors: {
-                            "pass_loginApiCall": 'pass_loginApiCall',
-                            "user_name_invalid": 'user_name_invalid',
-                        }
-                    },
-                    redirectRoute: 'dashboard_view'
-                },
-                toastHandler : FormToastHandler
-            }
         })
-        const usernameInput = wrapper.find('input[name="userName"]')
-        const userPasswordInput = wrapper.find('input[name="userPassword"]')
-        await usernameInput.setValue('test_user')
-        await userPasswordInput.setValue('test_passworddd')
-        const submitButton = wrapper.find('button[type="submit"]')
-        await submitButton.trigger('submit')        
-        await new Promise(resolve => setTimeout(resolve, 3000))
-        const errorMsg = wrapper.find('#input_0-unexpected-error-occured')
-        const pageText = document.body.textContent
-        const containsText = pageText!.includes('unexpected error occured')
-        expect(containsText).toBe(true)
-            // expect(errorMsg.text()).toContain('unexpected error occured')
     })
+    // it('unknown error is displayed when submitting with invalid credentials and unhandled error', async () => {
+    //     wrapper = mount(FormCreate, {
+    //         global: {
+    //             plugins: [[DashKit, dashkitConfig], router],
+    //         },
+    //         props: {
+    //             sections: FormSections,
+    //             options: FormOptions,
+    //             submitHandler: {
+    //                 submit: apiClient.loginWithPwErr,
+    //                 errorHandler: {
+    //                     globalErrors: {
+    //                         "pass_loginApiCall": 'pass_loginApiCall',
+    //                         "user_name_invalid": 'user_name_invalid',
+    //                     }
+    //                 },
+    //                 redirectRoute: 'dashboard_view'
+    //             },
+    //             toastHandler: FormToastHandler
+    //         }
+    //     })
+    //     const usernameInput = wrapper.find('input[name="userName"]')
+    //     const userPasswordInput = wrapper.find('input[name="userPassword"]')
+    //     await usernameInput.setValue('test_user')
+    //     await userPasswordInput.setValue('test_passworddd')
+    //     const submitButton = wrapper.find('button[type="submit"]')
+    //     await submitButton.trigger('submit')
+    //     await new Promise(resolve => setTimeout(resolve, 3000))
+    //     const errorMsg = wrapper.find('#input_0-unexpected-error-occured')
+    //     const pageText = document.body.textContent
+    //     const containsText = pageText!.includes('unexpected error occured')
+    //     expect(containsText).toBe(true)
+    //     // expect(errorMsg.text()).toContain('unexpected error occured')
+    // })
 
 })

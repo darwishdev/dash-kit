@@ -132,7 +132,10 @@ export class FormFactory {
     ConvertSections(sections: FormSeciton[], withBackground: boolean): FormKitSchemaNode[] {
         const lastSection = sections[sections.length - 1]
         const key = this.SectionFirstKey(lastSection)
-        lastSection[key].push(this.SubmitBtn)
+        const lastInput = lastSection[key][lastSection[key].length - 1]
+        if (lastInput != this.SubmitBtn) {
+            lastSection[key].push(this.SubmitBtn)
+        }
         return sections.map((section: FormSeciton) => this.CreateSectionOutput(section, withBackground))
     }
     CreateForm(options: FormOptions, sections: FormSeciton[]): FormKitSchemaNode | FormKitSchemaNode[] {

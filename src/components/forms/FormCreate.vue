@@ -44,7 +44,6 @@ export default defineComponent({
             await new Promise((resolve) => {
                 handler.submit(req)
                     .then(async (res: any) => {
-                        console.log('req', req)
                         node.reset()
                         if (handler.submitCallBack) await handler.submitCallBack(res)
                         handleSuccessToast(props.toastHandler, toast, t, props.options.title)

@@ -4,7 +4,6 @@ const { push } = useRouter()
 const logout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('permissions')
-    console.log('los')
     push({ name: 'login' })
 }
 </script>

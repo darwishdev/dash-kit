@@ -1,13 +1,16 @@
 import FormFactory from '@/utils/form/FormFactory';
 import { expect, it, beforeEach, describe } from "vitest";
-import i18n from '@/plugins/i18n'
+import initI18n from '@/plugins/i18n'
 import { FormOptions, FormSeciton } from '@/types/types';
 
+import en from '@/locales/en.json'
+import ar from '@/locales/ar.json'
 describe('FormFactory', () => {
     let instance: any = null
 
 
     beforeEach(() => {
+        const i18n = initI18n({ en, ar })
         instance = FormFactory
         instance.InitTranslation(i18n)
     })
@@ -496,7 +499,7 @@ describe('FormFactory', () => {
                 ],
             },
             {
-                'Section 2': [
+                section_2: [
                     {
                         $el: 'input',
                         attrs: {
@@ -516,27 +519,30 @@ describe('FormFactory', () => {
             // Add more sections as needed
         ];
 
-        const withBackgroundValues = [true, false];
-
-        const convertTestCases: any = [];
-        sections.forEach(section => {
-            withBackgroundValues.forEach(withBackground => {
-                const lastSection = { ...section };
-                const key = instance.SectionFirstKey(lastSection);
-                lastSection[key].push(instance.SubmitBtn);
-                const expectedResult = sections.map((section: any) =>
-                    instance.CreateSectionOutput(section, withBackground)
-                );
-                convertTestCases.push({
-                    params: {
-                        sections,
-                        withBackground,
-                    },
-                    expectedResult,
-                });
-            });
-        });
-
+        const sectionsWithSubmitBtn = sections
+        sectionsWithSubmitBtn[1]['section_2']!.push(instance.SubmitBtn)
+        const convertTestCases = [
+            {
+                params: {
+                    sections,
+                    withBackground: true,
+                },
+                expectedResult: sectionsWithSubmitBtn.map((section) => {
+                    return instance.CreateSectionOutput(section, true)
+                }
+                ),
+            },
+            {
+                params: {
+                    sections,
+                    withBackground: false,
+                },
+                expectedResult: sectionsWithSubmitBtn.map((section) => {
+                    return instance.CreateSectionOutput(section, false)
+                }),
+            },
+            // Add more test cases as needed
+        ];
         convertTestCases.forEach(testCase => {
             const result = instance.ConvertSections(testCase.params.sections, testCase.params.withBackground);
             expect(result).toEqual(testCase.expectedResult);
