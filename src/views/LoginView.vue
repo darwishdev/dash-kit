@@ -20,7 +20,7 @@ export default defineComponent({
             id: "login-form",
             title: "",
             withBackground: false,
-            allowBulkCreate: true,
+            allowBulkCreate: false,
         }
 
         const submitHandler: SubmitHandler<LoginRequest, LoginRequest, LoginResponse> = {
