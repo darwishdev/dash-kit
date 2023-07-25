@@ -269,6 +269,10 @@ const apiClient: ApiClient = {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         throw new Error("already_exists unique_constraint_roles_role_name_key")
     },
+    loginWithPwErr: async (_req: LoginRequest): Promise<LoginResponse> => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        throw new Error("wrong_password")
+    },
     roleUpdateWithGlobalErr: async (_req: RoleUpdateRequest): Promise<RoleUpdateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         throw new Error("internal internalServerError")

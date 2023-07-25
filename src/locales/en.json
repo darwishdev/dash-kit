@@ -1,5 +1,6 @@
 {
     "dashboard": "dashboard",
+    "login-page": "login page", 
     "wrong_password": "this password is incorrect",
     "pass_loginApiCall": "please provice loginApiCall to be able to use login functionality from dash-kit",
     "logout": "logout",

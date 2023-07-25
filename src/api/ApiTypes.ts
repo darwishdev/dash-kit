@@ -179,6 +179,7 @@ export interface ApiClient {
     roleDeleteRestore: (request: RoleDeleteRestoreRequest) => Promise<void>
     roleCreate: (req: RoleCreateRequest) => Promise<RoleCreateResponse>
     roleCreateWithErr: (req: RoleCreateRequest) => Promise<RoleCreateResponse>
+    loginWithPwErr: (req: LoginRequest) => Promise<LoginResponse>
     roleCreateWithGlobalErr: (req: RoleCreateRequest) => Promise<RoleCreateResponse>
     roleBulkCreate: (req: RoleBulkCreateRequest) => Promise<RoleBulkCreateResponse>
     roleUpdate: (req: RoleUpdateRequest) => Promise<RoleUpdateResponse>
