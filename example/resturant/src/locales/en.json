@@ -1,6 +1,6 @@
 {
     "dashboard": "dashboard",
-    "wrong_password": "this password is incorrect",
+    "incorrect_password": "this password is incorrect",
     "pass_loginApiCall": "please provice loginApiCall to be able to use login functionality from dash-kit",
     "logout": "logout",
     "user_name_invalid": "Please enter a valid username",

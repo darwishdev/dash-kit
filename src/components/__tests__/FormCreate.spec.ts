@@ -136,7 +136,7 @@ describe('form create tests ', () => {
         // expect(router.currentRoute.value.name).toBe('dashboard')
 
     })
-    it('Field errors are displayed when submitting empty fields or wrong credentials', async () => {
+    it('Field and global errors are displayed when submitting empty fields or wrong credentials', async () => {
         wrapper = mount(FormCreate, {
             global: {
                 plugins: [[DashKit, dashkitConfig], router],
@@ -151,7 +151,7 @@ describe('form create tests ', () => {
             expect(element.text()).toContain('Password is required')
           })
     })
-    it('Global password error is displayed when submitting with wrong password', async () => {
+    it('field password error is displayed when submitting with wrong password', async () => {
         wrapper = mount(FormCreate, {
             global: {
                 plugins: [[DashKit, dashkitConfig], router],
@@ -181,7 +181,7 @@ describe('form create tests ', () => {
         await submitButton.trigger('submit')        
         await new Promise(resolve => setTimeout(resolve, 3000))
         const errorMsg = wrapper.findAll('.formkit-message')
-        const errorMsg = wrapper.find('#input_0-this-password-is-incorrect')
+        // const errorMsg = wrapper.find('#input_0-this-password-is-incorrect')
         errorMsg.forEach(element => {
             expect(element.text()).toContain('this password is incorrect')
           })

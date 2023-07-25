@@ -44,17 +44,17 @@ export default defineComponent({
             await new Promise((resolve) => {
                 handler.submit(req)
                     .then(async (res: any) => {
-                        console.log(res)
+                        console.log('req', req)
                         node.reset()
                         if (handler.submitCallBack) await handler.submitCallBack(res)
                         handleSuccessToast(props.toastHandler, toast, t, props.options.title)
-                        if (!req.stayOnSamePageAfterSuccess) {
+                        if (!req.isBulkCreate) {
                             if (handler.redirectRoute) push({ name: handler.redirectRoute })
                             resolve(null)
                             return
                         }
                         node.clearErrors()
-                        node.input({ stayOnSamePageAfterSuccess: true });
+                        node.input({ isBulkCreate: true });
                         resolve(null)
                     }).catch((error: any) => {
                         handleError(error, node, toast, handler.errorHandler, t)
