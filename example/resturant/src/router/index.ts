@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { AppLayout } from 'dash-kit/base'
-import { LoginView, ProfileView } from 'dash-kit/views'
+import { LoginView, ProfileView, UnauthorizedView } from 'dash-kit/views'
 import DashboardView from '../views/DashboardView.vue'
 import RolesListView from '../views/RolesListView.vue'
+import UsersListView from '../views/UsersListView.vue'
+import { authMiddleware } from 'dash-kit/helpers'
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -25,7 +27,14 @@ const router = createRouter({
                 {
                     path: '/roles',
                     name: 'roles_list',
+                    meta: { breadCrumbs: [{ label: "roles" }] },
                     component: RolesListView
+                },
+                {
+                    path: '/users',
+                    name: 'users_list',
+                    meta: { breadCrumbs: [{ label: "users" }] },
+                    component: UsersListView
                 },
             ]
         },
@@ -34,12 +43,21 @@ const router = createRouter({
             name: 'login',
             component: LoginView
         },
-        // {
-        //     path: '/unauthorized',
-        //     name: 'unauthorized',
-        //     component: ProfileView
-        // },
+        {
+            path: '/unauthorized',
+            name: 'unauthorized',
+            component: UnauthorizedView
+        },
     ]
 })
+
+
+router.beforeEach((to, _, next) => {
+    if (to.fullPath == '/') {
+        next({ name: 'dashboard_view' })
+    }
+    next()
+})
+router.beforeEach(authMiddleware)
 
 export default router

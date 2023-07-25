@@ -1,7 +1,27 @@
+<script  lang="ts">
+import { defineComponent, ref, inject } from 'vue'
+import { useRouter } from 'vue-router'
+import { I18n } from 'vue-i18n/dist/vue-i18n.js'
+// import i18n from '@/plugins/i18n'
+export default defineComponent({
+  beforeCreate() {
+    if (localStorage.getItem('isRtl') == 'true') {
+      this.toggleRtl()
+    }
+  },
 
-<script setup  lang="ts">
-// import { AppLogo } from 'dash-kit/base'
-
+  setup() {
+    const isRtl = ref(false)
+    const i18n = inject("i18n") as I18n
+    const toggleRtl = () => {
+      isRtl.value = !isRtl.value;
+      localStorage.setItem('isRtl', isRtl.value.toString())
+      document.body.classList.toggle('rtl')
+      i18n.global.locale.value = isRtl.value ? 'ar' : 'en'
+    }
+    return { toggleRtl }
+  }
+})
 </script>
 
 <template>

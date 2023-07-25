@@ -1,18 +1,18 @@
-import { LoginRequest, LoginResponse } from '@/api/ApiTypes';
+import { LoginRequest, LoginResponse } from '@/api/ApiTypes'
 import { FormKitSchemaNode } from '@formkit/core'
-import type { ErrorMessages } from "@formkit/core";
+import type { ErrorMessages } from "@formkit/core"
 import type { DefaultConfigOptions } from '@formkit/vue'
-
-
+import { LocaleMessageObject } from 'vue-i18n/dist/vue-i18n.js'
 export interface DashKitConfig {
     formKitConfig?: DefaultConfigOptions
     uploadHandler?: UploadHandler
-    loginApiCall?: (req: LoginRequest) => Promise<LoginResponse>
+    loginHandler?: LoginHandler
+    translations: LocaleMessageObject
 }
 export interface ToastHandler {
-    hideToast?: boolean;
-    title?: String;
-    message?: String;
+    hideToast?: boolean
+    title?: String
+    message?: String
 }
 
 
@@ -25,9 +25,9 @@ export interface Permission {
 }
 
 export interface PermissionsListRow {
-    group: string;
+    group: string
 
-    permissions: Permission[];
+    permissions: Permission[]
 
 }
 export interface PermissionsListResponse {
@@ -37,40 +37,48 @@ export interface PermissionsListResponse {
 }
 export type ErrorHandler = {
     globalErrors?: ErrorMessages
-    fielErrors?: ErrorMessages
+    fieldErrors?: Record<string, ErrorMessages>
 }
 export interface SubmitHandler<Request, TargetRequest, Response> {
-    submit: (req: TargetRequest) => Promise<Response>;
-    submitCallBack?: (response: Response) => any;
-    indentifierPropertyName?: string;
-    errorHandler: ErrorHandler;
-    mapFunction?: (req: Request) => TargetRequest;
-    redirectRoute?: string;
+    submit: (req: TargetRequest) => Promise<Response>
+    submitCallBack?: (response: Response) => any
+    indentifierPropertyName?: string
+    errorHandler: ErrorHandler
+    mapFunction?: (req: Request) => TargetRequest
+    redirectRoute?: string
 }
 export interface FormOptions {
-    id: String;
-    title: string;
-    withBackground?: boolean;
-    withHeader?: boolean;
-    allowBulkCreate?: boolean;
-    showHeaderSubmit?: boolean;
+    id: String
+    title: string
+    withBackground?: boolean
+    withHeader?: boolean
+    allowBulkCreate?: boolean
+    showHeaderSubmit?: boolean
 }
 
 export type FormSeciton = Record<string, FormKitSchemaNode[]>
 export type FileUploadRequest = {
-    fileName: string;
-    fileData: Uint8Array;
-};
+    fileName: string
+    fileData: Uint8Array
+}
 export type FileUploadResponse = {
-    fileName: string;
-};
+    fileName: string
+}
+
+
 export type FileRemoveRequest = {
-    fileName: string;
-};
-export type FileRemoveRespone = {};
+    fileName: string
+}
+export type FileRemoveResponse = {}
 
 export type UploadHandler = {
-    fileUpload: (reuest: FileUploadRequest) => Promise<FileUploadResponse>;
-    fileRemove: (reuest: FileRemoveRequest) => Promise<void>;
-    baseImageUrl: string;
-};
+    fileUpload: (reuest: FileUploadRequest) => Promise<FileUploadResponse>
+    fileRemove: (reuest: FileRemoveRequest) => Promise<FileRemoveResponse>
+    baseImageUrl: string
+}
+
+export type LoginHandler = {
+    submit: (req: LoginRequest) => Promise<LoginResponse>
+    errorHandler: ErrorHandler
+    redirectRoute: string
+}

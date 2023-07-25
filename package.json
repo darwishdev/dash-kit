@@ -15,6 +15,7 @@
     "./views": "./dist/views/views.js",
     "./views.d.ts": "./dist/views/views.d.ts",
     "./base": "./dist/components/base.js",
+    "./helpers": "./dist/utils/helpers.js",
     "./base.d.ts": "./dist/components/base.d.ts",
     "./forms": "./dist/forms/forms.js",
     "./forms.d.ts": "./dist/forms/forms.d.ts"

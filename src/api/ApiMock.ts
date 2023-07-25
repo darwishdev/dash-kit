@@ -36,13 +36,13 @@ const loginResponse: LoginResponse = {
         userPhone: '01022052546',
         userEmail: 'ahmed@mln.com',
     },
-    permissions: "e0Rhc2hib2FyZFZpZXcsTWVudUZpbmQsT3JkZXJDcmVhdGUsUm9sZUNyZWF0ZSxSb2xlRGVsZXRlUmVzdG9yZSxSb2xlRmluZCxSb2xlc0xpc3QsUm9sZVVwZGF0ZSxVc2VyQ3JlYXRlLFVzZXJEZWxldGVSZXN0b3JlLFVzZXJGaW5kLFVzZXJSb2xlc1Blcm1pc3Npb25zVXBkYXRlLFVzZXJzTGlzdCxVc2VyVXBkYXRlfQ==",
+    permissions: "e0Rhc2hib2FyZFZpZXcsTWVudUZpbmQsT3JkZXJDcmVhdGUsUm9sZUNyZWF0ZSxSb2xlRGVsZXRlUmVzdG9yZSxSb2xlRmluZCxSb2xlc0xpc3QsUm9sZVVwZGF0ZX0=",
     loginInfo: {
-        access_token: "asdkjfyhkjdfgakfgsakfgasjkghasdfkjg",
-        refresh_token: "asdl'asiedyrf9pw8e6r8q7we6q5876we547",
+        accessToken: "asdkjfyhkjdfgakfgsakfgasjkghasdfkjg",
+        refreshToken: "asdl'asiedyrf9pw8e6r8q7we6q5876we547",
     },
 
-    sidebar: "W3sia2V5IjoiMCIsImxhYmVsIjoiZGFzaGJvYXJkIiwiaWNvbiI6eyJTdHJpbmciOiJwaSBwaS1mdyBwaS1jaGFydC1iYXIiLCJWYWxpZCI6dHJ1ZX0sInRvIjp7IlN0cmluZyI6ImRhc2hib2FyZF92aWV3IiwiVmFsaWQiOnRydWV9LCJpdGVtcyI6Int9In0seyJrZXkiOiIxIiwibGFiZWwiOiJ1c2VycyIsImljb24iOnsiU3RyaW5nIjoicGkgcGktZncgcGktdXNlciIsIlZhbGlkIjp0cnVlfSwidG8iOnsiU3RyaW5nIjoiIiwiVmFsaWQiOmZhbHNlfSwiaXRlbXMiOiJbe1widG9cIjogXCJyb2xlc19saXN0XCIsIFwia2V5XCI6IFwiMV8wXCIsIFwiaWNvblwiOiBcInBpIHBpLWZ3IHBpLWxpc3RcIiwgXCJsYWJlbFwiOiBcInJvbGVzX2xpc3RcIn0sIHtcInRvXCI6IFwidXNlcnNfbGlzdFwiLCBcImtleVwiOiBcIjFfMVwiLCBcImljb25cIjogXCJwaSBwaS1mdyBwaS1saXN0XCIsIFwibGFiZWxcIjogXCJ1c2Vyc19saXN0XCJ9XSJ9XQ=="
+    sidebar: "W3sia2V5IjoiMCIsImxhYmVsIjoiZGFzaGJvYXJkIiwiaWNvbiI6InBpIHBpLWZ3IHBpLWNoYXJ0LWJhciIsInRvIjoiL2Rhc2hib2FyZCIsIml0ZW1zIjoie30ifSx7ImtleSI6IjEiLCJsYWJlbCI6InVzZXJzIiwiaWNvbiI6InBpIHBpLWZ3IHBpLXVzZXIiLCJ0byI6bnVsbCwiaXRlbXMiOiJbe1widG9cIjogXCIvcm9sZXNcIiwgXCJrZXlcIjogXCIxXzBcIiwgXCJpY29uXCI6IFwicGkgcGktZncgcGktbGlzdFwiLCBcImxhYmVsXCI6IFwicm9sZXNfbGlzdFwifV0ifV0="
 
 }
 export const userUpdateRequest: UserUpdateRequest = {
@@ -191,7 +191,7 @@ const apiClient: ApiClient = {
     },
     login: async (_req: LoginRequest): Promise<LoginResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-
+        throw new Error("incorrect_password")
         return loginResponse;
     },
     permissionsList: async (): Promise<PermissionsListResponse> => {

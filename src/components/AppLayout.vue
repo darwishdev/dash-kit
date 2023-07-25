@@ -40,7 +40,6 @@ export default defineComponent({
             localStorage.setItem('asideOpened', isMenuOpened.value.toString())
         }
         const toggleMobileMenu = () => {
-            console.log("asdasd")
             isSideBarVisible.value = !isSideBarVisible.value
             localStorage.setItem('asideOpened', isMenuOpened.value.toString())
         }
@@ -56,7 +55,9 @@ export default defineComponent({
                 <icon-btn id="sidebar-lock-icon" :icon="isMenuOpened ? 'lock' : 'lock-open'"
                     @click.prevent="toggleDesktopMenu" />
             </div>
-            <app-menu />
+            <KeepAlive>
+                <app-menu />
+            </KeepAlive>
         </aside>
         <app-nav @toggleSideBar="toggleMobileMenu" />
         <div class="layout-main">

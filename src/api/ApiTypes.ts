@@ -1,5 +1,5 @@
 import type {
-    FileUploadRequest, FileUploadResponse, FileRemoveRequest, FileRemoveRespone
+    FileUploadRequest, FileUploadResponse, FileRemoveRequest, FileRemoveResponse
 } from '@/types/types'
 export interface Permission {
     permission_id: number
@@ -52,8 +52,8 @@ export interface LoginResponse {
         userEmail: string
     },
     loginInfo: {
-        access_token: string
-        refresh_token: string
+        accessToken: string
+        refreshToken: string
     },
     permissions: string;
     sidebar: string;
@@ -187,6 +187,6 @@ export interface ApiClient {
     roleUpdateWithGlobalErr: (req: RoleUpdateRequest) => Promise<RoleUpdateResponse>
     roleFind: (req: RoleFindRequest) => Promise<RoleFindResponse>
     roleFindWithErr: (req: RoleFindRequest) => Promise<RoleFindResponse>
-    fileRemove: (req: FileRemoveRequest) => Promise<FileRemoveRespone>
+    fileRemove: (req: FileRemoveRequest) => Promise<FileRemoveResponse>
     fileUpload: (req: FileUploadRequest) => Promise<FileUploadResponse>
 }

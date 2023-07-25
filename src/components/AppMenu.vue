@@ -28,20 +28,12 @@ export default defineComponent({
                 } else {
                     delete item.items
                 }
-                if (item.to.Valid) {
-                    item.to = {
-                        name: item.to.String
-                    }
-                } else {
-                    delete item.to
-                }
                 if (item.icon.Valid) {
                     item.icon = item.icon.String
                 } else {
                     delete item.icon
                 }
 
-                console.log(item)
                 return item
             })
         }
@@ -51,6 +43,7 @@ export default defineComponent({
             m.label = t((m.label as string).toLowerCase())
             return m
         })
+        console.log("sidebar rended")
         return { translatedModel }
 
     }
