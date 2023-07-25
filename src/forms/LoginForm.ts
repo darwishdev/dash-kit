@@ -10,7 +10,7 @@ const errorHandler: ErrorHandler = {
         "user_name_invalid": 'user_name_invalid',
     }
 }
-const redirectRoute: string = 'dashboard_view'
+// const redirectRoute: string = 'dashboard_view'
 const sections: FormSeciton[] = [
     {
 
@@ -39,13 +39,14 @@ const sections: FormSeciton[] = [
 ]
 
 const toastHandler: ToastHandler = {
-    hideToast: false
+    hideToast: false,
+    message : 'hello',
+    title : 'success'
 }
 
 
 export default {
     errorHandler,
-    redirectRoute,
     sections,
     toastHandler
 }

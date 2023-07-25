@@ -2,17 +2,21 @@
 import type { LoginRequest, LoginResponse } from '@/api/ApiTypes';
 import loginForm from '@/forms/LoginForm'
 import { FormOptions, SubmitHandler } from '@/types/types';
+import apiClient from '@/api/ApiMock';
 // import { useToast } from 'primevue/usetoast';
 
 import { inject } from 'vue';
 // const toast = useToast()
 
-const loginApiCall = inject('loginApiCall') as (req: LoginRequest) => Promise<LoginResponse>
-const { errorHandler, redirectRoute, sections, toastHandler } = loginForm
+// const loginApiCall = inject('loginApiCall') as (req: LoginRequest) => Promise<LoginResponse>
+const loginApiCall = apiClient.login
+const { errorHandler, sections, toastHandler } = loginForm
 const options: FormOptions = {
     id: "login-form",
     title: "",
-    withBackground: false
+    withBackground: false,
+    withHeader : true,
+    // allowBulkCreate : true
 }
 const submitHandler: SubmitHandler<LoginRequest, LoginRequest, LoginResponse> = {
     submit: loginApiCall,
@@ -22,7 +26,6 @@ const submitHandler: SubmitHandler<LoginRequest, LoginRequest, LoginResponse> = 
         localStorage.setItem('sideBar', res.sidebar)
     },
     errorHandler,
-    redirectRoute,
 }
 </script>
 
