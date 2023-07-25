@@ -19,7 +19,8 @@ export default defineComponent({
         const options: FormOptions = {
             id: "login-form",
             title: "",
-            withBackground: false
+            withBackground: false,
+            allowBulkCreate: true,
         }
 
         const submitHandler: SubmitHandler<LoginRequest, LoginRequest, LoginResponse> = {

@@ -8,3 +8,4 @@ import dashkitConfig from './dashkit.config'
 const app = createApp(App)
 app.use(DashKit, dashkitConfig).use(router)
 app.mount('#app')
+
