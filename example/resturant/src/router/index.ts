@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { AppLayout } from 'dash-kit/base'
 import { LoginView, ProfileView, UnauthorizedView } from 'dash-kit/views'
 import DashboardView from '../views/DashboardView.vue'
+import administration from '../views/AdministrationView.vue'
 import RolesListView from '../views/RolesListView.vue'
 import UsersListView from '../views/UsersListView.vue'
 import { authMiddleware } from 'dash-kit/helpers'
@@ -29,6 +30,12 @@ const router = createRouter({
                     name: 'roles_list',
                     meta: { breadCrumbs: [{ label: "roles" }] },
                     component: RolesListView
+                },
+                {
+                    path: '/administration',
+                    name: 'administration',
+                    meta: { breadCrumbs: [{ label: "administration" }] },
+                    component: administration
                 },
                 {
                     path: '/users',
