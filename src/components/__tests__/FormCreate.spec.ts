@@ -219,44 +219,52 @@ describe('form create tests ', () => {
         await userPasswordInput.setValue('test_passworddd')
         const submitButton = wrapper.find('button[type="submit"]')
         await submitButton.trigger('submit')
-        await new Promise(resolve => setTimeout(resolve, 3000))
+        // await new Promise(resolve => setTimeout(resolve, 3000))
         const errorMsg = wrapper.findAll('.formkit-message')
         errorMsg.forEach(element => {
             expect(element.text()).toContain('this password is incorrect')
         })
     })
     // it('unknown error is displayed when submitting with invalid credentials and unhandled error', async () => {
-    //     wrapper = mount(FormCreate, {
+
+    //     wrapper = mount(LoginView, {
     //         global: {
     //             plugins: [[DashKit, dashkitConfig], router],
     //         },
-    //         props: {
-    //             sections: FormSections,
-    //             options: FormOptions,
-    //             submitHandler: {
-    //                 submit: apiClient.loginWithPwErr,
-    //                 errorHandler: {
-    //                     globalErrors: {
-    //                         "pass_loginApiCall": 'pass_loginApiCall',
-    //                         "user_name_invalid": 'user_name_invalid',
-    //                     }
-    //                 },
-    //                 redirectRoute: 'dashboard_view'
-    //             },
-    //             toastHandler: FormToastHandler
-    //         }
+    //         // props: {
+    //         //     sections: FormSections,
+    //         //     options: FormOptions,
+    //         //     submitHandler: {
+    //         //         submit: apiClient.loginWithPwErr,
+    //         //         errorHandler: {
+    //         //             globalErrors: {
+    //         //                 "pass_loginApiCall": 'pass_loginApiCall',
+    //         //                 "user_name_invalid": 'user_name_invalid',
+    //         //             }
+    //         //         },
+    //         //         redirectRoute: 'dashboard_view'
+    //         //     },
+    //         //     toastHandler: FormToastHandler
+    //         // }
     //     })
     //     const usernameInput = wrapper.find('input[name="userName"]')
     //     const userPasswordInput = wrapper.find('input[name="userPassword"]')
     //     await usernameInput.setValue('test_user')
     //     await userPasswordInput.setValue('test_passworddd')
     //     const submitButton = wrapper.find('button[type="submit"]')
-    //     await submitButton.trigger('submit')
-    //     await new Promise(resolve => setTimeout(resolve, 3000))
-    //     const errorMsg = wrapper.find('#input_0-unexpected-error-occured')
+    //     await submitButton.trigger('click')
+    //     await wrapper.vm.$nextTick();
+    //     const messages2 = wrapper.findAll(".formkit-message")
     //     const pageText = document.body.textContent
-    //     const containsText = pageText!.includes('unexpected error occured')
-    //     expect(containsText).toBe(true)
+    //     const pageText2 = wrapper.text()
+    //     const len = document.body.children.length
+    //     // const messages = document.querySelector(".formkit-messages")
+    //     console.log('texsssst', messages2)
+    //     // console.log('texsssst', document.body)
+    //     // // await new Promise(resolve => setTimeout(resolve, 3000))
+    //     // const errorMsg = wrapper.find('#input_0-unexpected-error-occured')
+    //     // const containsText = pageText!.includes('unexpected error occured')
+    //     // expect(containsText).toBe(true)
     //     // expect(errorMsg.text()).toContain('unexpected error occured')
     // })
 

@@ -22,7 +22,7 @@ const loginErrorHandler: ErrorHandler = {
 }
 
 const loginHandler: LoginHandler = {
-    submit: apiClient.login,
+    submit: apiClient.loginWithPwErr,
     redirectRoute: "dashboard_view",
     errorHandler: loginErrorHandler
 }
