@@ -29,6 +29,11 @@ const router = createRouter({
                     name: 'roles_list',
                     component: RolesListView
                 },
+                {
+                    path: '/roles/update/:id',
+                    name: 'role_update',
+                    component: ProfileView
+                },
             ]
         },
         {

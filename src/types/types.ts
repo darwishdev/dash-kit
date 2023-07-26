@@ -15,6 +15,35 @@ export interface ToastHandler {
     message?: String
 }
 
+export interface FindHandler<Request, Response, TargetResponse> {
+    findFunction: (req: Request) => Promise<Response>;
+    mapFunction?: (response: Request) => TargetResponse;
+    requestPropertyName: string;
+    requestValue?: number;
+}
+export interface FormUpdateParams {
+    sections: Array<FormSeciton>
+    options: FormOptions
+    submitHandler: SubmitHandler<any, any, any>
+    toastHandler: ToastHandler
+    findHandler: FindHandler<any, any, any>
+}
+export interface FormCreateParams {
+    sections: Array<FormSeciton>
+    options: FormOptions
+    submitHandler: SubmitHandler<any, any, any>
+    toastHandler: ToastHandler
+}
+
+export type CrudOptions = {
+    title: string
+    feature: string
+    importTemplateLink?: string
+    showExportButton: boolean
+    showCreateButton: boolean
+    showDeletedFilter: boolean
+}
+
 export interface DeleteRestoreHandler<Req> {
     deleteRestore: (req: Req) => Promise<void>
     callBack?: () => any;

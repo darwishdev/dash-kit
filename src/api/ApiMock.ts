@@ -246,6 +246,7 @@ const apiClient: ApiClient = {
     },
     roleDeleteRestore: async (_req: RoleDeleteRestoreRequest): Promise<void> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
+        console.log("deleted", _req)
 
     },
     roleCreate: async (_req: RoleCreateRequest): Promise<RoleCreateResponse> => {
@@ -267,6 +268,8 @@ const apiClient: ApiClient = {
     },
     roleUpdate: async (_req: RoleUpdateRequest): Promise<RoleUpdateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
+        // console.log("ipdate")
+        // throw new Error("error")
         return roleUpdateResponse;
     },
     roleUpdateWithErr: async (_req: RoleUpdateRequest): Promise<RoleUpdateResponse> => {

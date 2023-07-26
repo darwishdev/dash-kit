@@ -1,3 +1,5 @@
+import { utils, write, read } from 'xlsx';
+import { saveAs } from 'file-saver';
 import type { ErrorHandler, ToastHandler } from "@/types/types"
 import type { FormKitNode } from "@formkit/core"
 import { ToastServiceMethods } from 'primevue/toastservice'
@@ -15,6 +17,14 @@ export const handleSuccessToast = (handler: ToastHandler | undefined, toast: Toa
 }
 export const objFirstKey = (obj: Object) => {
     return Object.keys(obj)[0]
+}
+export function getRouteVariation(currentRoute: string, variation: string): string {
+    const routeParts = currentRoute.split('_');
+    // remvove last char "s" if the function is list by  routeParts[0].slice(0, -1) 
+    let featureName = routeParts[1] == 'list' ? routeParts[0].slice(0, -1) : routeParts[0];
+
+    featureName = variation == 'list' ? `${featureName}s` : featureName
+    return `${featureName}_${variation}`;
 }
 
 
@@ -88,4 +98,43 @@ export const authMiddleware = (to: RouteLocationNormalized, _: RouteLocationNorm
         next({ name: 'unauthorized' })
     }
     next()
+}
+
+
+
+
+export const ExportCSV = (data: unknown[], fileName: string = 'data') => {
+    const worksheet = utils.json_to_sheet(data);
+    const workbook = utils.book_new();
+    utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+    const excelBuffer = write(workbook, { bookType: 'xlsx', type: 'array' });
+    const fileData = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+    saveAs(fileData, `${fileName}.xlsx`);
+}
+
+
+export function parseCSV(content: any): any[] {
+    const lines = content.split('\n');
+    const data: any = [];
+
+    for (let i = 1; i < lines.length; i++) {
+        const fields = lines[i].split(',');
+        data.push(fields);
+    }
+    return data
+}
+export function parseExcel(content: any) {
+    const workbook = read(content, { type: 'binary' });
+    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+    const data = utils.sheet_to_json(worksheet, { header: 1 });
+    return data
+}
+
+export function ParseFile(content: any, type: 'csv' | 'xlsx' | 'xls'): any[] {
+    const parseMapper = {
+        'csv': parseCSV,
+        'xlsx': parseExcel,
+        'xls': parseExcel,
+    }
+    return parseMapper[type](content)
 }
