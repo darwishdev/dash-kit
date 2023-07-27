@@ -3,6 +3,7 @@ import useDeleteRestoreDialog from '@/composables/useDeleteRestoreDialog';
 import type { deleteRestoreDialogParms } from '@/composables/useDeleteRestoreDialog';
 import { useDialogUpdate } from '@/composables/composables';
 import type { dialogUpdateParms } from '@/composables/useDialogUpdate';
+
 import type { FormUpdateParams, DeleteRestoreHandler } from '@/types/types'
 import { inject } from 'vue'
 import type { PropType } from 'vue'
@@ -12,10 +13,14 @@ import type { I18n } from 'vue-i18n/dist/vue-i18n.js';
 
 import { useToast } from 'primevue/usetoast';
 import { useDialog } from 'primevue/usedialog';
-import { handleSuccessToast, getRouteVariation } from '@/utils/helpers';
+import { handleSuccessToast, getRouteVariation, Can } from '@/utils/helpers';
 
 export default defineComponent({
     props: {
+        feature: {
+            type: String,
+            required: true
+        },
         recordId: {
             type: Number,
             required: true,
@@ -73,9 +78,13 @@ export default defineComponent({
                 deleteRestoreDialog.openDialog()
             }
         }
+        // const showDeleteRestoreButton = Can(`${props.feature}DeleteRestore`)
+        // const showUpdateButton = Can(`${props.feature}Uelete`)
         return {
             deleteRestore,
-            update
+            update,
+            showDeleteRestoreButton: true,
+            showUpdateButton: true,
         }
     }
 })
@@ -89,11 +98,11 @@ export default defineComponent({
         </div>
         <div class="flex-grow-1 end flex align-items-center justify-content-center">
             <div class="absolute top-0 right-0 p-2">
-                <icon-btn class="list-icon" icon="trash" @click="deleteRestore" />
-                <a class="icon-btn list-icon" @click.prevent="update">
+                <icon-btn v-if="showDeleteRestoreButton" class="list-icon" icon="trash" @click="deleteRestore" />
+                <a v-if="showUpdateButton" class="icon-btn list-icon" @click.prevent="update">
                     <i class="pi pi-pencil text-white"></i>
                 </a>
-                <icon-btn class="restore-icon" icon="refresh" @click="deleteRestore" />
+                <icon-btn v-if="showDeleteRestoreButton" class="restore-icon" icon="refresh" @click="deleteRestore" />
             </div>
             <slot name="end"> </slot>
         </div>

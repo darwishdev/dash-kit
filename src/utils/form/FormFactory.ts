@@ -155,6 +155,10 @@ export class FormFactory {
         this.forms[options.id.toLowerCase()] = formWrapper
         return formWrapper
     }
+    CreateFormFilter(inputs: FormKitSchemaNode[]): FormKitSchemaNode[] {
+        // const filterForm: FormKitSchemaNode[] = 
+        return [this.WithGrid(inputs)]
+    }
     public static getInstance(): FormFactory {
         if (!FormFactory.instance) {
             FormFactory.instance = new FormFactory();

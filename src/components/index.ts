@@ -1,4 +1,5 @@
 
+export { default as AppCrud } from './AppCrud.vue'
 export { default as AppCard } from './AppCard.vue'
 export { default as AppLogo } from './AppLogo.vue'
 export { default as AppMenu } from './AppMenu.vue'

@@ -1,5 +1,5 @@
 import { LoginRequest, LoginResponse } from '@/api/ApiTypes'
-import { FormKitSchemaNode } from '@formkit/core'
+import { FormKitSchemaNode, FormKitNode } from '@formkit/core'
 import type { ErrorMessages } from "@formkit/core"
 import type { DefaultConfigOptions } from '@formkit/vue'
 import { LocaleMessageObject } from 'vue-i18n/dist/vue-i18n.js'
@@ -15,6 +15,10 @@ export interface ToastHandler {
     message?: String
 }
 
+export interface FilterParser {
+    getDisplayValue(inputNode: FormKitNode): string;
+}
+
 export interface FindHandler<Request, Response, TargetResponse> {
     findFunction: (req: Request) => Promise<Response>;
     mapFunction?: (response: Request) => TargetResponse;
@@ -27,6 +31,14 @@ export interface FormUpdateParams {
     submitHandler: SubmitHandler<any, any, any>
     toastHandler: ToastHandler
     findHandler: FindHandler<any, any, any>
+}
+
+
+export interface FormFilterParams {
+    inputs: FormKitSchemaNode[],
+    options?: FormFilterOptions,
+    modelValue?: Record<string, any>,
+    displayValue?: Record<string, any>,
 }
 export interface FormCreateParams {
     sections: Array<FormSeciton>
@@ -82,6 +94,11 @@ export interface SubmitHandler<Request, TargetRequest, Response> {
     mapFunction?: (req: Request) => TargetRequest
     redirectRoute?: string
 }
+export interface FormFilterOptions {
+    showActiveFilters?: boolean
+    showClearFilters?: boolean
+}
+
 export interface FormOptions {
     id: String
     title: string
