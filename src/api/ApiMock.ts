@@ -246,7 +246,18 @@ const apiClient: ApiClient = {
     },
     roleDeleteRestore: async (_req: RoleDeleteRestoreRequest): Promise<void> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
+<<<<<<< Updated upstream
 
+=======
+        console.log("deleted", _req)
+
+        
+    },
+    
+    userDeleteRestore: async (_req: UserDeleteRestoreRequest): Promise<void> => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        console.log("deleted", _req)
+>>>>>>> Stashed changes
     },
     roleCreate: async (_req: RoleCreateRequest): Promise<RoleCreateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));

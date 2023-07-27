@@ -164,6 +164,7 @@ export interface RoleDeleteRestoreRequest {
     roleId: number;
 }
 export interface ApiClient {
+    
     permissionsList: () => Promise<PermissionsListResponse>
     login: (req: LoginRequest) => Promise<LoginResponse>
     userCreate: (req: UserCreateRequest) => Promise<UserCreateResponse>
