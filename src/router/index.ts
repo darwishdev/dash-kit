@@ -3,6 +3,7 @@ import AppLayout from '@/components/AppLayout.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import LoginView from '@/views/LoginView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import updateView from '@/views/updateView.vue'
 import RolesListView from '@/views/RolesListView.vue'
 
 const router = createRouter({
@@ -32,7 +33,7 @@ const router = createRouter({
                 {
                     path: '/roles/update/:id',
                     name: 'role_update',
-                    component: ProfileView
+                    component: updateView
                 },
             ]
         },
