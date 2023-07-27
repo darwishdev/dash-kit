@@ -83,8 +83,9 @@ export const SnakeToPascal = (str: string): string => {
     return camelCaseStr.charAt(0).toUpperCase() + camelCaseStr.slice(1);
 }
 export const Can = (functionName: string): boolean => {
+    const functionN = functionName.charAt(0).toUpperCase() + functionName.slice(1);
     const permissions = atob(localStorage.getItem('permissions') as string)
-    return permissions.includes(functionName) || functionName == 'DashboardView'
+    return permissions.includes(functionN) || functionN == 'DashboardView'
 }
 export const authMiddleware = (to: RouteLocationNormalized, _: RouteLocationNormalized, next: NavigationGuardNext) => {
     if (to.name != 'login') {

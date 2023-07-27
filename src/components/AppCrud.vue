@@ -13,9 +13,9 @@ import Accordion from 'primevue/accordion';
 import { useDialogCreate } from '@/composables/composables';
 // import { useToast } from 'primevue/usetoast';
 import type { dialogCreateParms } from '@/composables/useDialogCreate';
-import type { CrudOptions, FormCreateParams, DeleteRestoreHandler } from '@/types/types'
+import type { CrudOptions, FormFilterParams, FormCreateParams } from '@/types/types'
 import { getRouteVariation } from '@/utils/helpers';
-
+import { useDialog } from 'primevue/usedialog'
 export default defineComponent({
     props: {
         options: {
@@ -26,14 +26,14 @@ export default defineComponent({
             type: Object as () => FormCreateParams,
             required: false,
         },
-        // filterForm: {
-        //     type: Object as () => FilterForm,
-        //     required: false,
-        // },
-        deleteRestoreHandler: {
-            type: Object as () => DeleteRestoreHandler<any>,
+        filterForm: {
+            type: Object as () => FormFilterParams,
             required: false,
         },
+        // deleteRestoreHandler: {
+        //     type: Object as () => DeleteRestoreHandler<any>,
+        //     required: false,
+        // },
         // importHandler: {
         //     type: Object as () => ImportHandler<any, any>,
         //     required: false,
@@ -46,7 +46,7 @@ export default defineComponent({
         Accordion,
     },
     setup(props, { emit }) {
-        const useDialog = inject('useDialog') as Function
+        const dialog = useDialog
         // const i18n = inject('i18n') as I18n
         // const { t } = i18n.global
         // const toast = useToast()
@@ -65,7 +65,7 @@ export default defineComponent({
                     // handleSuccessToast(props.createForm!.toastHandler, toast, t, props.options.title)
                 },
                 form: props.createForm,
-                useDialog,
+                useDialog: dialog,
 
             }
             createDialog = useDialogCreate(createDialogParms);
@@ -139,7 +139,7 @@ export default defineComponent({
             imprtExportMenu.value.toggle(event);
         };
 
-        const showCreateButton = props.options.showCreateButton && Can(`${props.options.feature}Create`)
+        const showCreateButton = props.options.showCreateButton
         return {
             create,
             handleFilter,
