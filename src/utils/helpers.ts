@@ -1,6 +1,6 @@
 import { utils, write, read } from 'xlsx';
 import { saveAs } from 'file-saver';
-import type { ErrorHandler, ToastHandler } from "@/types/types"
+import type { ErrorHandler, ToastHandler, ToastError } from "@/types/types"
 import type { FormKitNode } from "@formkit/core"
 import { ToastServiceMethods } from 'primevue/toastservice'
 import { NavigationGuardNext, RouteLocationNormalized } from "vue-router"
@@ -26,8 +26,16 @@ export function getRouteVariation(currentRoute: string, variation: string): stri
     featureName = variation == 'list' ? `${featureName}s` : featureName
     return `${featureName}_${variation}`;
 }
+export const objNonNullValues = (obj: Object) => {
+    return Object.fromEntries(
+        Object.entries(obj).filter(([_, value]) => value !== null && value !== "" && value !== undefined)
+    );
+}
 
 
+export const handleToastError = (err: ToastError, toast: ToastServiceMethods, translation: Function): void => {
+    toast.add({ severity: 'error', summary: translation(err.summary), detail: translation(err.detail), life: 3000 });
+}
 export const handleError = (error: any, _node: FormKitNode, _toast: ToastServiceMethods, _errorHandler: ErrorHandler, _t: Function): void => {
     if (error == null) {
         return
@@ -35,7 +43,12 @@ export const handleError = (error: any, _node: FormKitNode, _toast: ToastService
     const messages = error.message.split(' ')
     const message: string = messages.length == 2 ? messages[1] : error.message
     if (message == 'internalServerError') {
-        _toast.add({ severity: 'error', summary: _t('internalServerErrorTitle'), detail: _t('internalServerErrorMessage'), life: 3000 });
+        const err: ToastError = {
+            summary: 'internalServerErrorTitle',
+            detail: 'internalServerErrorMessage',
+        }
+        handleToastError(err, _toast, _t)
+        // _toast.add({ severity: 'error', summary: _t('internalServerErrorTitle'), detail: _t('internalServerErrorMessage'), life: 3000 });
     } else {
         if (!_errorHandler.globalErrors && !_errorHandler.fieldErrors) {
             _node.setErrors(['unknow_error'])
@@ -78,14 +91,14 @@ export const SnakeToCamel = (str: string): string => {
     return str.replace(/([-_]\w)/g, (match) => match[1].toUpperCase());
 }
 
-export const SnakeToPascal = (str: string): string => {
+export const ToPascal = (str: string): string => {
     const camelCaseStr = SnakeToCamel(str)
     return camelCaseStr.charAt(0).toUpperCase() + camelCaseStr.slice(1);
 }
 export const Can = (functionName: string): boolean => {
-    const functionN = functionName.charAt(0).toUpperCase() + functionName.slice(1);
+    const f = ToPascal(functionName)
     const permissions = atob(localStorage.getItem('permissions') as string)
-    return permissions.includes(functionN) || functionN == 'DashboardView'
+    return permissions.includes(f) || f == 'DashboardView'
 }
 export const authMiddleware = (to: RouteLocationNormalized, _: RouteLocationNormalized, next: NavigationGuardNext) => {
     if (to.name != 'login') {
@@ -95,7 +108,7 @@ export const authMiddleware = (to: RouteLocationNormalized, _: RouteLocationNorm
             next({ name: 'login' })
         }
     }
-    if (!Can(SnakeToPascal(to.name as string)) && to.name != 'unauthorized' && to.name != 'login') {
+    if (!Can(ToPascal(to.name as string)) && to.name != 'unauthorized' && to.name != 'login') {
         next({ name: 'unauthorized' })
     }
     next()

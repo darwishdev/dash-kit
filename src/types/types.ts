@@ -50,7 +50,6 @@ export interface FormCreateParams {
 export type CrudOptions = {
     title: string
     feature: string
-    importTemplateLink?: string
     showExportButton: boolean
     showCreateButton: boolean
     showDeletedFilter: boolean
@@ -85,6 +84,18 @@ export interface PermissionsListResponse {
 export type ErrorHandler = {
     globalErrors?: ErrorMessages
     fieldErrors?: Record<string, ErrorMessages>
+}
+export type ToastError = {
+    summary?: string
+    detail?: string
+}
+export type ImportHandler<Request, Response> = {
+    submit: (req: Request) => Promise<Response>
+    submitCallBack?: (response: Response) => any
+    importTemplateLink: string
+    errorHandler?: Record<string, ToastError>
+    toastHandler?: ToastHandler
+
 }
 export interface SubmitHandler<Request, TargetRequest, Response> {
     submit: (req: TargetRequest) => Promise<Response>
