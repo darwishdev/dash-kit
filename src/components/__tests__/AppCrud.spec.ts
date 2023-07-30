@@ -10,7 +10,6 @@ import dashkitConfig from '@/dashkit.config'
 describe('App crud tests ', () => {
     let wrapper: any = null
     const errorHandler: any = {
-    
     }
     const filterModel = ref({ roleName: "asms" })
     const modelDisplay = ref({})
@@ -79,7 +78,7 @@ describe('App crud tests ', () => {
         toastHandler: FormToastHandler
     }
     let DeleteRestoreHandler: any = {
-        deleteRestore : apiClient.userDeleteRestore,
+        deleteRestore : apiClient.roleDeleteRestore,
         indentifierPropertyName : 'userId'
     }
     let CrudOptions: any ={
