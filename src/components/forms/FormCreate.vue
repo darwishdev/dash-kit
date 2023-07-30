@@ -7,7 +7,8 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import {
     handleSuccessToast,
-    handleError
+    handleError,
+    getRouteVariation
 } from '@/utils/helpers'
 
 
@@ -35,7 +36,7 @@ export default defineComponent({
         const formSchema = FormFactory.CreateForm(props.options, props.sections)
         const toast = useToast();
         const { t } = useI18n()
-        const { push } = useRouter()
+        const { push, currentRoute } = useRouter()
         const submitHandler = async (req: any, node: any) => {
             const handler = props.submitHandler
             if (handler.mapFunction) {
@@ -49,7 +50,8 @@ export default defineComponent({
                         if (handler.submitCallBack) await handler.submitCallBack(res)
                         handleSuccessToast(props.toastHandler, toast, t, props.options.title)
                         if (!req.isBulkCreate) {
-                            if (handler.redirectRoute) push({ name: handler.redirectRoute })
+                            const destinationRoute = handler.redirectRoute ? handler.redirectRoute : getRouteVariation(currentRoute.value.name as string, "list")
+                            push({ name: destinationRoute })
                             resolve(null)
                             return
                         }
@@ -64,6 +66,7 @@ export default defineComponent({
         }
         return {
             formSchema,
+            id: props.options.id as string,
             log,
             submitHandler
         }
@@ -73,7 +76,7 @@ export default defineComponent({
 </script>
 
 <template>
-    <FormKit type="form" @submit-invalid="log" :actions="false" @submit="submitHandler">
+    <FormKit :id="id" type="form" @submit-invalid="log" :actions="false" @submit="submitHandler">
         <FormKitSchema :schema="formSchema" />
     </FormKit>
 </template>

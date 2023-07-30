@@ -12,6 +12,9 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@models/*": [
+        "./node_modules/@buf/ahmeddarwish_mln-api.bufbuild_es/rms/*"
       ]
     },
     /* Bundler mode */

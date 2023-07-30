@@ -44,8 +44,7 @@ export default defineComponent({
         if (props.deleteRestoreHandler) {
             const deleteRestoreDialogParm: deleteRestoreDialogParms = {
                 onConfirmed: () => {
-                    console.log(handleSuccessToast)
-                    emit('onDeleted', props.recordId)
+                    emit('onDeleteRestore', props.recordId)
                     handleSuccessToast(props.deleteRestoreHandler!.toastHandler, toast, t, 'deleted')
 
                 },

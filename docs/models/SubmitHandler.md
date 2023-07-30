@@ -24,7 +24,7 @@ export interface SubmittHandler<Request, TargetRequest, Response> {
    * The name of the property that serves as the unique identifier in the form data.
    * This is used to handle updates or deletions when necessary.
    */
-  indentifierPropertyName?: string;
+  requestPropertyName?: string;
 
   /**
    * An object that defines error messages for different form fields.
@@ -54,7 +54,7 @@ export interface SubmittHandler<Request, TargetRequest, Response> {
 
 - `submitCallBack` (optional): A callback function that will be executed after the form submission is successful. You can use this callback to perform additional actions or logic based on the server response.
 
-- `indentifierPropertyName` (optional): The name of the property that serves as the unique identifier in the form data. This is useful when you need to handle updates or deletions based on the unique identifier.
+- `requestPropertyName` (optional): The name of the property that serves as the unique identifier in the form data. This is useful when you need to handle updates or deletions based on the unique identifier.
 
 - `errorHandler`: An object that defines error messages for different form fields. The keys represent the form field names, and the values are the error messages associated with each field.
 

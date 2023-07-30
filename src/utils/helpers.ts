@@ -18,6 +18,24 @@ export const handleSuccessToast = (handler: ToastHandler | undefined, toast: Toa
 export const objFirstKey = (obj: Object) => {
     return Object.keys(obj)[0]
 }
+export const convertArrayToObjectArray = (input: any[][]): Object => {
+    if (input.length < 2) {
+        return [];
+    }
+
+    const headers = input[0].map((header: any) => header.toString());
+
+    const rows = input.slice(1).map((row) => {
+        const obj: any = {};
+        row.forEach((value: any, index: number) => {
+            const header = headers[index];
+            obj[header] = value;
+        });
+        return obj;
+    });
+
+    return { rows }
+}
 export function getRouteVariation(currentRoute: string, variation: string): string {
     const routeParts = currentRoute.split('_');
     // remvove last char "s" if the function is list by  routeParts[0].slice(0, -1) 
@@ -96,9 +114,9 @@ export const ToPascal = (str: string): string => {
     return camelCaseStr.charAt(0).toUpperCase() + camelCaseStr.slice(1);
 }
 export const Can = (functionName: string): boolean => {
-    const f = ToPascal(functionName)
+    const convertedPermissionName = ToPascal(functionName)
     const permissions = atob(localStorage.getItem('permissions') as string)
-    return permissions.includes(f) || f == 'DashboardView'
+    return permissions.includes(convertedPermissionName) || convertedPermissionName == 'DashboardView'
 }
 export const authMiddleware = (to: RouteLocationNormalized, _: RouteLocationNormalized, next: NavigationGuardNext) => {
     if (to.name != 'login') {

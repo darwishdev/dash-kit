@@ -56,18 +56,18 @@ export type CrudOptions = {
 }
 
 export interface DeleteRestoreHandler<Req> {
-    deleteRestore: (req: Req) => Promise<void>
+    deleteRestore: (req: Req) => Promise<any>
     callBack?: () => any;
-    indentifierPropertyName?: string;
+    requestPropertyName?: string;
     errorHandler?: Record<string, string>
     toastHandler?: ToastHandler
 }
 
 export interface Permission {
-    permission_id: number
-    permission_name: string
-    permission_function: string
-    permission_description: string
+    permissionId: number
+    permissionName: string
+    permissionFunction: string
+    permissionDescription: string
 }
 
 export interface PermissionsListRow {
@@ -100,7 +100,7 @@ export type ImportHandler<Request, Response> = {
 export interface SubmitHandler<Request, TargetRequest, Response> {
     submit: (req: TargetRequest) => Promise<Response>
     submitCallBack?: (response: Response) => any
-    indentifierPropertyName?: string
+    requestPropertyName?: string
     errorHandler: ErrorHandler
     mapFunction?: (req: Request) => TargetRequest
     redirectRoute?: string

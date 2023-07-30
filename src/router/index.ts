@@ -6,6 +6,7 @@ import ProfileView from '@/views/ProfileView.vue'
 import FormFilterView from '@/views/FormFilterView.vue'
 import RolesListView from '@/views/RolesListView.vue'
 import AppCrudView from '@/views/AppCrudView.vue'
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -30,6 +31,7 @@ const router = createRouter({
                     name: 'roles_list',
                     component: RolesListView
                 },
+
                 {
                     path: '/roles/update/:id',
                     name: 'role_update',

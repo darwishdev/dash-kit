@@ -8,7 +8,8 @@ const props = defineProps({
     context: Object,
 })
 let modelValue = [];
-
+const loading = ref(false)
+const error = ref(null)
 const search = ref(null);
 const checkedModel = ref([]);
 const checkedGroupsModel = ref([]);
@@ -16,7 +17,7 @@ const checkAllModel = ref(false);
 const permissions = ref(Object.assign({}, props.context.permissions))
 const tmp = ref(props.context.value || '')
 
-onBeforeMount(() => {
+onBeforeMount(async () => {
     if (props.context._value) {
         props.context._value.forEach(id => {
             checkedModel.value[id] = id
@@ -24,6 +25,20 @@ onBeforeMount(() => {
         modelValue = props.context._value
         props.context.node.input(modelValue)
     }
+
+    if (typeof props.context.permissions == 'function') {
+        loading.value = true
+        try {
+            permissions.value = await props.context.permissions({})
+        } catch (err) {
+            error.value = err
+        } finally {
+            loading.value = false
+        }
+    } else {
+        permissions.value = Object.assign({}, props.context.permissions)
+    }
+
 })
 /**
  * Handle input, advancing or retreating focus.
@@ -44,14 +59,14 @@ function handleInput(value) {
 }
 function toggleSelectAllGroup(value, permissions) {
     permissions.forEach(perm => {
-        checkedModel.value[perm.permission_id] = value ? perm.permission_id : perm.permission_id * -1
+        checkedModel.value[perm.permissionId] = value ? perm.permissionId : perm.permissionId * -1
         if (value) {
-            const index = modelValue.indexOf(perm.permission_id);
+            const index = modelValue.indexOf(perm.permissionId);
             if (index == -1) {
-                modelValue.push(perm.permission_id)
+                modelValue.push(perm.permissionId)
             }
         } else {
-            const index = modelValue.indexOf(perm.permission_id);
+            const index = modelValue.indexOf(perm.permissionId);
             if (index !== -1) {
                 modelValue.splice(index, 1)
             }
@@ -80,7 +95,7 @@ function handleSearch(value) {
         const hasMatchingGroup = lowercaseGroup.includes(lowercaseSearchKey);
 
         const hasMatchingPermission = permissionRow.permissions.some((permission) => {
-            const lowercasePermissionName = permission.permission_name.toLowerCase();
+            const lowercasePermissionName = permission.permissionName.toLowerCase();
             return lowercasePermissionName.includes(lowercaseSearchKey);
         });
 
@@ -103,7 +118,9 @@ function toggleSelectAll(value) {
 </script>
 
 <template>
-    <div class="my-3 permissions_input">
+    <input-permissions-loading v-if="loading" />
+    <form-error :error="$t(error)" class="w-full" v-else-if="error" />
+    <div class="my-3 permissions_input" v-else>
         <Toolbar>
             <template #start>
                 <h2>Permissions</h2>
@@ -137,10 +154,10 @@ function toggleSelectAll(value) {
             <div class="flex flex-wrap gap-3">
 
                 <div class="form-control flex align-items-center" v-for="(p, index) in perm.permissions" :key="index">
-                    <InputSwitch v-model="checkedModel[p.permission_id]" @update:modelValue="handleInput"
-                        :trueValue="p.permission_id" :falseValue="p.permission_id * -1"
-                        :inputId="p.permission_id.toString()" class="p-invalid" />
-                    <label class="ml-2" :for="p.permission_id">{{ p.permission_name }}</label>
+                    <InputSwitch v-model="checkedModel[p.permissionId]" @update:modelValue="handleInput"
+                        :trueValue="p.permissionId" :falseValue="p.permissionId * -1" :inputId="p.permissionId.toString()"
+                        class="p-invalid" />
+                    <label class="ml-2" :for="p.permissionId">{{ p.permissionName }}</label>
 
                 </div>
             </div>

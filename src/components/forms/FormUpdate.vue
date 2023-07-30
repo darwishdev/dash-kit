@@ -9,7 +9,8 @@ import { useRouter } from 'vue-router';
 import { useRoute } from 'vue-router';
 import {
     handleSuccessToast,
-    handleError
+    handleError,
+    getRouteVariation
 } from '@/utils/helpers'
 
 export default defineComponent({
@@ -41,21 +42,28 @@ export default defineComponent({
         const toast = useToast();
         const { t } = useI18n()
         const { push } = useRouter()
-        const { params } = useRoute()
+        const { params, name } = useRoute()
 
-        type ResponseType = ReturnType<typeof props.findHandler.findFunction>;
-        type RequestType = Record<string, number>
-        const req: RequestType = {}
+        type FindResponseType = ReturnType<typeof props.findHandler.findFunction>;
+        type FindRequestType = Record<string, number>
+        const req: FindRequestType = {}
 
         const requestValue = props.findHandler.requestValue ? props.findHandler.requestValue : parseInt(params.id as string)
         req[props.findHandler.requestPropertyName] = requestValue
-        const { responseData, loading, error } = useDataFetcherFind<RequestType, ResponseType>(props.findHandler.findFunction, req);
+        const { responseData, loading, error } = useDataFetcherFind<FindRequestType, FindResponseType>(props.findHandler.findFunction, req);
         const submitHandler = async (req: any, node: any) => {
             const handler = props.submitHandler
             if (handler.mapFunction) {
                 req = handler.mapFunction(req)
             }
+            if (handler.requestPropertyName) {
+                req[handler.requestPropertyName] = requestValue
+            } else {
+                req[props.findHandler.requestPropertyName] = requestValue
+            }
 
+            console.log('req', req)
+            console.log('requestValue', requestValue)
             await new Promise((resolve) => {
                 handler.submit(req)
                     .then(async (res: any) => {
@@ -63,7 +71,8 @@ export default defineComponent({
                         if (handler.submitCallBack) await handler.submitCallBack(res)
                         handleSuccessToast(props.toastHandler, toast, t, props.options.title)
                         if (!req.isBulkCreate) {
-                            if (handler.redirectRoute) push({ name: handler.redirectRoute })
+                            const destinationRoute = handler.redirectRoute ? handler.redirectRoute : getRouteVariation(name as string, "list")
+                            push({ name: destinationRoute })
                             resolve(null)
                             return
                         }
@@ -79,6 +88,7 @@ export default defineComponent({
         return {
             formSchema,
             log,
+            id: props.options.id as string,
             responseData,
             loading,
             error,
@@ -92,7 +102,8 @@ export default defineComponent({
 <template>
     <form-loading v-if="loading" />
     <form-loading v-else-if="error" :error="error" />
-    <FormKit v-else :value="responseData" type="form" @submit-invalid="log" :actions="false" @submit="submitHandler">
+    <FormKit v-else :id="id" :value="responseData" type="form" @submit-invalid="log" :actions="false"
+        @submit="submitHandler">
         <FormKitSchema :schema="formSchema" />
     </FormKit>
 </template>

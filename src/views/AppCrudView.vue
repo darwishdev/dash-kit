@@ -66,13 +66,13 @@ const filterForm: FormFilterParams = {
 }
 const deleteRestoreHandler: DeleteRestoreHandler<RoleDeleteRestoreRequest> = {
     deleteRestore: apiClient.roleDeleteRestore,
-    indentifierPropertyName: 'roleId',
+    requestPropertyName: 'roleId',
 
 }
 const updateFormFindHandler: FindHandler<RoleFindRequest, RoleFindResponse, any> = {
     findFunction: apiClient.roleFind,
     requestPropertyName: 'roleId',
-    requestValue: 1,
+    requestValue: 10,
 }
 
 const upateOptions: FormOptions = {

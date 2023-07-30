@@ -1,5 +1,6 @@
-import apiClient from '@/api/ApiMock'
-import type { ErrorHandler, FormSeciton, ToastHandler } from '@/types/types'
+import apiClient from '@/api/ApiClient'
+import type { ErrorHandler, FormSeciton, ToastHandler } from 'dash-kit/types'
+import permissions from '@/api/permissions'
 
 
 const sections: FormSeciton[] = [
@@ -37,6 +38,8 @@ const sections: FormSeciton[] = [
             }
         ],
     },
+
+
 ]
 
 const toastHandler: ToastHandler = {

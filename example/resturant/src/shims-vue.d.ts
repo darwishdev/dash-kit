@@ -7,3 +7,4 @@ declare module '@vue/runtime-core' {
         $t: VueI18n['t']
     }
 }
+

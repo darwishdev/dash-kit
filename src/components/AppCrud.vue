@@ -1,5 +1,5 @@
 <script  lang="ts">
-import { ParseFile, handleToastError, Can, getRouteVariation, handleSuccessToast } from '@/utils/helpers'
+import { ParseFile, handleToastError, Can, getRouteVariation, handleSuccessToast, convertArrayToObjectArray } from '@/utils/helpers'
 import Menu from 'primevue/menu';
 import { saveAs } from 'file-saver';
 import { useRouter } from 'vue-router';
@@ -77,7 +77,7 @@ export default defineComponent({
             const fileInstace = files[0].file
             const extension = fileInstace.name.split('.').pop().toLowerCase();
             const fileContent = await fileInstace.arrayBuffer();
-            const data = ParseFile(fileContent, extension)
+            const data = convertArrayToObjectArray(ParseFile(fileContent, extension))
             props.importHandler.submit(data).then(res => {
                 if (props.importHandler!.submitCallBack) props.importHandler!.submitCallBack(res)
                 node.reset()
