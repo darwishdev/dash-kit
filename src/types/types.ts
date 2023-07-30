@@ -1,5 +1,5 @@
 import { LoginRequest, LoginResponse } from '@/api/ApiTypes'
-import { FormKitSchemaNode } from '@formkit/core'
+import { FormKitSchemaNode, FormKitNode } from '@formkit/core'
 import type { ErrorMessages } from "@formkit/core"
 import type { DefaultConfigOptions } from '@formkit/vue'
 import { LocaleMessageObject } from 'vue-i18n/dist/vue-i18n.js'
@@ -15,19 +15,59 @@ export interface ToastHandler {
     message?: String
 }
 
+export interface FilterParser {
+    getDisplayValue(inputNode: FormKitNode): string;
+}
+
+export interface FindHandler<Request, Response, TargetResponse> {
+    findFunction: (req: Request) => Promise<Response>;
+    mapFunction?: (response: Request) => TargetResponse;
+    requestPropertyName: string;
+    requestValue?: number;
+}
+export interface FormUpdateParams {
+    sections: Array<FormSeciton>
+    options: FormOptions
+    submitHandler: SubmitHandler<any, any, any>
+    toastHandler: ToastHandler
+    findHandler: FindHandler<any, any, any>
+}
+
+
+export interface FormFilterParams {
+    inputs: FormKitSchemaNode[],
+    options?: FormFilterOptions,
+    modelValue?: Record<string, any>,
+    displayValue?: Record<string, any>,
+}
+export interface FormCreateParams {
+    sections: Array<FormSeciton>
+    options: FormOptions
+    submitHandler: SubmitHandler<any, any, any>
+    toastHandler: ToastHandler
+}
+
+export type CrudOptions = {
+    title: string
+    feature: string
+    showExportButton: boolean
+    showCreateButton: boolean
+    showDeletedFilter: boolean
+}
+
 export interface DeleteRestoreHandler<Req> {
-    deleteRestore: (req: Req) => Promise<void>
+    deleteRestore: (req: Req) => Promise<any>
     callBack?: () => any;
-    indentifierPropertyName?: string;
+    requestPropertyName?: string;
     errorHandler?: Record<string, string>
     toastHandler?: ToastHandler
 }
 
 export interface Permission {
-    permission_id: number
-    permission_name: string
-    permission_function: string
-    permission_description: string
+    permissionId: number
+    permissionName: string
+    permissionFunction: string
+    permissionDescription: string
 }
 
 export interface PermissionsListRow {
@@ -45,14 +85,31 @@ export type ErrorHandler = {
     globalErrors?: ErrorMessages
     fieldErrors?: Record<string, ErrorMessages>
 }
+export type ToastError = {
+    summary?: string
+    detail?: string
+}
+export type ImportHandler<Request, Response> = {
+    submit: (req: Request) => Promise<Response>
+    submitCallBack?: (response: Response) => any
+    importTemplateLink: string
+    errorHandler?: Record<string, ToastError>
+    toastHandler?: ToastHandler
+
+}
 export interface SubmitHandler<Request, TargetRequest, Response> {
     submit: (req: TargetRequest) => Promise<Response>
     submitCallBack?: (response: Response) => any
-    indentifierPropertyName?: string
+    requestPropertyName?: string
     errorHandler: ErrorHandler
     mapFunction?: (req: Request) => TargetRequest
     redirectRoute?: string
 }
+export interface FormFilterOptions {
+    showActiveFilters?: boolean
+    showClearFilters?: boolean
+}
+
 export interface FormOptions {
     id: String
     title: string

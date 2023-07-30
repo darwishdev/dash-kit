@@ -13,7 +13,7 @@ let deleteRestoreDialog = undefined as any
 
 const deleteRestoreHandler: DeleteRestoreHandler<RoleDeleteRestoreRequest> = {
     deleteRestore: apiClient.roleDeleteRestore,
-    indentifierPropertyName: 'roleId'
+    requestPropertyName: 'roleId'
 }
 const deleteRestoreDialogParm: deleteRestoreDialogParms = {
     onConfirmed: () => {

@@ -5,7 +5,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--color-grey);
+    background-color: var(--color-card);
     border-radius: 30px;
     cursor: pointer;
     padding: 5px;
@@ -16,6 +16,15 @@
     }
   }
 }
+
+.clear-icon {
+  display: flex;
+  align-items: center;
+  & svg {
+    // display: none;
+  }
+}
+
 .permissions_input {
   width: 100%;
 

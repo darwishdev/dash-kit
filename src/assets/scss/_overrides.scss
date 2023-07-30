@@ -128,3 +128,15 @@
 .login-wrapper .title {
   display: none;
 }
+
+.p-menu.p-menu-overlay {
+  background: var(--color-background);
+}
+
+.formkit-file-item {
+  overflow: hidden;
+}
+
+.p-dialog {
+  background: var(--color-dialog) !important;
+}

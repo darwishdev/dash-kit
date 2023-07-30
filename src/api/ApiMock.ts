@@ -196,7 +196,7 @@ const apiClient: ApiClient = {
     },
     loginWithPwErr: async (_req: LoginRequest): Promise<LoginResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        throw new Error("wrong_password")
+        throw new Error("wrong_passworsssd")
     },
     permissionsList: async (): Promise<PermissionsListResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -246,18 +246,8 @@ const apiClient: ApiClient = {
     },
     roleDeleteRestore: async (_req: RoleDeleteRestoreRequest): Promise<void> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-<<<<<<< Updated upstream
-
-=======
         console.log("deleted", _req)
 
-        
-    },
-    
-    userDeleteRestore: async (_req: UserDeleteRestoreRequest): Promise<void> => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        console.log("deleted", _req)
->>>>>>> Stashed changes
     },
     roleCreate: async (_req: RoleCreateRequest): Promise<RoleCreateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -278,6 +268,8 @@ const apiClient: ApiClient = {
     },
     roleUpdate: async (_req: RoleUpdateRequest): Promise<RoleUpdateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
+        // console.log("ipdate")
+        // throw new Error("error")
         return roleUpdateResponse;
     },
     roleUpdateWithErr: async (_req: RoleUpdateRequest): Promise<RoleUpdateResponse> => {

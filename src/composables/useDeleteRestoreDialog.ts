@@ -44,7 +44,7 @@ export default function useCreateDialog(params: deleteRestoreDialogParms) {
                 if (data) {
                     if (data.confirmed) {
                         const req = {} as any
-                        const prop = params.deleteRestoreHandler.indentifierPropertyName!
+                        const prop = params.deleteRestoreHandler.requestPropertyName!
                         req[prop] = params.recordId
                         params.deleteRestoreHandler.deleteRestore(req).then(() => {
                             if (params.onConfirmed) params.onConfirmed();

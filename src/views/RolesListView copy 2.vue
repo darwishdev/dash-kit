@@ -1,7 +1,6 @@
+
 <script setup lang="ts">
 import apiClient from '@/api/ApiMock';
-import { ref } from 'vue'
-import { FormKitSchemaNode } from '@formkit/core'
 import type {
     RolesListRequest, RolesListResponse, RoleDeleteRestoreRequest, RoleUpdateRequest, RoleUpdateResponse, RoleFindRequest, RoleFindResponse
 } from '@/api/ApiTypes';
@@ -16,28 +15,6 @@ const updateFormSubmitHandler: SubmitHandler<RoleUpdateRequest, RoleUpdateReques
     errorHandler,
 }
 
-const filterModel = ref({ roleName: "asms" })
-const modelDisplay = ref({})
-
-
-
-const filterForm: FormKitSchemaNode[] = [
-    {
-        $formkit: 'text',
-        outerClass: "col-6",
-        name: 'roleName',
-        label: 'roleNameLabel',
-        placeholder: 'roleNamePlaceholder',
-
-    },
-    {
-        $formkit: 'textarea',
-        outerClass: "col-6",
-        name: 'roleDescription',
-        label: 'roleDescriptionLabel',
-        placeholder: 'roleDescriptionPlaceholder',
-    },
-]
 const deleteRestoreHandler: DeleteRestoreHandler<RoleDeleteRestoreRequest> = {
     deleteRestore: apiClient.roleDeleteRestore,
     requestPropertyName: 'roleId',
@@ -69,11 +46,7 @@ function onDialogSubmitted(recordId: number) {
 </script>
 
 <template>
-    <form-filter v-model="filterModel" v-model:modelDisplay="modelDisplay"
-        :options="{ showActiveFilters: true, showClearFilters: true }" :inputs="filterForm" />
-
-    {{ modelDisplay }}
-    {{ filterModel }}
+    list
     <div class="grid" v-if="loading">
         <!-- <app-card-loading class="col " v-for="i in 3" :key="i" /> -->
         loading
@@ -87,7 +60,8 @@ function onDialogSubmitted(recordId: number) {
         error
     </div>
     <div v-else>
-
+        asd
+        {{ responseData!.roles }}
         <app-card v-for="role in responseData!.roles" :key="role.roleId" :deleteRestoreHandler="deleteRestoreHandler"
             :updateForm="updateForm" :recordId="role.roleId" @onDialogSubmitted="onDialogSubmitted">
             <template #start>
