@@ -1,5 +1,8 @@
 {
     "dashboard": "dashboard",
+    "roles_list": "roles",
+    "permissions": "Permissions",
+    "users": "Users",
     "incorrect_password": "this password is incorrect",
     "pass_loginApiCall": "please provice loginApiCall to be able to use login functionality from dash-kit",
     "logout": "logout",

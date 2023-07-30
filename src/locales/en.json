@@ -1,5 +1,7 @@
 {
     "dashboard": "dashboard",
+    "show_filters": "click here to filter the data",
+    "clear_filters": "click here to clear all the filters",
     "wrong_password": "this password is incorrect",
     "pass_loginApiCall": "please provice loginApiCall to be able to use login functionality from dash-kit",
     "logout": "logout",

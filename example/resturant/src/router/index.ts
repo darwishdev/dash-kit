@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { AppLayout } from 'dash-kit/base'
 import { LoginView, ProfileView, UnauthorizedView } from 'dash-kit/views'
 import DashboardView from '../views/DashboardView.vue'
+import { ref } from 'vue';
 import administration from '../views/AdministrationView.vue'
-import RolesListView from '../views/RolesListView.vue'
 import UsersListView from '../views/UsersListView.vue'
 import { authMiddleware } from 'dash-kit/helpers'
 const router = createRouter({
@@ -25,16 +25,28 @@ const router = createRouter({
                     meta: { breadCrumbs: [{ label: "profile" }] },
                     component: ProfileView
                 },
+                //roles
                 {
                     path: '/roles',
                     name: 'roles_list',
                     meta: { breadCrumbs: [{ label: "roles" }] },
-                    component: RolesListView
+                    component: () => import('../views/RolesListView.vue')
+                },
+                {
+                    path: '/roles/create',
+                    name: 'role_create',
+                    meta: { breadCrumbs: ref([{ label: "roles", to: { name: 'roles_list' } }, { label: "create" }]) },
+                    component: () => import('../views/RoleCreateView.vue')
+                },
+                {
+                    path: '/roles/update/:id',
+                    name: 'role_update',
+                    meta: { breadCrumbs: ref([{ label: "roles", to: { name: 'roles_list' } }, { label: "update" }]) },
+                    component: () => import('../views/RoleUpdateView.vue')
                 },
                 {
                     path: '/administration',
                     name: 'administration',
-                    meta: { breadCrumbs: [{ label: "administration" }] },
                     component: administration
                 },
                 {

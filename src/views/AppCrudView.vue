@@ -3,12 +3,13 @@ import apiClient from '@/api/ApiMock';
 import DataView from 'primevue/dataview';
 import { ref } from 'vue'
 import { FormKitSchemaNode } from '@formkit/core'
+import { ExportCSV } from '@/utils/helpers'
 import type {
-    RoleCreateRequest, RoleCreateResponse, RolesListRequest, RolesListResponse, RoleDeleteRestoreRequest, RoleUpdateRequest, RoleUpdateResponse, RoleFindRequest, RoleFindResponse
+    RoleCreateRequest, RoleBulkCreateRequest, RoleBulkCreateResponse, RoleCreateResponse, RolesListRequest, RolesListResponse, RoleDeleteRestoreRequest, RoleUpdateRequest, RoleUpdateResponse, RoleFindRequest, RoleFindResponse
 } from '@/api/ApiTypes';
 // import LogoError from '@/assets/logo-error.svg'
 import RoleForm from './RoleForm'
-import type { DeleteRestoreHandler, FormFilterParams, FormCreateParams, CrudOptions, SubmitHandler, FormUpdateParams, FormOptions, FindHandler } from '@/types/types'
+import type { DeleteRestoreHandler, ImportHandler, FormFilterParams, FormCreateParams, CrudOptions, SubmitHandler, FormUpdateParams, FormOptions, FindHandler } from '@/types/types'
 
 import { useDataFetcherList } from '@/composables/composables'
 const dataview = ref()
@@ -25,7 +26,7 @@ const createFormSubmitHandler: SubmitHandler<RoleCreateRequest, RoleCreateReques
 }
 const crudOptions: CrudOptions = {
     title: 'roles_list',
-    feature: 'roles',
+    feature: 'role',
     showExportButton: true,
     showCreateButton: true,
     showDeletedFilter: true
@@ -65,13 +66,13 @@ const filterForm: FormFilterParams = {
 }
 const deleteRestoreHandler: DeleteRestoreHandler<RoleDeleteRestoreRequest> = {
     deleteRestore: apiClient.roleDeleteRestore,
-    indentifierPropertyName: 'roleId',
+    requestPropertyName: 'roleId',
 
 }
 const updateFormFindHandler: FindHandler<RoleFindRequest, RoleFindResponse, any> = {
     findFunction: apiClient.roleFind,
     requestPropertyName: 'roleId',
-    requestValue: 1,
+    requestValue: 10,
 }
 
 const upateOptions: FormOptions = {
@@ -98,10 +99,24 @@ const { responseData, loading, error, fetchData } = useDataFetcherList<RolesList
 function onDialogSubmitted(recordId: number) {
     console.log(recordId)
 }
+
+const showDeletedHandler = (val: any) => {
+    showDeletedData.value = val
+}
+
+const exportData = () => {
+    const data = showDeletedData.value ? responseData.value?.deleteRoles as unknown[] : responseData.value?.roles as unknown[]
+    ExportCSV(data)
+}
+const importHandler: ImportHandler<RoleBulkCreateRequest, RoleBulkCreateResponse> = {
+    submit: apiClient.roleBulkCreate,
+    importTemplateLink: "https://static.exploremelon.com/mln_rms/import-templates/Roles.xlsx",
+} 
 </script>
 
 <template>
-    <app-crud :options="crudOptions" :createForm="createForm" :filterForm="filterForm">
+    <app-crud :importHandler="importHandler" @showDeleted="showDeletedHandler" @export="exportData" :options="crudOptions"
+        :createForm="createForm" :filterForm="filterForm">
         <template #data>
             <div class="grid" v-if="loading">
                 <app-card-loading class="col " v-for="i in 3" :key="i" />
@@ -118,7 +133,8 @@ function onDialogSubmitted(recordId: number) {
                 dataKey="role_id" :rows="9">
                 <template #grid="slotProps">
                     <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2">
-                        <app-card feature="role" :deleteRestoreHandler="deleteRestoreHandler" :updateForm="updateForm"
+                        <app-card :class="{ 'app-card-restore': showDeletedData }" feature="role"
+                            :deleteRestoreHandler="deleteRestoreHandler" :updateForm="updateForm"
                             :recordId="slotProps.data.roleId" @onDialogSubmitted="onDialogSubmitted">
                             <template #start>
                                 <div style="padding: 0.8rem;">
@@ -137,48 +153,7 @@ function onDialogSubmitted(recordId: number) {
                         </app-card>
                     </div>
                 </template>
-
             </data-view>
-
         </template>
-
     </app-crud>
 </template>
-<!--
-
-        <form-filter v-model="filterModel" v-model:modelDisplay="modelDisplay"
-        :options="{ showActiveFilters: true, showClearFilters: true }" :inputs="filterForm" />
-
-    {{ modelDisplay }}
-    {{ filterModel }}
-<div class="grid" v-if="loading">
-       <app-card-loading class="col " v-for="i in 3" :key="i" /> 
-        loading
-    </div>
-<div v-else-if="error">
-       <div class="error text-center">
-            <logo-error class=" mt-4" />
-            <h2 class="text-3xl"> {{ $t("list_error") }}</h2>
-            <i class="pi pi-refresh text-3xl mt-4 cursor-pointer" @click="fetchData"></i>
-        </div> 
-        error
-    </div>
-<div v-else>
-
-        <app-card v-for="role in responseData!.roles" :key="role.roleId" :deleteRestoreHandler="deleteRestoreHandler"
-            :updateForm="updateForm" :recordId="role.roleId" @onDialogSubmitted="onDialogSubmitted">
-            <template #start>
-                <div style="padding: 0.8rem;">
-                    <h4>Permissions</h4>
-                    <h3 class="font-bold">{{ role.rolePermissions }}</h3>
-                    <h4>Users</h4>
-                    <h3 class="font-bold">{{ role.roleUsers }}</h3>
-                </div>
-            </template>
-<template #end>
-    <router-link :to="{ name: 'role_update', params: { id: role.roleId } }" :title="role.roleName">{{
-        role.roleName
-    }}</router-link>
-</template>
-        </app-card>
-    </div> -->

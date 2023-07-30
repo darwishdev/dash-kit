@@ -1,68 +1,55 @@
 <script  lang="ts">
-import { ParseFile, Can } from '@/utils/helpers'
+import { ParseFile, handleToastError, Can, getRouteVariation, handleSuccessToast, convertArrayToObjectArray } from '@/utils/helpers'
 import Menu from 'primevue/menu';
+import { saveAs } from 'file-saver';
 import { useRouter } from 'vue-router';
-import FileUpload from 'primevue/fileupload'
-import { inject, ref, defineComponent } from 'vue'
-import type { Ref } from 'vue'
-// import { saveAs } from 'file-saver';
-import { reset } from '@formkit/core'
+import { PropType, ref, defineComponent } from 'vue'
 import AccordionTab from 'primevue/accordiontab';
-// import type { I18n } from 'vue-i18n/dist/vue-i18n.js';
 import Accordion from 'primevue/accordion';
 import { useDialogCreate } from '@/composables/composables';
-// import { useToast } from 'primevue/usetoast';
 import type { dialogCreateParms } from '@/composables/useDialogCreate';
-import type { CrudOptions, FormFilterParams, FormCreateParams } from '@/types/types'
-import { getRouteVariation } from '@/utils/helpers';
+import type { CrudOptions, FormFilterParams, FormCreateParams, ToastError, ImportHandler } from '@/types/types'
+import { useToast } from 'primevue/usetoast';
+import { useI18n } from 'vue-i18n';
 import { useDialog } from 'primevue/usedialog'
 export default defineComponent({
     props: {
         options: {
-            type: Object as () => CrudOptions,
+            type: Object as PropType<CrudOptions>,
             required: true,
         },
         createForm: {
-            type: Object as () => FormCreateParams,
+            type: Object as PropType<FormCreateParams>,
             required: false,
         },
         filterForm: {
-            type: Object as () => FormFilterParams,
+            type: Object as PropType<FormFilterParams>,
             required: false,
         },
-        // deleteRestoreHandler: {
-        //     type: Object as () => DeleteRestoreHandler<any>,
-        //     required: false,
-        // },
-        // importHandler: {
-        //     type: Object as () => ImportHandler<any, any>,
-        //     required: false,
-        // },
+        importHandler: {
+            type: Object as PropType<ImportHandler<any, any>>,
+            required: false,
+        },
     },
     components: {
-        FileUpload,
         AccordionTab,
         Menu,
         Accordion,
     },
     setup(props, { emit }) {
         const dialog = useDialog
-        // const i18n = inject('i18n') as I18n
-        // const { t } = i18n.global
-        // const toast = useToast()
-        const isProgressBarVisibile = inject('isProgressBarVisibile') as Ref<boolean>
-
+        const toast = useToast();
+        const { t } = useI18n()
         const { push, currentRoute } = useRouter()
-        // const showFiltersForm = props.filterForm && props.filterForm.inputs.length > 0
         const imprtExportMenu = ref();
-
+        const crudFilterForm = ref();
         let createDialog: any = undefined
+        const filterModel = ref({})
+        const modelDisplay = ref({})
         if (props.createForm) {
             const createDialogParms: dialogCreateParms = {
                 onConfirmed: () => {
                     emit('onShowcreateDialog')
-                    // console.log(handleSuccessToast)
-                    // handleSuccessToast(props.createForm!.toastHandler, toast, t, props.options.title)
                 },
                 form: props.createForm,
                 useDialog: dialog,
@@ -70,16 +57,7 @@ export default defineComponent({
             }
             createDialog = useDialogCreate(createDialogParms);
         }
-        const handleFilter = (filterObject: Object) => {
-            console.log('filterObject', filterObject)
-            emit('filtered', filterObject)
-        }
-        const handleClearFilters = () => {
-            console.log('clear filtesr')
-            reset('filter-form')
-            emit('filtersCleared')
 
-        }
         const create = () => {
             if (createDialog != undefined) {
                 createDialog.openDialog()
@@ -94,68 +72,85 @@ export default defineComponent({
         const handleDeletedFilter = (status: any) => {
             emit('showDeleted', status)
         }
-        const handleImport = async (files: any, _node: any) => {
-            if (files.length == 0) return
+        const handleImport = async (files: any, node: any) => {
+            if (files.length == 0 || !props.importHandler) return
             const fileInstace = files[0].file
             const extension = fileInstace.name.split('.').pop().toLowerCase();
             const fileContent = await fileInstace.arrayBuffer();
-            const data = ParseFile(fileContent, extension)
-            emit('imported', data);
-            // if (!props.importHandler) {
-            //     return
-            // }
-            isProgressBarVisibile.value = true
-            // props.importHandler.bulkCreate(data).then(res => {
-            //     if (props.importHandler!.callBack) props.importHandler!.callBack(res)
-            //     node.reset()
-            //     handleSuccessToast(props.importHandler!.toastHandler, toast, t, 'imported')
+            const data = convertArrayToObjectArray(ParseFile(fileContent, extension))
+            props.importHandler.submit(data).then(res => {
+                if (props.importHandler!.submitCallBack) props.importHandler!.submitCallBack(res)
+                node.reset()
+                handleSuccessToast(props.importHandler!.toastHandler, toast, t, 'imported')
 
-            //     isProgressBarVisibile.value = false
-            // })
+            }).catch((err: any) => {
+                const isErrorHandlerPassed = props.importHandler!.errorHandler && props.importHandler!.errorHandler[err as string]
+                const toastErr: ToastError = isErrorHandlerPassed ? props.importHandler!.errorHandler![err as string] : { summary: 'failed', detail: 'import_filed' }
+                handleToastError(toastErr, toast, t)
+            })
+
+            emit('imported', data);
+
+        }
+        let imprtExportOptions: any = []
+        if (props.importHandler) {
+            imprtExportOptions.push({
+                label: 'Download template',
+                icon: 'pi pi-download',
+                command: () => {
+                    const fileName = props.importHandler!.importTemplateLink as string
+                    saveAs(fileName);
+                }
+            })
+            if (props.options.showExportButton) {
+                imprtExportOptions.push(
+                    {
+                        label: 'export',
+                        icon: 'pi pi-upload',
+                        command: handleExport
+                    })
+            }
         }
 
-        const imprtExportOptions = []
-
-        // if (typeof props.options.importTemplateLink != 'undefined') {
-        //     imprtExportOptions.push(
-        //         {
-        //             label: 'Download template',
-        //             icon: 'pi pi-download',
-        //             command: () => {
-        //                 const fileName = props.options.importTemplateLink as string
-        //                 saveAs(fileName);
-        //             }
-        //         })
-        // }
-        // if (props.options.showExportButton) {
-        //     imprtExportOptions.push(
-        //         {
-        //             label: 'export',
-        //             icon: 'pi pi-upload',
-        //             command: handleExport
-        //         })
-        // }
         const imprtExportMenuToggle = (event: any) => {
             imprtExportMenu.value.toggle(event);
         };
 
-        const showCreateButton = props.options.showCreateButton
+
+        const handleFilter = (filterObject: Object) => {
+            emit('filtered', filterObject)
+
+        }
+        const removeFilter = (filter: string) => {
+            crudFilterForm.value.removeFilter(filter)
+            emit('removeFilter', filter)
+
+        }
+        const clearAllFilters = () => {
+            crudFilterForm.value.clearAllFilters()
+        }
+        const showFiltersForm = props.filterForm && props.filterForm.inputs.length > 0
+        const showImportOptions = typeof props.importHandler != 'undefined'
+        const showCreateButton = props.options.showCreateButton && Can(`${props.options.feature}Create`)
         return {
             create,
-            handleFilter,
-            handleClearFilters,
             handleImport,
             handleExport,
             handleDeletedFilter,
+            handleFilter,
             imprtExportMenuToggle,
-            isProgressBarVisibile,
+            removeFilter,
+            clearAllFilters,
             showCreateButton,
+            showFiltersForm,
+            crudFilterForm,
+            showImportOptions,
             options: props.options,
             imprtExportMenu,
             imprtExportOptions,
-            // showFiltersForm,
-            // showImportButton: typeof props.importHandler != 'undefined',
-            // filterFormInputs: props.filterForm?.inputs,
+            filterModel,
+            modelDisplay,
+            filterFormInputs: props.filterForm?.inputs,
         }
     }
 
@@ -164,13 +159,13 @@ export default defineComponent({
 </script>
 
 <template>
-    <div class="bg-card p-4 border-round " :class="{ 'disabled': isProgressBarVisibile }">
+    <div class="app-crud bg-card p-4 border-round " :class="{ 'disabled': false }">
         <div class="flex flex-wrap border-round justify-content-between align-items-center border-1 border-200 p-3 mb-3">
             <div class="flex align-items-center">
                 <div class="mx-3" v-if="showCreateButton">
                     <Button @click.prevent="create" label="New" severity="success" icon="pi pi-plus" />
                 </div>
-                <div class="options" v-if="options.importTemplateLink">
+                <div class="options" v-if="showImportOptions">
                     <Button type="button" icon="pi pi-save" :label="$t('options')" @click="imprtExportMenuToggle"
                         aria-haspopup="true" aria-controls="overlay_menu" />
                     <Menu ref="imprtExportMenu" id="import_export_menu" :model="imprtExportOptions" :popup="true">
@@ -190,16 +185,58 @@ export default defineComponent({
             </div>
 
             <slot name="filters" />
-            <!-- <Accordion v-if="!$slots['filters'] && showFiltersForm" class="flex-grow list-filters">
-                <AccordionTab>
-                    <template #header>
-                        <i class="pi pi-filter mr-3"></i>
-                        <span>{{ $t('show_filters') }}</span>
-                    </template>
-                    <data-filter-form @filter="handleFilter" @clearFilters="handleClearFilters" :inputs="filterFormInputs"
-                        :liveUpdate="false" />
-                </AccordionTab>
-            </Accordion> -->
+            <div class="crud-filter">
+                <Accordion v-if="!$slots['filters'] && showFiltersForm" class="flex-grow list-filters">
+                    <AccordionTab>
+                        <template #header>
+                            <div class="flex align-items-center w-full justiy-content-between">
+                                <div class="title">
+                                    <i class="pi pi-filter mr-3"></i>
+                                    <span>{{ $t('show_filters') }}</span>
+                                </div>
+                                <div class="clear-icon" @click.prevent="clearAllFilters"
+                                    v-if="Object.keys(filterModel).length > 0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="var(--color-white)"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-miterlimit="10" stroke-width="1.5"
+                                            d="M21.63 14.75c0 .89-.25 1.73-.69 2.45a4.709 4.709 0 0 1-4.06 2.3 4.73 4.73 0 0 1-4.06-2.3 4.66 4.66 0 0 1-.69-2.45c0-2.62 2.13-4.75 4.75-4.75s4.75 2.13 4.75 4.75Zm-3.481 1.24-2.51-2.51m2.491.03-2.51 2.51" />
+                                        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-miterlimit="10" stroke-width="1.5"
+                                            d="M20.69 4.02v2.22c0 .81-.51 1.82-1.01 2.33l-1.76 1.55a4.42 4.42 0 0 0-1.04-.12c-2.62 0-4.75 2.13-4.75 4.75 0 .89.25 1.73.69 2.45.37.62.88 1.15 1.5 1.53v.34c0 .61-.4 1.42-.91 1.72L12 21.7c-1.31.81-3.13-.1-3.13-1.72v-5.35c0-.71-.41-1.62-.81-2.12L4.22 8.47c-.5-.51-.91-1.42-.91-2.02V4.12C3.31 2.91 4.22 2 5.33 2h13.34c1.11 0 2.02.91 2.02 2.02Z"
+                                            opacity=".4" />
+                                    </svg>
+
+                                    <span>{{ $t('clear_filters') }}</span>
+                                </div>
+
+                            </div>
+                        </template>
+                        <form-filter ref="crudFilterForm" v-model="filterModel" v-model:modelDisplay="modelDisplay"
+                            :options="{
+                                showActiveFilters: false,
+                                showClearFilters: false,
+                            }" @filter="handleFilter" :inputs="filterFormInputs" />
+                    </AccordionTab>
+                </Accordion>
+                <div v-if="modelDisplay" class="active-filters">
+                    <div class="filter" v-for="(filter, index) in Object.keys(modelDisplay) " :key="index"
+                        @click.prevent="removeFilter(filter)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="var(--color-white)"
+                            viewBox="0 0 24 24">
+                            <path stroke="#464455" stroke-linecap="round" stroke-linejoin="round"
+                                d="M18 7h-2m-3.5-2H6c-.471 0-.707 0-.854.146C5 5.293 5 5.53 5 6v1.965c0 .262 0 .393.06.503.058.11.167.184.385.329l3.024 2.015c.872.582 1.308.873 1.544 1.315.237.442.237.966.237 2.014V19l3.5-1.75v-3.11c0-1.047 0-1.571.237-2.013.133-.25.331-.452.636-.686M20 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                        <h3 class=""> <strong>{{ $t(`${modelDisplay[filter].key}_filter`) }}</strong> : {{
+                            modelDisplay[filter].value }} </h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="var(--color-white)"
+                            viewBox="0 0 24 24">
+                            <path stroke="var(--color-white)" stroke-linecap="round" stroke-width="2"
+                                d="m16 8-8 8m0-8 8 8" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
 
             <slot name="header-right-buttons" />
         </div>

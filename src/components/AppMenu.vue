@@ -28,8 +28,8 @@ export default defineComponent({
                 } else {
                     delete item.items
                 }
-                if (item.icon.Valid) {
-                    item.icon = item.icon.String
+                if (item.icon) {
+                    item.icon = item.icon
                 } else {
                     delete item.icon
                 }
@@ -38,11 +38,17 @@ export default defineComponent({
             })
         }
         const model = parsedPermissions == null ? props.model : parsedPermissions
+        const translateMenuItems = (items: MenuItem[]) => {
+            return items.map((item) => {
+                item.label = t((item.label as string).toLowerCase());
+                if (item.items) {
+                    item.items = translateMenuItems(item.items); // Recursive call
+                }
+                return item;
+            });
+        }
 
-        const translatedModel = model.map((m: MenuItem) => {
-            m.label = t((m.label as string).toLowerCase())
-            return m
-        })
+        const translatedModel = translateMenuItems(model)
         return { translatedModel }
 
     }

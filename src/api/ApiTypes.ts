@@ -2,10 +2,10 @@ import type {
     FileUploadRequest, FileUploadResponse, FileRemoveRequest, FileRemoveResponse
 } from '@/types/types'
 export interface Permission {
-    permission_id: number
-    permission_name: string
-    permission_function: string
-    permission_description: string
+    permissionId: number
+    permissionName: string
+    permissionFunction: string
+    permissionDescription: string
 }
 
 export interface PermissionsListRow {

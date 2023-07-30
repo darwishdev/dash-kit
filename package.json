@@ -18,7 +18,7 @@
     "./helpers": "./dist/utils/helpers.js",
     "./base.d.ts": "./dist/components/base.d.ts",
     "./forms": "./dist/forms/forms.js",
-    "./compsables": "./dist/composables/composables.js",
+    "./composables": "./dist/composables/composables.js",
     "./forms.d.ts": "./dist/forms/forms.d.ts"
   },
   "keywords": [

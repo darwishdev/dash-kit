@@ -44,8 +44,7 @@ export default defineComponent({
         if (props.deleteRestoreHandler) {
             const deleteRestoreDialogParm: deleteRestoreDialogParms = {
                 onConfirmed: () => {
-                    console.log(handleSuccessToast)
-                    emit('onDeleted', props.recordId)
+                    emit('onDeleteRestore', props.recordId)
                     handleSuccessToast(props.deleteRestoreHandler!.toastHandler, toast, t, 'deleted')
 
                 },
@@ -78,13 +77,13 @@ export default defineComponent({
                 deleteRestoreDialog.openDialog()
             }
         }
-        // const showDeleteRestoreButton = Can(`${props.feature}DeleteRestore`)
-        // const showUpdateButton = Can(`${props.feature}Uelete`)
+        const showDeleteRestoreButton = Can(`${props.feature}DeleteRestore`)
+        const showUpdateButton = Can(`${props.feature}Update`)
         return {
             deleteRestore,
             update,
-            showDeleteRestoreButton: true,
-            showUpdateButton: true,
+            showDeleteRestoreButton,
+            showUpdateButton
         }
     }
 })
@@ -92,7 +91,7 @@ export default defineComponent({
 
 </script>
 <template>
-    <div class="app-card flex border-round bg-card my-3">
+    <div class="app-card  flex border-round bg-card my-3">
         <div class="start text-center">
             <slot name="start"></slot>
         </div>

@@ -17,7 +17,7 @@ const updateFormSubmitHandler: SubmitHandler<RoleUpdateRequest, RoleUpdateReques
 
 const deleteRestoreHandler: DeleteRestoreHandler<RoleDeleteRestoreRequest> = {
     deleteRestore: apiClient.roleDeleteRestore,
-    indentifierPropertyName: 'roleId',
+    requestPropertyName: 'roleId',
 
 }
 const updateFormFindHandler: FindHandler<RoleFindRequest, RoleFindResponse, any> = {

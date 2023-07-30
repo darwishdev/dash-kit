@@ -1,10 +1,9 @@
-<script  lang="ts">
+<script lang="ts">
 import { defineComponent, ref, PropType } from 'vue'
 import { FormKitSchemaNode } from '@formkit/core'
 import FormFactory from '@/utils/form/FormFactory'
 import { debounce } from 'lodash'
 import { getInputParser } from '@/utils/form/filter'
-// import { reset } from '@formkit/core'
 import { getNode } from '@formkit/core'
 import { FormFilterOptions } from '@/types/types'
 
@@ -20,51 +19,73 @@ export default defineComponent({
             default: {
                 showActiveFilters: false,
                 showClearFilters: true,
-            }
+            },
         },
         modelValue: {
             type: Object,
-            required: false
+            required: false,
         },
         modelDisplay: {
             type: Object,
-            required: false
+            required: false,
         },
     },
     setup(props, { emit }) {
-        const formSchema = FormFactory.CreateFormFilter(props.inputs) as any
+
+        // Function to initialize the form schema
+        const formSchema = FormFactory.CreateFormFilter(props.inputs)
+
+        // Reactive variables
         const formData = ref({})
         const activeFilters = ref({})
 
+        // Initialize the formData if modelValue prop is provided
         if (props.modelValue) {
             formData.value = { ...props.modelValue }
-
         }
+
+        // Debounced emit function for the filter event
         const emitFilter = ref(debounce((filterObject: any) => {
             emit('filter', filterObject)
         }, 500))
 
+        // Function to handle form value changes
         const updateFormValue = async (value: any, node: any) => {
+            const filteredFormData = filterNonNullValues(value)
+
             if (props.modelValue) {
-                emit('update:modelValue', value)
+                emit('update:modelValue', filteredFormData)
             }
-            const keys = Object.keys(value)
+
+            const keys = Object.keys(filteredFormData)
             for (const input of keys) {
-                const isBinded = (typeof activeFilters.value[input] != 'undefined' && activeFilters.value[input].value == value[input])
-                if (typeof value[input] == 'undefined' || isBinded) {
-                    continue
+                const isBinded = isFilterBinded(activeFilters.value[input], filteredFormData[input])
+                if (!isBinded) {
+                    const currentInput = node.at(input)
+                    const parser = getInputParser(currentInput.props.type)
+                    const displayValue = parser.getDisplayValue(currentInput)
+                    activeFilters.value[input] = { key: input, value: displayValue }
+                    emitFilter.value({ key: input, value: currentInput.value })
+                    if (props.modelDisplay) {
+                        emit('update:modelDisplay', activeFilters.value)
+                    }
+                    return
                 }
-                const currentInput = node.at(input)
-                const parser = getInputParser(currentInput.props.type)
-                const displayValue = parser.getDisplayValue(currentInput)
-                activeFilters.value[input] = { key: input, value: displayValue }
-                emitFilter.value({ key: input, value: currentInput.value })
-                if (props.modelDisplay) {
-                    emit('update:modelDisplay', activeFilters.value)
-                }
-                return
             }
         }
+
+        // Function to remove a specific filter
+        const removeFilter = (filter: string) => {
+            delete activeFilters.value[filter]
+            const node = getNode('filter-form')
+            if (node?._value) {
+                node._value[filter] = undefined
+            }
+            node?.input(node._value)
+            emit('removeFilter', filter)
+        }
+
+        // Function to clear all filters
         const clearAllFilters = () => {
             const node = getNode('filter-form')
             if (props.modelDisplay) {
@@ -73,16 +94,24 @@ export default defineComponent({
             node?.input({})
         }
 
-        const removeFilter = (filter: string) => {
-            delete activeFilters.value[filter]
-            const node = getNode('filter-form')
-            if (node?._value) {
-                node._value[filter] = undefined
-            }
-            node?.input(node._value)
-            console.log(node?._value)
-            emit('removeFilter', filter)
+        // Helper functions
+
+        // Function to filter non-null values from an object
+        const filterNonNullValues = (value: any) => {
+            return Object.fromEntries(Object.entries(value).filter(([key, value]) => {
+                const isNotNull = value !== null && value !== "" && value !== undefined
+                if (!isNotNull && activeFilters.value[key]) {
+                    delete activeFilters.value[key]
+                }
+                return isNotNull
+            }))
         }
+
+        // Function to check if a filter is already binded
+        const isFilterBinded = (filter: any, value: any) => {
+            return typeof filter !== 'undefined' && filter.value === value
+        }
+
         return {
             formSchema,
             activeFilters,
@@ -93,13 +122,11 @@ export default defineComponent({
             inputs: props.inputs,
             options: props.options,
             modelValue: props.modelValue,
-            display: props.modelDisplay
+            display: props.modelDisplay,
         }
-    }
+    },
 })
-
 </script>
-
 <template>
     <div class="grid align-items-center w-full">
         <div :class="{ 'col-11': options.showClearFilters, 'col-12': !options.showClearFilters }">
@@ -124,13 +151,13 @@ export default defineComponent({
     <div v-if="options.showActiveFilters && activeFilters" class="active-filters">
         <div class="filter" v-for="(filter, index) in Object.keys(activeFilters) " :key="index"
             @click.prevent="removeFilter(filter)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="none" viewBox="0 0 24 24">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="var(--color-white)" viewBox="0 0 24 24">
                 <path stroke="#464455" stroke-linecap="round" stroke-linejoin="round"
                     d="M18 7h-2m-3.5-2H6c-.471 0-.707 0-.854.146C5 5.293 5 5.53 5 6v1.965c0 .262 0 .393.06.503.058.11.167.184.385.329l3.024 2.015c.872.582 1.308.873 1.544 1.315.237.442.237.966.237 2.014V19l3.5-1.75v-3.11c0-1.047 0-1.571.237-2.013.133-.25.331-.452.636-.686M20 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
             </svg>
             <h3 class=""> <strong>{{ $t(`${activeFilters[filter].key}_filter`) }}</strong> : {{
                 activeFilters[filter].value }} </h3>
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="none" viewBox="0 0 24 24">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="var(--color-white)" viewBox="0 0 24 24">
                 <path stroke="var(--color-white)" stroke-linecap="round" stroke-width="2" d="m16 8-8 8m0-8 8 8" />
             </svg>
         </div>

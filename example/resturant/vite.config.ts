@@ -8,6 +8,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@models': fileURLToPath(new URL('./node_modules/@buf/ahmeddarwish_mln-api.bufbuild_es/rms', import.meta.url)),
     }
   },
 })
