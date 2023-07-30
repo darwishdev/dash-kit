@@ -2,31 +2,22 @@ import { CrudOptions } from './../../types/types';
 import { mount } from "@vue/test-utils";
 import apiClient from "@/api/ApiMock";
 import router from '@/router';
-<<<<<<< Updated upstream
-=======
 import { ref } from 'vue';
->>>>>>> Stashed changes
-// import VueRouter from 'vue-router'
 import AppCrud from "@/components/AppCrud.vue";
 import { expect, describe, it, vi, afterEach, beforeEach } from "vitest";
 import DashKit from '@/DashKit'
 import dashkitConfig from '@/dashkit.config'
 describe('App crud tests ', () => {
     let wrapper: any = null
-<<<<<<< Updated upstream
-
-=======
     const errorHandler: any = {
     
     }
     const filterModel = ref({ roleName: "asms" })
     const modelDisplay = ref({})
->>>>>>> Stashed changes
 
     let FormToastHandler: any = {
         hideToast: false
     }
-<<<<<<< Updated upstream
     let FormSubmitHandler: any = {
         submit: apiClient.userCreate,
 
@@ -103,7 +94,6 @@ describe('App crud tests ', () => {
         options : CrudOptions ,
         createForm : CreateForm,
         deleteRestoreHandler : DeleteRestoreHandler
-=======
     const createFormSubmitHandler: any = {
         submit: apiClient.userCreate,
         errorHandler,
@@ -178,7 +168,6 @@ describe('App crud tests ', () => {
         options : crudOptions ,
         createForm : createForm,
         filterForm : filterForm
->>>>>>> Stashed changes
     }
     beforeEach(() => {
         router.push('/roles')
@@ -194,7 +183,6 @@ describe('App crud tests ', () => {
                 plugins: [[DashKit, dashkitConfig], router],
             },
             props: {
-<<<<<<< Updated upstream
                 options : CrudOptions ,
                 createForm : CreateForm,
                 deleteRestoreHandler : DeleteRestoreHandler
@@ -347,6 +335,5 @@ describe('App crud tests ', () => {
         expect(usernameInput.exists()).not.toBe(true)
         expect(userPhoneInput.exists()).not.toBe(true)
     })
->>>>>>> Stashed changes
 
 })
