@@ -249,7 +249,6 @@ const apiClient: ApiClient = {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         console.log("deleted", _req)
     },
-    
     userDeleteRestore: async (_req: UserDeleteRestoreRequest): Promise<void> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         console.log("deleted", _req)

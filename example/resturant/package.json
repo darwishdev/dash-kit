@@ -19,7 +19,6 @@
     "@formkit/vue": "latest",
     "@intlify/unplugin-vue-i18n": "^0.11.0",
     "file-saver": "^2.0.5",
-    "formkit-builder": "^0.4.4",
     "happy-dom": "^6.0.4",
     "primeicons": "^6.0.1",
     "primevue": "^3.29.2",
@@ -30,7 +29,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
-    "cypress": "^4.2.0",
+    "cypress": "^12.17.2",
     "cypress-video": "^1.4.0",
     "typescript": "^5.0.2",
     "vite": "^4.4.0",

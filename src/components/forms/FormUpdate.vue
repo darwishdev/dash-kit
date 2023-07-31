@@ -54,7 +54,7 @@ export default defineComponent({
         const submitHandler = async (req: any, node: any) => {
             const handler = props.submitHandler
             if (handler.mapFunction) {
-                req = handler.mapFunction(req)
+                req = handler.mapFunction(req)                
             }
             if (handler.requestPropertyName) {
                 req[handler.requestPropertyName] = requestValue

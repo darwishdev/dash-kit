@@ -1,0 +1,32 @@
+.doc-main {
+  @media (min-width: 1200px) {
+    max-width: 60vw;
+  }
+}
+.doc-section-nav {
+  position: fixed !important;
+}
+
+h1,
+h2 {
+  font-size: 2rem;
+  margin: 50px 0 20px 0;
+}
+
+li {
+  color: var(--surface-800);
+  font-size: 18px;
+  margin: 20px 10px;
+  // list-style: none;
+}
+
+strong,
+h1,
+h2 {
+  font-weight: 600;
+}
+
+p {
+  font-size: 1.125rem;
+  color: var(--surface-800);
+}

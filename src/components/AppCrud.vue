@@ -124,7 +124,6 @@ export default defineComponent({
         const removeFilter = (filter: string) => {
             crudFilterForm.value.removeFilter(filter)
             emit('removeFilter', filter)
-
         }
         const clearAllFilters = () => {
             crudFilterForm.value.clearAllFilters()

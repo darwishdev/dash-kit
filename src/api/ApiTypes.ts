@@ -167,6 +167,7 @@ export interface UserDeleteRestoreRequest {
     userId: number;
 }
 export interface ApiClient {
+    
     permissionsList: () => Promise<PermissionsListResponse>
     login: (req: LoginRequest) => Promise<LoginResponse>
     userCreate: (req: UserCreateRequest) => Promise<UserCreateResponse>

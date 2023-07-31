@@ -13,7 +13,6 @@ export default defineComponent({
             required: false,
             default: [
                 { key: '0', label: 'dashboard', icon: 'pi pi-fw pi-chart-bar', to: { name: 'dashboard_view' } },
-
             ]
         }
     },
@@ -37,7 +36,9 @@ export default defineComponent({
                 return item
             })
         }
-        const model = parsedPermissions == null ? props.model : parsedPermissions
+
+        const isModelPassed = !(props.model.length == 1 && props.model[0].label == 'dashboard')
+        const model = parsedPermissions == null || isModelPassed ? props.model : parsedPermissions
         const translateMenuItems = (items: MenuItem[]) => {
             return items.map((item) => {
                 item.label = t((item.label as string).toLowerCase());

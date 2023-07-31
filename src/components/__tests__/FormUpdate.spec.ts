@@ -6,6 +6,7 @@ import { expect, describe, it, vi, afterEach } from "vitest";
 import DashKit from '@/DashKit'
 import dashkitConfig from '@/dashkit.config'
 describe('form update tests ', () => {
+    
     let wrapper: any = null
     let FormToastHandler: any = {
         hideToast: false
@@ -136,7 +137,6 @@ describe('form update tests ', () => {
         const spy = vi.spyOn(router, 'push')
         expect(spy).toHaveBeenCalledTimes(0)
         const usernameInput = wrapper.find('input[name="userName"]')
-        const userphoneInput = wrapper.find('input[name="userPhone"]');
         const userPasswordInput = wrapper.find('input[name="userPassword"]')
         const submitButton = wrapper.find('button[type="submit"]')
         await usernameInput.setValue('test_user')

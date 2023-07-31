@@ -3,11 +3,11 @@ import apiClient from "@/api/ApiMock";
 import router from '@/router';
 // import VueRouter from 'vue-router'
 import AppCard from "@/components/AppCard.vue";
-import { expect, describe, it, vi, afterEach, beforeEach } from "vitest";
+import { expect, describe, it, beforeEach } from "vitest";
 import DashKit from '@/DashKit'
 import dashkitConfig from '@/dashkit.config'
-import RolesListView from "@/views/RolesListView.vue";
 describe('App card tests ', () => {
+    
     let wrapper: any = null
 
     let RecordID : number = 1
@@ -91,9 +91,9 @@ describe('App card tests ', () => {
         updateForm : UpdateForm,
         deleteRestoreHandler : DeleteRestoreHandler
     }
-    afterEach(() => {
-        wrapper.unmount()
-    })
+    // afterEach(() => {
+    //     wrapper.unmount()
+    // })
     beforeEach(() => {
         router.push('/roles')
     })
@@ -104,6 +104,7 @@ describe('App card tests ', () => {
                 plugins: [[DashKit, dashkitConfig], router],
             },
             props: {
+                feature : 'Users',
                 recordId : RecordID,
                 updateForm : UpdateForm,
                 deleteRestoreHandler : DeleteRestoreHandler
@@ -123,6 +124,7 @@ describe('App card tests ', () => {
                 plugins: [[DashKit, dashkitConfig], router],
             },
             props: {
+                feature : 'Users',
                 recordId : RecordID,
                 updateForm : UpdateForm,
                 deleteRestoreHandler : DeleteRestoreHandler
@@ -150,6 +152,7 @@ describe('App card tests ', () => {
                 plugins: [[DashKit, dashkitConfig], router],
             },
             props: {
+                feature : 'Users',
                 recordId : RecordID,
                 updateForm : UpdateForm,
                 deleteRestoreHandler : DeleteRestoreHandler
@@ -162,7 +165,6 @@ describe('App card tests ', () => {
         expect(deleteButton.exists()).toBe(true)
         await deleteButton.trigger('click')
         await new Promise(resolve => setTimeout(resolve, 3000))
-        const confirmButton = wrapper.findAll('.p-button');
     })
     it('no update form should pop up after clicking on edit icon if we did not pass the updateForm prop', async () => {
         router.push('/roles')
@@ -171,6 +173,7 @@ describe('App card tests ', () => {
                 plugins: [[DashKit, dashkitConfig], router],
             },
             props: {
+                feature : 'Users',
                 recordId : RecordID,
                 deleteRestoreHandler : DeleteRestoreHandler
             }
