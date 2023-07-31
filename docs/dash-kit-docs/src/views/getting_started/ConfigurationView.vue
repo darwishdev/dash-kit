@@ -1,14 +1,16 @@
 <template>
     <Head>
-        <Title>Installation</Title>
+        <Title>Configuration</Title>
         <Meta name="description" content="PrimeVue is a rich set of open source components for Vue." />
     </Head>
     <div class="doc">
         <div class="doc-main">
             <div class="doc-intro">
-                <!-- <h1>Introduction</h1> -->
-                <p>To start using Dash-kit in your Vue.js project, you can easily install it via npm or yarn. The following
-                    commands demonstrate how to install Dash-kit:</p>
+                <h1>Configuration</h1>
+                <p>The Dash-kit package offers various configuration options to customize and enhance its functionalities.
+                    Here is a
+                    detailed guide on how to set up the configuration for Dash-kit
+                </p>
             </div>
             <DocSections :docs="docs" import />
         </div>
@@ -17,34 +19,35 @@
 </template>
 
 <script>
-import InstallationDoc from '@/doc/installation/InstallationDoc.vue';
-import UsageDoc from '@/doc/installation/UsageDoc.vue';
-import ConfigurationDoc from '@/doc/installation/ConfigurationDoc.vue';
-import UsePluginDoc from '@/doc/installation/UsePluginDoc.vue';
+import UploadHandlerDoc from '@/doc/configuration/UploadHandlerDoc.vue';
+import TranslationsDoc from '@/doc/configuration/TranslationsDoc.vue';
+import LoginHandlerDoc from '@/doc/configuration/LoginHandlerDoc.vue';
+import FormkitConfigDoc from '@/doc/configuration/FormkitConfigDoc.vue';
 
 export default {
     data() {
         return {
             docs: [
                 {
-                    id: 'installation',
-                    label: 'Installation',
-                    component: InstallationDoc
+                    id: 'formkit-config',
+                    label: 'Formkit Config',
+                    component: FormkitConfigDoc
                 },
                 {
-                    id: 'usage',
-                    label: 'Usage Guide',
-                    component: UsageDoc
+                    id: 'translations',
+                    label: 'Translations',
+                    component: TranslationsDoc
                 },
                 {
-                    id: 'configuration',
-                    label: 'Configuration',
-                    component: ConfigurationDoc
+                    id: 'upload-handler',
+                    label: 'Upload Handler',
+                    component: UploadHandlerDoc
                 },
+
                 {
-                    id: 'useplugin',
-                    label: 'Use Plugin',
-                    component: UsePluginDoc
+                    id: 'login-handler',
+                    label: 'Login Handler ',
+                    component: LoginHandlerDoc
                 },
             ]
         };

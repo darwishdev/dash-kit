@@ -25,7 +25,7 @@ export default [
             {
                 key: "2.1", label: "Base", icon: "pi pi-fw pi-clone", to: null,
                 items: [
-                    { key: "2.1.0", label: "App Layout", icon: "pi pi-fw pi-th-large", to: "/app-layout" },
+                    { key: "2.1.0", label: "App Layout", icon: "pi pi-fw pi-th-large", to: "/base/app-layout" },
                     { key: "2.1.1", label: "App Nav", icon: "pi pi-fw pi-bars", to: "/app-nav" },
                     { key: "2.1.2", label: "App Menu", icon: "pi pi-fw pi-bars", to: "/app-menu" },
                     { key: "2.1.3", label: "App Card", icon: "pi pi-fw pi-id-card", to: "/app-card" },
