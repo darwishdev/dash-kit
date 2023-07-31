@@ -1,10 +1,9 @@
-import { CrudOptions } from './../../types/types';
 import { mount } from "@vue/test-utils";
 import apiClient from "@/api/ApiMock";
 import router from '@/router';
 import { ref } from 'vue';
 import AppCrud from "@/components/AppCrud.vue";
-import { expect, describe, it, vi, afterEach, beforeEach } from "vitest";
+import { expect, describe, it, beforeEach } from "vitest";
 import DashKit from '@/DashKit'
 import dashkitConfig from '@/dashkit.config'
 describe('App crud tests ', () => {
@@ -16,26 +15,7 @@ describe('App crud tests ', () => {
     let FormToastHandler: any = {
         hideToast: false
     }
-    let FormSubmitHandler: any = {
-        submit: apiClient.userCreate,
 
-        errorHandler: {
-            fieldErrors: {
-                'already_exists unique_constraint_users_user_name_key': {
-                    userName: "username already exists"
-                },
-                'already_exists unique_constraint_users_user_phone_key': {
-                    userPhone: "userPhone already exists"
-                }
-            }
-        },
-        redirectRoute: 'dashboard_view'
-    }
-    let FormOptions: any = {
-        id: "create-form",
-        title: "",
-        withBackground: false
-    }
     let FormSections: any = [
         {
 
@@ -71,23 +51,6 @@ describe('App crud tests ', () => {
 
         },
     ]
-    let CreateForm: any = {
-        sections: FormSections,
-        options: FormOptions,
-        submitHandler: FormSubmitHandler,
-        toastHandler: FormToastHandler
-    }
-    let DeleteRestoreHandler: any = {
-        deleteRestore : apiClient.roleDeleteRestore,
-        indentifierPropertyName : 'userId'
-    }
-    let CrudOptions: any ={
-        title : 'Roles List',
-        feature : 'Roles',
-        showExportButton : true,
-        showCreateButton : true ,
-        showDeletedFilter : true
-    }
     const createFormSubmitHandler: any = {
         submit: apiClient.userCreate,
         errorHandler,
@@ -116,29 +79,6 @@ describe('App crud tests ', () => {
             placeholder: 'roleDescriptionPlaceholder',
         },
     ]
-    const sections: any[] = [
-        {
-            role_info: [
-                {
-                    $formkit: 'text',
-                    outerClass: "col-4",
-                    name: 'username',
-                    label: 'roleNameLabel',
-                    placeholder: 'roleNamePlaceholder',
-                    validation: 'required|length:3',
-    
-                },
-                {
-                    $formkit: 'textarea',
-                    outerClass: "col-8",
-                    name: 'userPhone',
-                    label: 'roleDescriptionLabel',
-                    placeholder: 'roleDescriptionPlaceholder',
-                    validation: '',
-                },
-            ],
-        },
-    ]
     const filterForm: any = {
         options: {
             showActiveFilters: true,
@@ -146,30 +86,22 @@ describe('App crud tests ', () => {
         },
         inputs: filterFormInputs,
         modelValue: filterModel,
-        displayValue: modelDisplay
+        modelDisplay: modelDisplay
     }
     const upateOptions: any = {
         id: "role-update",
         title: "role_update",
     }
     const createForm: any = {
-        sections: sections,
+        sections: FormSections,
         options: upateOptions,
         submitHandler: createFormSubmitHandler,
         toastHandler: FormToastHandler,
-    }
-    let propss = {
-        options : crudOptions ,
-        createForm : createForm,
-        filterForm : filterForm
     }
     beforeEach(() => {
         router.push('/roles')
     })
 
-    // afterEach(() => {
-    //     wrapper.unmount()
-    // })
 
     it('the component should mount correctly with the passed props and the crud options we have defined should be displayed correctly', async () => {
         wrapper = mount(AppCrud, {

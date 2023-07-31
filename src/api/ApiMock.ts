@@ -7,6 +7,7 @@ import permissions from '@/api/permissions'
 import type {
     RolesListResponse,
     RoleDeleteRestoreRequest,
+    UserDeleteRestoreRequest,
     RoleCreateResponse, RoleCreateRequest, RoleBulkCreateRequest, RoleBulkCreateResponse, RoleUpdateRequest, RoleUpdateResponse, RoleFindRequest, RoleFindResponse,
     UserCreateResponse, ApiClient, UserCreateRequest, UserUpdateRequest, UserUpdateResponse, UserFindRequest, UserFindResponse, LoginRequest, LoginResponse
 } from './ApiTypes'
@@ -247,7 +248,10 @@ const apiClient: ApiClient = {
     roleDeleteRestore: async (_req: RoleDeleteRestoreRequest): Promise<void> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         console.log("deleted", _req)
-
+    },
+    userDeleteRestore: async (_req: UserDeleteRestoreRequest): Promise<void> => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        console.log("deleted", _req)
     },
     roleCreate: async (_req: RoleCreateRequest): Promise<RoleCreateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));

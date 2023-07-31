@@ -2,7 +2,7 @@
 import type { DeleteRestoreHandler, CrudOptions, ImportHandler } from "dash-kit/types";
 import { useDataFetcherList } from "dash-kit/composables";
 import { ExportCSV } from "dash-kit/helpers";
-import { RoleDeleteRestoreRequest, RolesListRequest, RolesListResponse, RoleBulkCreateRequest, RoleBulkCreateResponse, RolesListRow } from "@models/v1/user/role_definitions_pb"
+import { RoleDeleteRestoreRequest, RolesListRequest, RolesListResponse, U, RoleBulkCreateResponse } from "@models/v1/user/role_definitions_pb"
 import apiClient from "@/api/ApiClient";
 import DataView from 'primevue/dataview';
 import { defineComponent, ref } from 'vue'
@@ -54,7 +54,7 @@ export default defineComponent({
         @export="exportData" :options="crudOptions">
         <template #data>
             <div class="grid" v-if="loading">
-                Loadigin
+                Loading
                 <app-card-loading class="col " v-for="i in 3" :key="i" />
             </div>
             <div v-else-if="error">

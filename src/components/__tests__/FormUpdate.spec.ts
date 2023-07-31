@@ -137,7 +137,6 @@ describe('form update tests ', () => {
         const spy = vi.spyOn(router, 'push')
         expect(spy).toHaveBeenCalledTimes(0)
         const usernameInput = wrapper.find('input[name="userName"]')
-        const userphoneInput = wrapper.find('input[name="userPhone"]');
         const userPasswordInput = wrapper.find('input[name="userPassword"]')
         const submitButton = wrapper.find('button[type="submit"]')
         await usernameInput.setValue('test_user')

@@ -5,7 +5,12 @@ import DashboardView from '../views/DashboardView.vue'
 import { ref } from 'vue';
 import administration from '../views/AdministrationView.vue'
 import UsersListView from '../views/UsersListView.vue'
-import { authMiddleware } from 'dash-kit/helpers'
+import UserUpdateView from '../views/UserUpdateView.vue'
+import UserCreateView from '../views/UserCreateView.vue'
+import UserView from '../views/UserView.vue'
+import ingredientsList from '../views/IngredientsList.vue'
+import ingredientView from '../views/IngredientView.vue'
+// import { authMiddleware } from 'dash-kit/helpers'
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -55,6 +60,48 @@ const router = createRouter({
                     meta: { breadCrumbs: [{ label: "users" }] },
                     component: UsersListView
                 },
+                {
+                    path: '/users/:id',
+                    name: 'user_view',
+                    meta: { breadCrumbs: ref([{ label: "users", to: { name: 'users_list' } }, { label: "view" }]) },
+                    component: UserView
+                },
+                {
+                    path: '/users/create',
+                    name: 'user_create',
+                    meta: { breadCrumbs: ref([{ label: "users", to: { name: 'users_list' } }, { label: "create" }]) },
+                    component: UserCreateView
+                },
+                {
+                    path: '/users/update/:id',
+                    name: 'user_update',
+                    meta: { breadCrumbs: ref([{ label: "users", to: { name: 'users_list' } }, { label: "update" }]) },
+                    component: UserUpdateView
+                },
+                {
+                    path: '/ingredients',
+                    name: 'ingredients_list',
+                    meta: { breadCrumbs: [{ label: "ingredients" }] },
+                    component: ingredientsList
+                },
+                {
+                    path: '/ingredients/:id',
+                    name: 'ingredient_view',
+                    meta: { breadCrumbs: ref([{ label: "ingredients", to: { name: 'ingredients_list' } }, { label: "view" }]) },
+                    component: ingredientView
+                },
+                // {
+                //     path: '/ingredients/create',
+                //     name: 'user_create',
+                //     meta: { breadCrumbs: ref([{ label: "users", to: { name: 'users_list' } }, { label: "create" }]) },
+                //     component: UserCreateView
+                // },
+                // {
+                //     path: '/ingredients/update/:id',
+                //     name: 'ingredient_update',
+                //     meta: { breadCrumbs: ref([{ label: "ingredients", to: { name: 'ingredients_list' } }, { label: "update" }]) },
+                //     component: ingredientUpdate
+                // },
             ]
         },
         {
@@ -77,6 +124,6 @@ router.beforeEach((to, _, next) => {
     }
     next()
 })
-router.beforeEach(authMiddleware)
+// router.beforeEach(authMiddleware)
 
 export default router
