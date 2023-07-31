@@ -15,7 +15,7 @@ export default [
                 items: [
                     { key: "2.0.0", label: "Input Permissions", icon: "pi pi-fw pi-users", to: "/input-permissions" },
                     { key: "2.0.1", label: "Input File", icon: "pi pi-fw pi-file", to: "/input-file" },
-                    { key: "2.0.2", label: "Form Create", icon: "pi pi-fw pi-plus", to: "/form-create" },
+                    { key: "2.0.2", label: "Form Create", icon: "pi pi-fw pi-plus", to: "/forms/formCreate" },
                     { key: "2.0.3", label: "Form Update", icon: "pi pi-fw pi-pencil", to: "/form-update" },
                     { key: "2.0.4", label: "Form Filter", icon: "pi pi-fw pi-filter", to: "/form-filter" },
                     { key: "2.0.5", label: "Form Loading", icon: "pi pi-fw pi-spinner", to: "/form-loading" },
