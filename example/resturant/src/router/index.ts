@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { AppLayout } from 'dash-kit/base'
-import { LoginView, ProfileView, UnauthorizedView } from 'dash-kit/views'
+import { LoginView, zUnauthorizedView } from 'dash-kit/views'
 import DashboardView from '../views/DashboardView.vue'
 import { ref } from 'vue';
 import administration from '../views/AdministrationView.vue'

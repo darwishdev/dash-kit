@@ -68,9 +68,11 @@ export default defineComponent({
             <Breadcrumb :home="breadCrumbHome" v-if="breadCrumbs" :model="breadCrumbs" />
         </template>
         <template #end>
-            <icon-btn id="locale-toggler" icon="globe" @click.prevent="toggleRtl" />
-            <icon-btn id="profile-toggler" icon="user" @click="toggleProfileMenu" />
-            <Menu ref="profileMenu" id="overlay-menu" :popup="true">
+            <slot name="end" />
+
+            <icon-btn v-if="!$slots['end']" id="locale-toggler" icon="globe" @click.prevent="toggleRtl" />
+            <icon-btn v-if="!$slots['end']" id="profile-toggler" icon="user" @click="toggleProfileMenu" />
+            <Menu v-if="!$slots['end']" ref="profileMenu" id="overlay-menu" :popup="true">
                 <template #start>
                     <router-link :to="{ name: 'profile_view' }"
                         class="w-full p-link flex align-items-center p-2 pl-3 text-color hover:surface-200 border-noround">

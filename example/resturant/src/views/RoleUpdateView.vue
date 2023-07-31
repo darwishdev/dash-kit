@@ -22,7 +22,6 @@ export default defineComponent({
         }
         return { options, sections, toastHandler, findHandler, submitHandler }
     }
-
 })
 
 </script>

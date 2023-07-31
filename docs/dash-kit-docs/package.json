@@ -1,13 +1,10 @@
 {
-  "name": "resturant",
+  "name": "dash-kit-docs",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "cypress:run": "cypress run",
-    "cypress:open": "cypress open",
     "dev": "vite",
-    "update": "npm update @buf/ahmeddarwish_mln-api.bufbuild_connect-es",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
@@ -19,7 +16,6 @@
     "@formkit/vue": "latest",
     "@intlify/unplugin-vue-i18n": "^0.11.0",
     "file-saver": "^2.0.5",
-    "happy-dom": "^6.0.4",
     "primeicons": "^6.0.1",
     "primevue": "^3.29.2",
     "vue": "^3.3.4",
@@ -29,11 +25,9 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
-    "cypress": "^12.17.2",
-    "cypress-video": "^1.4.0",
     "typescript": "^5.0.2",
-    "vite": "^4.4.0",
-    "vite-svg-loader": "^4.0.0",
-    "vue-tsc": "^1.8.3"
+    "@stackblitz/sdk": "^1.8.2",
+    "vite": "^4.4.5",
+    "vue-tsc": "^1.8.5"
   }
 }
