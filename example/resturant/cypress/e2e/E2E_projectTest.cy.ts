@@ -1,23 +1,23 @@
 /// <reference types="cypress" />
 describe('Login Page', () => {
     beforeEach(() => {
-      cy.visit('http://localhost:5175/')
+      cy.visit('http://localhost:5173/')
     })
   
     it('should redirect to login page when you are unauthenticated user visiting the website', () => {
-      cy.url().should('eq', 'http://localhost:5175/login')
+      cy.url().should('eq', 'http://localhost:5173/login')
     })
     it('should redirect to home page when submitting valid credentials and login successfully', () => {
       cy.get('input[name="userName"]').type('01118614244')
       cy.get('input[name="userPassword"]').type('kimo123456')
       cy.get('button[type="submit"]').click()
-      cy.url().should('eq', 'http://localhost:5175/dashboard')
+      cy.url().should('eq', 'http://localhost:5173/dashboard')
     })
     it('should save the token,sidebar and permissions in the local storage after successful login', () => {
       cy.get('input[name="userName"]').type('01118614244')
       cy.get('input[name="userPassword"]').type('kimo123456')
       cy.get('button[type="submit"]').click()
-      cy.url().should('eq', 'http://localhost:5175/dashboard')
+      cy.url().should('eq', 'http://localhost:5173/dashboard')
       cy.window().then($window => {
         const storageToken = $window.localStorage.getItem('token') // get the token from local storage
         const sideBar = $window.localStorage.getItem('sideBar') // get the token from local storage
@@ -35,24 +35,32 @@ describe('Login Page', () => {
       cy.get('input[name="userName"]').type('01118614244')
       cy.get('input[name="userPassword"]').type('kimo123456')
       cy.get('button[type="submit"]').click()
-      cy.url().should('eq', 'http://localhost:5175/dashboard')
+      cy.url().should('eq', 'http://localhost:5173/dashboard')
       cy.visit('http://localhost:5175/administration')
-      cy.url().should('eq', 'http://localhost:5175/unauthorized')
+      cy.url().should('eq', 'http://localhost:5173/unauthorized')
+    })
+    it('should redirect to login page after user logging out', () => {
+      cy.clock()
+      cy.get('input[name="userName"]').type('01118614244')
+      cy.get('input[name="userPassword"]').type('kimo123456')
+      cy.get('button[type="submit"]').click()
+      cy.url().should('eq', 'http://localhost:5173/dashboard')
+      cy.get('#profile-toggler').click()
+      cy.tick(500)
+      cy.get('#logout-btn').click()
+      cy.url().should('eq', 'http://localhost:5173/login')
     })
     it('the sidebar should match the value of sidebar variable saved in local storage', () => {
       cy.get('input[name="userName"]').type('01118614244')
       cy.get('input[name="userPassword"]').type('kimo123456')
       cy.get('button[type="submit"]').click()
-      cy.url().should('eq', 'http://localhost:5175/dashboard')
+      cy.url().should('eq', 'http://localhost:5173/dashboard')
       cy.window().then($window => {
         const sidebarEncoded = $window.localStorage.getItem('sideBar'); // get the encoded sidebar value from local storage
         const sidebarDecoded = JSON.parse(atob(sidebarEncoded as string)); // decode and parse the sidebar value
         sidebarDecoded.forEach(element => {
           cy.get('aside').invoke('text').should('match', new RegExp(`.*${element.label}.*`));
         });
-
-        
       });
     })
-
   })

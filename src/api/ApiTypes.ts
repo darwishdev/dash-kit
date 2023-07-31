@@ -163,7 +163,11 @@ export interface RoleFindResponse {
 export interface RoleDeleteRestoreRequest {
     roleId: number;
 }
+export interface UserDeleteRestoreRequest {
+    userId: number;
+}
 export interface ApiClient {
+    
     permissionsList: () => Promise<PermissionsListResponse>
     login: (req: LoginRequest) => Promise<LoginResponse>
     userCreate: (req: UserCreateRequest) => Promise<UserCreateResponse>
@@ -177,6 +181,7 @@ export interface ApiClient {
     rolesList: (request: RolesListRequest) => Promise<RolesListResponse>
     rolesListWithErr: (request: RolesListRequest) => Promise<RolesListResponse>
     roleDeleteRestore: (request: RoleDeleteRestoreRequest) => Promise<void>
+    userDeleteRestore: (request: UserDeleteRestoreRequest) => Promise<void>
     roleCreate: (req: RoleCreateRequest) => Promise<RoleCreateResponse>
     roleCreateWithErr: (req: RoleCreateRequest) => Promise<RoleCreateResponse>
     loginWithPwErr: (req: LoginRequest) => Promise<LoginResponse>
