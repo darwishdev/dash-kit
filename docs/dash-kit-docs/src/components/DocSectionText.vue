@@ -1,7 +1,8 @@
 <template>
     <component :is="headerTag" class="doc-section-label">
         {{ $attrs.label }}
-        <NuxtLink :id="$attrs.id" :to="`${checkRouteName}/#${$attrs.id}`" target="_self" @click="onClick"> # </NuxtLink>
+        <router-link :id="$attrs.id" :to="`${checkRouteName}/#${$attrs.id}`" target="_self" @click="onClick"> #
+        </router-link>
     </component>
     <div v-if="$attrs" class="doc-section-description">
         <slot></slot>

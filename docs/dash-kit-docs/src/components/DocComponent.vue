@@ -1,5 +1,6 @@
 <template>
     <div :class="['doc-component', className]">
+
         <Head>
             <Title>{{ title }}</Title>
             <Meta name="description" :content="description" />
@@ -12,12 +13,7 @@
             <li :class="{ 'doc-tabmenu-active': tab === 1 }">
                 <button type="button" @click="tab = 1">API</button>
             </li>
-            <li :class="{ 'doc-tabmenu-active': tab === 2 }">
-                <button type="button" @click="tab = 2">THEMING</button>
-            </li>
-            <li v-if="ptTabComponent" :class="{ 'doc-tabmenu-active': tab === 3 }">
-                <button type="button" @click="tab = 3">PASS THROUGH</button>
-            </li>
+
         </ul>
 
         <div class="doc-tabpanels">

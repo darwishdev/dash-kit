@@ -3,6 +3,7 @@ import AppLayout from '@/layouts/AppLayout.vue'
 import IntroductionView from '@/views/getting_started/IntroductionView.vue'
 import InstallationView from '@/views/getting_started/InstallationView.vue'
 import ConfigurationView from '@/views/getting_started/ConfigurationView.vue'
+import AppLayoutView from '@/views/base/AppLayoutView.vue'
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -22,11 +23,14 @@ const router = createRouter({
                     path: '/getting-started/configuration',
                     component: ConfigurationView
                 },
+                {
+                    path: '/base/app-layout',
+                    component: AppLayoutView
+                },
             ]
         }
     ]
 })
 
-
-
+router.push('/getting-started/introduction')
 export default router
