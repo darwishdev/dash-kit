@@ -1,7 +1,7 @@
 <template>
     <DocComponent title="Vue Accordion Component" header="AppLayout"
         description="AppLayout groups a collection of contents in tabs." :componentDocs="docs"
-        :apiDocs="['Accordion', 'AccordionTab']" :ptTabComponent="ptComponent" />
+        :apiDocs="['Accordion', 'AccordionTab' , 'FormCreate']" :ptTabComponent="ptComponent" />
 </template>
 
 <script>

@@ -4,6 +4,7 @@ import IntroductionView from '@/views/getting_started/IntroductionView.vue'
 import InstallationView from '@/views/getting_started/InstallationView.vue'
 import ConfigurationView from '@/views/getting_started/ConfigurationView.vue'
 import AppLayoutView from '@/views/base/AppLayoutView.vue'
+import formCreate from '@/views/forms/formCreate.vue'
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -26,6 +27,10 @@ const router = createRouter({
                 {
                     path: '/base/app-layout',
                     component: AppLayoutView
+                },
+                {
+                    path: '/forms/formCreate',
+                    component: formCreate
                 },
             ]
         }
