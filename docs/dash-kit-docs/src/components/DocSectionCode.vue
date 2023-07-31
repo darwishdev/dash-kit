@@ -113,15 +113,15 @@ export default {
         },
         hideToggleCode: {
             type: Boolean,
-            default: false
+            default: true
         },
         hideCodeSandbox: {
             type: Boolean,
-            default: false
+            default: true
         },
         hideStackBlitz: {
             type: Boolean,
-            default: false
+            default: true
         },
         dependencies: {
             type: null,

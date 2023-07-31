@@ -4,7 +4,9 @@
     max-width: 60vw;
   }
 }
-
+.full-img img {
+  width: 100%;
+}
 pre {
   overflow: scroll;
 }
