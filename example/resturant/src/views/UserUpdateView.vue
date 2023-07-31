@@ -21,15 +21,15 @@ const findHandler: FindHandler<UserFindForUpdateRequest, UserFindForUpdateRespon
     requestPropertyName: 'userId',
     mapFunction
 }
-const submitUpdate = (req : UserUpdateRequest): Promise<UserUpdateResponse> => {
-    return new Promise((resolve, reject) => {
-        console.log(req);
-        // apiClient.userUpdate(req)
+// const submitUpdate = (req : UserUpdateRequest): Promise<UserUpdateResponse> => {
+//     return new Promise((resolve, reject) => {
+//         console.log(req);
+//         // apiClient.userUpdate(req)
         
-    });
-}
+//     });
+// }
 const submitHandler: SubmitHandler<UserUpdateRequest, UserUpdateRequest, UserUpdateResponse> = {
-    submit: submitUpdate,
+    submit: apiClient.userUpdate,
     errorHandler
 }
 
