@@ -91,7 +91,7 @@ export default defineComponent({
     }
     let DeleteRestoreHandler: DeleteRestoreHandler<any> = {
         deleteRestore : apiClient.userDeleteRestore,
-        indentifierPropertyName : 'userId'
+        requestPropertyName : 'userId'
     }
     let CrudOptions: CrudOptions ={
         title : 'Roles List',

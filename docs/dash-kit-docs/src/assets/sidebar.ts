@@ -15,11 +15,11 @@ export default [
                 items: [
                     { key: "2.0.0", label: "Input Permissions", icon: "pi pi-fw pi-users", to: "/input-permissions" },
                     { key: "2.0.1", label: "Input File", icon: "pi pi-fw pi-file", to: "/input-file" },
-                    { key: "2.0.2", label: "Form Create", icon: "pi pi-fw pi-plus", to: "/forms/formCreate" },
-                    { key: "2.0.3", label: "Form Update", icon: "pi pi-fw pi-pencil", to: "/form-update" },
-                    { key: "2.0.4", label: "Form Filter", icon: "pi pi-fw pi-filter", to: "/form-filter" },
-                    { key: "2.0.5", label: "Form Loading", icon: "pi pi-fw pi-spinner", to: "/form-loading" },
-                    { key: "2.0.6", label: "Form Error", icon: "pi pi-fw pi-times-circle", to: "/form-error" },
+                    { key: "2.0.2", label: "Form Create", icon: "pi pi-fw pi-plus", to: "/forms/form-create" },
+                    { key: "2.0.3", label: "Form Update", icon: "pi pi-fw pi-pencil", to: "/forms/form-update" },
+                    { key: "2.0.4", label: "Form Filter", icon: "pi pi-fw pi-filter", to: "/forms/form-filter" },
+                    { key: "2.0.5", label: "Form Loading", icon: "pi pi-fw pi-spinner", to: "/forms/form-loading" },
+                    { key: "2.0.6", label: "Form Error", icon: "pi pi-fw pi-times-circle", to: "/forms/form-error" },
                 ]
             },
             {
@@ -38,11 +38,11 @@ export default [
     {
         key: "3", label: "Composables", icon: "pi pi-fw pi-cog", to: null,
         items: [
-            { key: "3.0", label: "DataFetcherList", icon: "pi pi-fw pi-list", to: "/data-fetcher-list" },
-            { key: "3.1", label: "DataFetcherFind", icon: "pi pi-fw pi-search", to: "/data-fetcher-find" },
-            { key: "3.2", label: "DeleteRestoreDialog", icon: "pi pi-fw pi-trash", to: "/delete-restore-dialog" },
-            { key: "3.3", label: "DialogUpdate", icon: "pi pi-fw pi-pencil", to: "/dialog-update" },
-            { key: "3.4", label: "DialogCreate", icon: "pi pi-fw pi-plus", to: "/dialog-create" },
+            { key: "3.0", label: "DataFetcherList", icon: "pi pi-fw pi-list", to: "/composables/data-fetcher-list" },
+            { key: "3.1", label: "DataFetcherFind", icon: "pi pi-fw pi-search", to: "/composables/data-fetcher-find" },
+            { key: "3.2", label: "DeleteRestoreDialog", icon: "pi pi-fw pi-trash", to: "/composables/delete-restore-dialog" },
+            { key: "3.3", label: "DialogUpdate", icon: "pi pi-fw pi-pencil", to: "/composables/dialog-update" },
+            { key: "3.4", label: "DialogCreate", icon: "pi pi-fw pi-plus", to: "/composables/dialog-create" },
         ]
     },
     {

@@ -128,4 +128,10 @@ const submitHandler: SubmitHandler<RoleCreateRequest, RoleCreateRequest, RoleCre
         <form-create :sections="sectionsss" :submitHandler="submitHandler" :options="options" />
     </div>
     <DocSectionCode :code="code" />
+    <h1>Notes : </h1>
+    <p class="text-justify my-1">It is important to note that the 'id' key within the options props represents the unique identifier of the form.
+        As such, it is critical to assign a distinct 'id' value each time a form is created to prevent form caching.</p>
+
+      <p class="text-justify mt-3"> By assigning a new 'id' value to each form, we can ensure that users do not encounter outdated or cached form data,
+        which can lead to confusion and errors. Therefore, it is recommended to prioritize the assignment of unique 'id' values during the form creation process to promote optimal form functionality and usability.</p>
 </template>

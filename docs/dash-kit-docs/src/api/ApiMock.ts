@@ -221,7 +221,7 @@ const apiClient: ApiClient = {
     },
 
     userFind: async (_req: UserFindRequest): Promise<UserFindResponse> => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 4500));
         return userFindResponse;
     },
     userFindWithErr: async (_req: UserFindRequest): Promise<UserFindResponse> => {
@@ -229,7 +229,7 @@ const apiClient: ApiClient = {
         throw new Error("error finding the user")
     },
     rolesList: async (): Promise<RolesListResponse> => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 3500));
         return rolesListResponse;
     },
     rolesListWithErr: async (): Promise<RolesListResponse> => {
@@ -279,11 +279,11 @@ const apiClient: ApiClient = {
         throw new Error("internal internalServerError")
     },
     roleFind: async (_req: RoleFindRequest): Promise<RoleFindResponse> => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 2500));
         return roleFindResponse;
     },
     roleFindWithErr: async (_req: RoleFindRequest): Promise<RoleFindResponse> => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 3000));
         throw new Error("error finding the role")
     }
 };

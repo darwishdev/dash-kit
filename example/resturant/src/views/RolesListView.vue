@@ -2,7 +2,7 @@
 import type { DeleteRestoreHandler, CrudOptions, ImportHandler } from "dash-kit/types";
 import { useDataFetcherList } from "dash-kit/composables";
 import { ExportCSV } from "dash-kit/helpers";
-import { RoleDeleteRestoreRequest, RolesListRequest, RolesListResponse, U, RoleBulkCreateResponse } from "@models/v1/user/role_definitions_pb"
+import { RoleDeleteRestoreRequest, RolesListRequest, RolesListResponse, RoleBulkCreateResponse } from "@models/v1/user/role_definitions_pb"
 import apiClient from "@/api/ApiClient";
 import DataView from 'primevue/dataview';
 import { defineComponent, ref } from 'vue'
