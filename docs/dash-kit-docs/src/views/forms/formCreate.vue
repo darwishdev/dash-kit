@@ -1,11 +1,9 @@
 <template>
-    <DocComponent title="Form Create component" header="Form Create"
-        description="The Form Create component is a crucial element of the Dash-Kit package, 
+    <DocComponent title="Form Create component" header="Form Create" description="The Form Create component is a crucial element of the Dash-Kit package, 
         as it facilitates the generation of comprehensive forms with all the necessary specifications,
          thereby streamlining the form creation process. The Form Create component is a powerful tool that significantly enhances the
           form creation process, providing developers with a highly functional and customizable solution
-           for generating forms with ease." :componentDocs="docs"
-         :ptTabComponent="ptComponent" />
+           for generating forms with ease." :componentDocs="docs" />
 </template>
 
 <script>

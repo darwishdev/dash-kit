@@ -28,17 +28,10 @@
                 <DocSectionNav :docs="componentDocs" />
             </div>
 
-            <div v-show="tab === 1" class="doc-tabpanel">
+            <!-- <div v-show="tab === 1" class="doc-tabpanel">
                 <DocApiSection :doc="apiDocs" :header="header" />
-            </div>
+            </div> -->
 
-            <div v-if="tab === 2" class="doc-tabpanel">
-                <component :is="{ ...themingDocs }" />
-            </div>
-
-            <div v-if="tab === 3" class="doc-tabpanel">
-                <component :is="{ ...ptTabComponent }" />
-            </div>
         </div>
     </div>
 </template>
